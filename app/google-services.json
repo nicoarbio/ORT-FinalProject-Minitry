@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1028172771337",
+    "project_id": "ort-proyectofinal",
+    "storage_bucket": "ort-proyectofinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028172771337:android:13bd51786a3b51c00608d8",
+        "android_client_info": {
+          "package_name": "com.dTeam.ciudadanos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028172771337-olb8qnjssfc2cds6253puuh5nvh9q04l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQpqPwtviIb8MEcbIQFQQwyRSstIKRaYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028172771337-olb8qnjssfc2cds6253puuh5nvh9q04l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028172771337:android:401ee8a2e429ce360608d8",
+        "android_client_info": {
+          "package_name": "com.dTeam.ministerio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028172771337-olb8qnjssfc2cds6253puuh5nvh9q04l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQpqPwtviIb8MEcbIQFQQwyRSstIKRaYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028172771337-olb8qnjssfc2cds6253puuh5nvh9q04l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
