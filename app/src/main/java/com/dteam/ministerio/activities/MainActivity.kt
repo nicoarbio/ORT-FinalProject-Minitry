@@ -1,7 +1,8 @@
-package com.dteam.ministerio
+package com.dteam.ministerio.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.dteam.ministerio.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
