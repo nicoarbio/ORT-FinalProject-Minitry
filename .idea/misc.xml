@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/detalle_reclamo_fragment.xml" value="0.25" />
-        <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/detalle_reclamo_responsable_fragment.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/detalle_reclamo_responsable_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/inicio_admin_fragment.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/inicio_responsable_fragment.xml" value="0.1764102564102564" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/log_in_fragment.xml" value="0.22" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/registrar_responsable_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/registro_exitoso_fragment.xml" value="0.22" />
       </map>
     </option>
   </component>

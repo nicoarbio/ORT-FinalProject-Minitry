@@ -31,7 +31,7 @@
         android:layout_height="64dp"
         android:layout_marginTop="48dp"
         android:background="@color/white"
-        android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+        android:drawableStart="@drawable/ic_baseline_emoji_people_24"
         android:ems="10"
         android:hint="Ingrese email del responsable"
         android:inputType="textPersonName"
