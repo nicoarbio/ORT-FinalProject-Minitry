@@ -3,16 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/logIn">
-
+    app:startDestination="@id/gestionarReclamos">
     <fragment
-        android:id="@+id/inicioAdmin"
-        android:name="com.dteam.ministerio.fragments.InicioAdmin"
-        android:label="inicio_admin_fragment"
-        tools:layout="@layout/inicio_admin_fragment" />
+        android:id="@+id/gestionarReclamos"
+        android:name="com.dteam.ministerio.fragments.GestionarReclamos"
+        android:label="gestionar_reclamos_fragment"
+        tools:layout="@layout/gestionar_reclamos_fragment" >
+        <action
+            android:id="@+id/action_gestionarReclamos_to_reclamoListFragment"
+            app:destination="@id/reclamoListFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/logIn"
-        android:name="com.dteam.ministerio.fragments.LogIn"
-        android:label="log_in_fragment"
-        tools:layout="@layout/log_in_fragment" />
+        android:id="@+id/reclamoListFragment"
+        android:name="com.dteam.ministerio.fragments.ReclamoListFragment"
+        android:label="reclamo_list_fragment"
+        tools:layout="@layout/reclamo_list_fragment" >
+        <argument
+            android:name="estadoReclamo"
+            app:argType="string" />
+    </fragment>
 </navigation>

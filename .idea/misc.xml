@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15555555555555556" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/drawable/degradado_rojo_amarillo.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/drawable/round_corner.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/gestionar_reclamos_fragment.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/inicio_admin_fragment.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/inicio_responsable_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/item_img_reclamo.xml" value="0.1875" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/item_reclamo_list.xml" value="0.33" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/reclamo_list_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/tipo_reclamo_item.xml" value="0.1" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/detalle_reclamo_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Damian/Documents/GitHub/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/detalle_reclamo_responsable_fragment.xml" value="0.25" />
