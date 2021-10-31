@@ -21,5 +21,13 @@
         <argument
             android:name="estadoReclamo"
             app:argType="string" />
+        <action
+            android:id="@+id/action_reclamoListFragment_to_detalleReclamoAdmin"
+            app:destination="@id/detalleReclamoAdmin" />
     </fragment>
+    <fragment
+        android:id="@+id/detalleReclamoAdmin"
+        android:name="com.dteam.ministerio.fragments.DetalleReclamoAdmin"
+        android:label="detalle_reclamo_fragment"
+        tools:layout="@layout/detalle_reclamo_fragment" />
 </navigation>
