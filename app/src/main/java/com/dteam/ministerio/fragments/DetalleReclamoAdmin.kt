@@ -51,6 +51,8 @@ class DetalleReclamoAdmin : Fragment() {
 
     private lateinit var btnDetalleAgregarObser: Button
 
+    private lateinit var btnDetalleCancelarReclamo: Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,10 +73,18 @@ class DetalleReclamoAdmin : Fragment() {
 
         btnDetalleAgregarObser = v.findViewById(R.id.btnDetalleAgregarObser)
         btnDetalleAgregarObser.setOnClickListener{
-            showdialog()
+            showdialogAgregarObser()
         }
+
+        btnDetalleCancelarReclamo = v.findViewById(R.id.btnDetalleCancelarReclamo)
+        btnDetalleCancelarReclamo.setOnClickListener{
+            showdialogEliminarObser()
+        }
+
         return v
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -114,7 +124,7 @@ class DetalleReclamoAdmin : Fragment() {
         })
     }
 
-    fun showdialog(){
+    fun showdialogAgregarObser(){
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
         builder.setTitle("Agregar Observación")
 
@@ -128,7 +138,7 @@ class DetalleReclamoAdmin : Fragment() {
             var texto = input.text.toString()
             val currentDateTime = LocalDateTime.now()
             val fecha = currentDateTime.format(DateTimeFormatter.ISO_DATE)
-            var obsNuevo = Observacion("usuario", texto, fecha)
+            var obsNuevo = Observacion("Ministerio", texto, fecha)
             if (texto.length > 0 && reclamoViewModel.agregarObser(obsNuevo)) {
                 //obs generado con exito
                 Snackbar.make(v,"se agregó la observación", Snackbar.LENGTH_SHORT).show()
@@ -142,5 +152,19 @@ class DetalleReclamoAdmin : Fragment() {
 
     }
 
+    fun showdialogEliminarObser() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
+        builder.setTitle("Cancelar Reclamo")
+
+        builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
+            if (reclamoViewModel.setEstado("Cancelado")) {
+                Snackbar.make(v,"se cancelo el Reclamo", Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
+            }
+        })
+        builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.show()
+    }
 
 }

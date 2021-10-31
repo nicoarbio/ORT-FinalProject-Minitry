@@ -121,6 +121,19 @@ class ReclamoViewModel : ViewModel() {
         }
     }
 
+    fun setEstado(estadoNuevo: String): Boolean{
+        try {
+            // obtener el id del reclamo actual en la base de dato
+            val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
+            ref.update("estado", estadoNuevo)
+            reclamo.value!!.estado = estadoNuevo
+            return true
+        } catch (e : Exception){
+            Log.w("Test", "Error al  cancelar el Reclamo: ", e)
+            return false
+        }
+    }
+
     fun getCategoria(): String? {
         return reclamo.value?.categoria
     }
