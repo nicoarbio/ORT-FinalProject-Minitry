@@ -7,26 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dteam.ministerio.R
-import com.dteam.ministerio.viewmodels.DetalleReclamoResponsableViewModel
 
-class DetalleReclamoResponsable : Fragment() {
+class ResponsableList : Fragment() {
 
     companion object {
-        fun newInstance() = DetalleReclamoResponsable()
+        fun newInstance() = ResponsableList()
     }
-
-    private lateinit var viewModel: DetalleReclamoResponsableViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.detalle_reclamo_responsable_fragment, container, false)
+        return inflater.inflate(R.layout.responsable_list_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetalleReclamoResponsableViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(ResponsableListViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

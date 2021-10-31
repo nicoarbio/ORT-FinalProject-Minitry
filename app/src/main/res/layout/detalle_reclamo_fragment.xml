@@ -98,17 +98,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar Observación"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recDetalleObservaciones" />
+
+    <Button
+        android:id="@+id/btnDetalleAsignarResp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Asignar Responsalbe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recDetalleObservaciones"
-        app:layout_constraintVertical_bias="0.294" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDetalleAgregarObser"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/lblDetalleObservaciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:text="Observaciones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -117,10 +128,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recDetalleObservaciones"
-        android:layout_width="321dp"
-        android:layout_height="147dp"
+        android:layout_width="320dp"
+        android:layout_height="134dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.404"
@@ -142,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="PENDIENTE"
         android:textSize="30dp"
         app:autoSizeTextType="uniform"
@@ -161,5 +172,19 @@
         app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDetalleImgAdjuntas" />
+
+    <Button
+        android:id="@+id/btnDetalleCancelarReclamo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="32dp"
+        android:text="X"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toEndOf="@+id/btnDetalleAsignarResp"
+        app:layout_constraintTop_toBottomOf="@+id/btnDetalleAgregarObser"
+        tools:ignore="@tools:sample/lorem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
