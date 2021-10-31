@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/frameLayout2"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/fondo2"
+tools:context=".fragments.ResponsablePerfil">
+
+<TextView
+    android:id="@+id/lblNombreYApellidoPerfil"
+    android:layout_width="256dp"
+    android:layout_height="61dp"
+    android:layout_marginStart="166dp"
+    android:layout_marginEnd="187dp"
+    android:layout_marginBottom="66dp"
+    android:background="#F8F8F8"
+    android:textSize="24sp"
+    app:layout_constraintBottom_toTopOf="@+id/lblEmailPerfil"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.437"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
+
+<de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/imgPerfil"
+    android:layout_width="158dp"
+    android:layout_height="141dp"
+    android:layout_marginStart="141dp"
+    android:layout_marginTop="48dp"
+    android:layout_marginEnd="142dp"
+    android:layout_marginBottom="25dp"
+    app:layout_constraintBottom_toTopOf="@+id/lblNombreYApellidoPerfil"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:src="@tools:sample/avatars" />
+
+<TextView
+    android:id="@+id/lblEmailPerfil"
+    android:layout_width="277dp"
+    android:layout_height="34dp"
+    android:layout_marginStart="99dp"
+    android:layout_marginTop="-50dp"
+    android:layout_marginEnd="99dp"
+    android:layout_marginBottom="4dp"
+    android:background="#FAFAFA"
+    app:layout_constraintBottom_toTopOf="@+id/lblNombreYApellidoPerfil"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/lblNombreYApellidoPerfil" />
+
+<TextView
+    android:id="@+id/lblTelefonoPerfil"
+    android:layout_width="200dp"
+    android:layout_height="35dp"
+    android:layout_marginEnd="120dp"
+    android:layout_marginBottom="160dp"
+    android:background="#F8F6F6"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/imgTelefono"
+    app:layout_constraintTop_toBottomOf="@+id/lblDireccionPerfil" />
+
+<ImageView
+    android:id="@+id/imgDni"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_marginStart="80dp"
+    android:layout_marginTop="370dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginBottom="20dp"
+    android:src="@drawable/ic_baseline_accessibility_24"
+    app:layout_constraintBottom_toTopOf="@+id/imgDireccion"
+    app:layout_constraintEnd_toStartOf="@+id/lblDni"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/card_account_details_outline" />
+
+<ImageView
+    android:id="@+id/imgTelefono"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_marginStart="80dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginBottom="180dp"
+    android:src="@android:drawable/stat_sys_phone_call"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/lblTelefonoPerfil"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imgDireccion"
+    app:layout_constraintVertical_bias="0.0"
+    app:srcCompat="@drawable/ic_baseline_phone_android_24" />
+
+<TextView
+    android:id="@+id/lblDireccionPerfil"
+    android:layout_width="200dp"
+    android:layout_height="70dp"
+    android:layout_marginEnd="120dp"
+    android:background="#F8F7F7"
+    app:layout_constraintBottom_toTopOf="@+id/lblTelefonoPerfil"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/imgDireccion"
+    app:layout_constraintTop_toBottomOf="@+id/lblDni" />
+
+<TextView
+    android:id="@+id/lblDni"
+    android:layout_width="200dp"
+    android:layout_height="35dp"
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="120dp"
+    android:background="#FDFDFD"
+    app:layout_constraintBottom_toTopOf="@+id/lblDireccionPerfil"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/imgDni"
+    app:layout_constraintTop_toBottomOf="@+id/lblEmailPerfil" />
+
+<ImageView
+    android:id="@+id/imgDireccion"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_marginStart="80dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginBottom="24dp"
+    android:src="@drawable/ic_baseline_home_24"
+    app:layout_constraintBottom_toTopOf="@+id/imgTelefono"
+    app:layout_constraintEnd_toStartOf="@+id/lblDireccionPerfil"
+    app:layout_constraintHorizontal_bias="0.55"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imgDni"
+    app:srcCompat="@drawable/ic_baseline_house_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
