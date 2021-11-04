@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -50,8 +51,8 @@ class DetalleReclamoAdmin : Fragment() {
     private lateinit var recDetalleObservaciones: RecyclerView
 
     private lateinit var btnDetalleAgregarObser: Button
-
     private lateinit var btnDetalleCancelarReclamo: Button
+    private lateinit var btnDetalleAsignarResp: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,13 +73,22 @@ class DetalleReclamoAdmin : Fragment() {
         recDetalleObservaciones = v.findViewById(R.id.recDetalleObservaciones)
 
         btnDetalleAgregarObser = v.findViewById(R.id.btnDetalleAgregarObser)
+        btnDetalleAsignarResp = v.findViewById(R.id.btnDetalleAsignarResp)
+
+
         btnDetalleAgregarObser.setOnClickListener{
             showdialogAgregarObser()
         }
 
         btnDetalleCancelarReclamo = v.findViewById(R.id.btnDetalleCancelarReclamo)
         btnDetalleCancelarReclamo.setOnClickListener{
-            showdialogEliminarObser()
+            showdialogCancelarReclamo()
+        }
+
+        btnDetalleAsignarResp = v.findViewById(R.id.btnDetalleAsignarResp)
+        btnDetalleAsignarResp.setOnClickListener{
+            val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList()
+            v.findNavController().navigate(actionToListaRespon)
         }
 
         return v
@@ -152,7 +162,7 @@ class DetalleReclamoAdmin : Fragment() {
 
     }
 
-    fun showdialogEliminarObser() {
+    fun showdialogCancelarReclamo() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
         builder.setTitle("Cancelar Reclamo")
 

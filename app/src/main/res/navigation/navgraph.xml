@@ -29,5 +29,14 @@
         android:id="@+id/detalleReclamoAdmin"
         android:name="com.dteam.ministerio.fragments.DetalleReclamoAdmin"
         android:label="detalle_reclamo_fragment"
-        tools:layout="@layout/detalle_reclamo_fragment" />
+        tools:layout="@layout/detalle_reclamo_fragment" >
+        <action
+            android:id="@+id/action_detalleReclamoAdmin_to_responsableList"
+            app:destination="@id/responsableList" />
+    </fragment>
+    <fragment
+        android:id="@+id/responsableList"
+        android:name="com.dteam.ministerio.fragments.ResponsableList"
+        android:label="responsable_list_fragment"
+        tools:layout="@layout/responsable_list_fragment" />
 </navigation>
