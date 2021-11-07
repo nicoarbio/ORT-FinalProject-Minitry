@@ -46,8 +46,14 @@ class ReclamoListFragment : Fragment() {
         super.onStart()
         listadoReclamos.setHasFixedSize(true)
         listadoReclamos.layoutManager = LinearLayoutManager(context)
-        var estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
-        reclamoViewModel.getReclamosPorEstado(estadoReclamo)
+        val estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
+        val subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
+        if(subcateg == ""){
+            reclamoViewModel.getReclamosPorEstado(estadoReclamo)
+        }else{
+            reclamoViewModel.getReclamosPorCateg(subcateg)
+        }
+
         reclamoAdapter = ReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
         setObserver()
     }

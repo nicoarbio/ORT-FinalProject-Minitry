@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_gestionarReclamos_to_reclamoListFragment"
             app:destination="@id/reclamoListFragment" />
+        <action
+            android:id="@+id/action_gestionarReclamos_to_tipoReclamoListFragment"
+            app:destination="@id/tipoReclamoListFragment" />
     </fragment>
     <fragment
         android:id="@+id/reclamoListFragment"
@@ -24,6 +27,9 @@
         <action
             android:id="@+id/action_reclamoListFragment_to_detalleReclamoAdmin"
             app:destination="@id/detalleReclamoAdmin" />
+        <argument
+            android:name="subcategoria"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/detalleReclamoAdmin"
@@ -39,4 +45,25 @@
         android:name="com.dteam.ministerio.fragments.ResponsableList"
         android:label="responsable_list_fragment"
         tools:layout="@layout/responsable_list_fragment" />
+    <fragment
+        android:id="@+id/tipoReclamoListFragment"
+        android:name="com.dteam.ministerio.fragments.TipoReclamoListFragment"
+        android:label="tipo_reclamo_list_fragment"
+        tools:layout="@layout/tipo_reclamo_list_fragment" >
+        <action
+            android:id="@+id/action_tipoReclamoListFragment_to_subcategoriaReclamoList"
+            app:destination="@id/subcategoriaReclamoList" />
+    </fragment>
+    <fragment
+        android:id="@+id/subcategoriaReclamoList"
+        android:name="com.dteam.ministerio.fragments.SubcategoriaReclamoList"
+        android:label="subcategoria_reclamo_list_fragment"
+        tools:layout="@layout/subcategoria_reclamo_list_fragment" >
+        <argument
+            android:name="categoria"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_subcategoriaReclamoList_to_reclamoListFragment"
+            app:destination="@id/reclamoListFragment" />
+    </fragment>
 </navigation>
