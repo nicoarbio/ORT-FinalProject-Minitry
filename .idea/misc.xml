@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/item_reclamo_list.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/log_in_fragment.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/reclamo_list_fragment.xml" value="0.22735507246376813" />
       </map>
     </option>

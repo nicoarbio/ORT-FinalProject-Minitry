@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primario">#288a9f</color>
     <color name="secundario">#245c69</color>
+    <color name="azulOscuro">#27496d</color>
     <color name="textoCategorias">#142850</color>
     <color name="amarillo">#ffd221</color>
 </resources>
