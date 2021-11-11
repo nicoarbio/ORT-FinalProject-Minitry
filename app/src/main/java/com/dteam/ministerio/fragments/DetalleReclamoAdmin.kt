@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,10 +51,14 @@ class DetalleReclamoAdmin : Fragment() {
     private lateinit var recImgReclamo: RecyclerView
     private lateinit var recDetalleObservaciones: RecyclerView
 
+    private lateinit var lblImg: TextView
+
     private lateinit var btnDetalleAgregarObser: Button
     private lateinit var btnDetalleCancelarReclamo: Button
     private lateinit var btnDetalleAsignarResp: Button
 
+    private lateinit var txtCerrarReclamo: String
+    var rol = "admin"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,6 +75,7 @@ class DetalleReclamoAdmin : Fragment() {
         txtEstadoReclamo = v.findViewById(R.id.txtEstadoReclamo)
 
         recImgReclamo = v.findViewById(R.id.recImgReclamo)
+        lblImg = v.findViewById(R.id.lblDetalleImgAdjuntas)
         recDetalleObservaciones = v.findViewById(R.id.recDetalleObservaciones)
 
         btnDetalleAgregarObser = v.findViewById(R.id.btnDetalleAgregarObser)
@@ -80,16 +86,33 @@ class DetalleReclamoAdmin : Fragment() {
             showdialogAgregarObser()
         }
 
+        btnDetalleAsignarResp = v.findViewById(R.id.btnDetalleAsignarResp)
         btnDetalleCancelarReclamo = v.findViewById(R.id.btnDetalleCancelarReclamo)
-        btnDetalleCancelarReclamo.setOnClickListener{
-            showdialogCancelarReclamo()
+
+        //get rol responsable
+        if(rol == "admin"){
+            btnDetalleAsignarResp.setOnClickListener{
+                val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList()
+                v.findNavController().navigate(actionToListaRespon)
+            }
+
+            btnDetalleCancelarReclamo.setOnClickListener{
+                showdialogCancelarReclamo()
+            }
+        }else{
+            btnDetalleCancelarReclamo.visibility = View.GONE
+            txtCerrarReclamo = "CERRAR RECLAMO"
+            btnDetalleAsignarResp.text = txtCerrarReclamo
+            btnDetalleAsignarResp.setOnClickListener{
+                showdialogCerrarReclamo()
+            }
         }
 
-        btnDetalleAsignarResp = v.findViewById(R.id.btnDetalleAsignarResp)
-        btnDetalleAsignarResp.setOnClickListener{
-            val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList()
-            v.findNavController().navigate(actionToListaRespon)
-        }
+
+
+
+
+
 
         return v
     }
@@ -99,7 +122,6 @@ class DetalleReclamoAdmin : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         reclamoViewModel = ViewModelProvider(requireActivity()).get(ReclamoViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onStart() {
@@ -129,8 +151,26 @@ class DetalleReclamoAdmin : Fragment() {
             txtDetalleDireccion.text = it.direccion
             txtDetalleComentario.text = it.descripcion
             txtEstadoReclamo.text = it.estado
+            Log.d("hola","entre")
             recDetalleObservaciones.adapter = ListaObservacionesAdaper(it.observaciones)
             recImgReclamo.adapter = ImgReclamoAdapter(it.imagenes, requireContext())
+
+            if( it.estado == "Cancelado" || it.estado == "Cerrado"){
+                btnDetalleAgregarObser.visibility = View.GONE
+
+                if(rol == "admin"){
+
+                    btnDetalleCancelarReclamo.visibility = View.GONE
+                }else{
+
+                }
+
+            }
+
+            if(it.imagenes.size ==0){
+                lblImg.visibility = View.GONE
+                recImgReclamo.visibility = View.GONE
+            }
         })
     }
 
@@ -172,6 +212,25 @@ class DetalleReclamoAdmin : Fragment() {
             } else {
                 Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
             }
+        })
+        builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.show()
+    }
+
+    fun showdialogCerrarReclamo() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
+        builder.setTitle("Cerrar el Reclamo")
+
+        builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
+            reclamoViewModel.setEstado("Cerrado")
+            reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
+                if(reclamoViewModel.estadoGuardadoOk.value==true){
+                    txtEstadoReclamo.text = reclamoViewModel.getEstado()
+                    Snackbar.make(v,"se cerró el Reclamo", Snackbar.LENGTH_SHORT).show()
+                }else{
+                    Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
+                }
+            })
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()

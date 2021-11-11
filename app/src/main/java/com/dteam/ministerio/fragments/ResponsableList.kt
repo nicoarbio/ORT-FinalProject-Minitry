@@ -6,7 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dteam.ministerio.R
+import com.dteam.ministerio.adapters.ListaResponsableAdapter
+import com.dteam.ministerio.entities.Usuario
 
 class ResponsableList : Fragment() {
 
@@ -14,17 +19,54 @@ class ResponsableList : Fragment() {
         fun newInstance() = ResponsableList()
     }
 
+    //private lateinit var usuarioViewModel: UsuarioViewModel
+
+    private lateinit var v: View
+
+    private lateinit var listadoResponsable: RecyclerView
+    private lateinit var responsableAdapter: ListaResponsableAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.responsable_list_fragment, container, false)
+        v = inflater.inflate(R.layout.responsable_list_fragment, container, false)
+        listadoResponsable = v.findViewById(R.id.recResponsable)
+        return v
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //viewModel = ViewModelProvider(this).get(ResponsableListViewModel::class.java)
-        // TODO: Use the ViewModel
+    }
+
+    override fun onStart() {
+        super.onStart()
+        listadoResponsable.setHasFixedSize(true)
+        listadoResponsable.layoutManager = LinearLayoutManager(context)
+        //usuarioViewModel.getReclamos()
+        var listaUsuarioPrueba = mutableListOf<Usuario>()
+        /*listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))*/
+        listadoResponsable.adapter = ListaResponsableAdapter(listaUsuarioPrueba, requireContext()) { pos -> onItemClick(pos)}
+        setObserver()
+    }
+
+    fun setObserver(){
+       /* reclamoViewModel.listadoReclamos.observe(viewLifecycleOwner, Observer { list ->
+            reclamoAdapter = ReclamoAdapter(list, requireContext()) { pos -> onItemClick(pos) }
+            listadoReclamos.adapter = reclamoAdapter
+        })*/
+    }
+
+    fun onItemClick(pos: Int){
+        //val reclamo = reclamoViewModel.listadoReclamos.value?.get(pos)
+        //reclamoViewModel.reclamo.value = reclamo
+        val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
+        v.findNavController().navigate(actionToDetalle)
     }
 
 }

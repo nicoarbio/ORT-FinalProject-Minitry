@@ -33,6 +33,7 @@ class ReclamoViewModel : ViewModel() {
 
     val storage = FirebaseStorage.getInstance()
     val storageRef = storage.reference
+    var estadoGuardadoOk = MutableLiveData<Boolean>()
 
     init {
         reclamo.value= Reclamo()
@@ -121,17 +122,20 @@ class ReclamoViewModel : ViewModel() {
         }
     }
 
-    fun setEstado(estadoNuevo: String): Boolean{
-        try {
-            // obtener el id del reclamo actual en la base de dato
-            val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
-            ref.update("estado", estadoNuevo)
-            reclamo.value!!.estado = estadoNuevo
-            return true
-        } catch (e : Exception){
-            Log.w("Test", "Error al  cancelar el Reclamo: ", e)
-            return false
+    fun setEstado(estadoNuevo: String){
+        viewModelScope.launch {
+            try {
+                // obtener el id del reclamo actual en la base de dato
+                val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
+                ref.update("estado", estadoNuevo).await()
+                reclamo.value!!.estado = estadoNuevo
+                estadoGuardadoOk.value = true
+            } catch (e : Exception){
+                estadoGuardadoOk.value = false
+                Log.w("Test", "Error al  cancelar el Reclamo: ", e)
+            }
         }
+
     }
 
     fun getCategoria(): String? {

@@ -38,5 +38,9 @@
         android:id="@+id/responsableList"
         android:name="com.dteam.ministerio.fragments.ResponsableList"
         android:label="responsable_list_fragment"
-        tools:layout="@layout/responsable_list_fragment" />
+        tools:layout="@layout/responsable_list_fragment" >
+        <action
+            android:id="@+id/action_responsableList_to_detalleReclamoAdmin"
+            app:destination="@id/detalleReclamoAdmin" />
+    </fragment>
 </navigation>

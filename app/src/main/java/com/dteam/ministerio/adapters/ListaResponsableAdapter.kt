@@ -30,7 +30,7 @@ class ListaResponsableAdapter (var responsableList: MutableList <Usuario>,
         }
 
         fun setDni(dni: String){
-            var lblDni: TextView = view.findViewById((R.id.lblDni))
+            var lblDni: TextView = view.findViewById((R.id.lblDniRespon))
             lblDni.text = dni
         }
 
