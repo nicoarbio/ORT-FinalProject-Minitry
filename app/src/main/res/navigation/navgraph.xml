@@ -66,4 +66,18 @@
             android:id="@+id/action_subcategoriaReclamoList_to_reclamoListFragment"
             app:destination="@id/reclamoListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registrarResponsable"
+        android:name="com.dteam.ministerio.fragments.RegistrarResponsable"
+        android:label="registrar_responsable_fragment"
+        tools:layout="@layout/registrar_responsable_fragment" >
+        <action
+            android:id="@+id/action_registrarResponsable_to_registroExitoso"
+            app:destination="@id/registroExitoso" />
+    </fragment>
+    <fragment
+        android:id="@+id/registroExitoso"
+        android:name="com.dteam.ministerio.fragments.RegistroExitoso"
+        android:label="registro_exitoso_fragment"
+        tools:layout="@layout/registro_exitoso_fragment" />
 </navigation>
