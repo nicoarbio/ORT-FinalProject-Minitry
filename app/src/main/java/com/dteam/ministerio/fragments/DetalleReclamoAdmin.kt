@@ -207,11 +207,15 @@ class DetalleReclamoAdmin : Fragment() {
         builder.setTitle("Cancelar Reclamo")
 
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
-            if (reclamoViewModel.setEstado("Cancelado")) {
-                Snackbar.make(v,"se cancelo el Reclamo", Snackbar.LENGTH_SHORT).show()
-            } else {
-                Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
-            }
+            reclamoViewModel.setEstado("Cancelado")
+            reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
+                if(reclamoViewModel.estadoGuardadoOk.value==true){
+                    txtEstadoReclamo.text = reclamoViewModel.getEstado()
+                    Snackbar.make(v,"se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
+                }else{
+                    Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
+                }
+            })
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
