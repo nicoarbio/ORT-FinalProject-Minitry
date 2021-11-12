@@ -155,17 +155,16 @@ class DetalleReclamoAdmin : Fragment() {
             recDetalleObservaciones.adapter = ListaObservacionesAdaper(it.observaciones)
             recImgReclamo.adapter = ImgReclamoAdapter(it.imagenes, requireContext())
 
-            if( it.estado == "Cancelado" || it.estado == "Cerrado"){
+            /*if( it.estado == "Cancelado" || it.estado == "Cerrado"){
                 btnDetalleAgregarObser.visibility = View.GONE
 
                 if(rol == "admin"){
-
                     btnDetalleCancelarReclamo.visibility = View.GONE
                 }else{
 
                 }
 
-            }
+            }*/
 
             if(it.imagenes.size ==0){
                 lblImg.visibility = View.GONE
@@ -189,11 +188,19 @@ class DetalleReclamoAdmin : Fragment() {
             val currentDateTime = LocalDateTime.now()
             val fecha = currentDateTime.format(DateTimeFormatter.ISO_DATE)
             var obsNuevo = Observacion("Ministerio", texto, fecha)
-            if (texto.length > 0 && reclamoViewModel.agregarObser(obsNuevo)) {
-                //obs generado con exito
-                Snackbar.make(v,"se agregó la observación", Snackbar.LENGTH_SHORT).show()
-            } else {
-                Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
+
+            if (input.length() > 0) {
+                reclamoViewModel.agregarObser(obsNuevo)
+                reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
+                    if(reclamoViewModel.estadoGuardadoOk.value==true){
+                        recDetalleObservaciones.adapter = ListaObservacionesAdaper(reclamoViewModel.getObservaciones()!!)
+                        Snackbar.make(v,"se agregó la observación", Snackbar.LENGTH_SHORT).show()
+                    }else{
+                        Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
+                    }
+                })
+            }else{
+                Snackbar.make(v,"No se puede agregar una observación vacía", Snackbar.LENGTH_SHORT).show()
             }
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
@@ -213,7 +220,7 @@ class DetalleReclamoAdmin : Fragment() {
                     txtEstadoReclamo.text = reclamoViewModel.getEstado()
                     Snackbar.make(v,"se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
                 }else{
-                    Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                 }
             })
         })
@@ -232,7 +239,7 @@ class DetalleReclamoAdmin : Fragment() {
                     txtEstadoReclamo.text = reclamoViewModel.getEstado()
                     Snackbar.make(v,"se cerró el Reclamo", Snackbar.LENGTH_SHORT).show()
                 }else{
-                    Snackbar.make(v,"Ocurrió un error. Vuelva a intentar mas tarde", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                 }
             })
         })

@@ -130,17 +130,20 @@ class ReclamoViewModel : ViewModel() {
         }
     }
 
-    fun agregarObser(obserNuevo: Observacion): Boolean{
-        try {
-            // obtener el id del reclamo actual en la base de dato
-            val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
-            ref.update("observaciones", FieldValue.arrayUnion(obserNuevo))
-            reclamo.value!!.observaciones.add(obserNuevo)
-            return true
-        } catch (e : Exception){
-            Log.w("Test", "Error al  agregar observacion: ", e)
-            return false
+    fun agregarObser(obserNuevo: Observacion) {
+        viewModelScope.launch {
+            try {
+                // obtener el id del reclamo actual en la base de dato
+                val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
+                ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
+                reclamo.value!!.observaciones.add(obserNuevo)
+                estadoGuardadoOk.value = true
+            } catch (e : Exception){
+                estadoGuardadoOk.value = false
+                Log.w("Test", "Error al  agregar observacion: ", e)
+            }
         }
+
     }
 
     fun setEstado(estadoNuevo: String){

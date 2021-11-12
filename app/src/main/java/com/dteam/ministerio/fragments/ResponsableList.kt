@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dteam.ministerio.R
 import com.dteam.ministerio.adapters.ListaResponsableAdapter
 import com.dteam.ministerio.entities.Usuario
+import com.google.android.material.snackbar.Snackbar
 
 class ResponsableList : Fragment() {
 
@@ -46,11 +47,11 @@ class ResponsableList : Fragment() {
         listadoResponsable.layoutManager = LinearLayoutManager(context)
         //usuarioViewModel.getReclamos()
         var listaUsuarioPrueba = mutableListOf<Usuario>()
-        /*listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
         listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
         listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
         listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))*/
+        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
         listadoResponsable.adapter = ListaResponsableAdapter(listaUsuarioPrueba, requireContext()) { pos -> onItemClick(pos)}
         setObserver()
     }
@@ -65,6 +66,7 @@ class ResponsableList : Fragment() {
     fun onItemClick(pos: Int){
         //val reclamo = reclamoViewModel.listadoReclamos.value?.get(pos)
         //reclamoViewModel.reclamo.value = reclamo
+        Snackbar.make(v,"Responsable nro:" + pos, Snackbar.LENGTH_SHORT).show()
         val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
         v.findNavController().navigate(actionToDetalle)
     }
