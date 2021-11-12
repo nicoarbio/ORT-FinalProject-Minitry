@@ -13,6 +13,7 @@ import com.dteam.ministerio.entities.Subcategoria
 import com.dteam.ministerio.entities.Observacion
 import com.dteam.ministerio.entities.Reclamo
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -88,22 +89,29 @@ class ReclamoViewModel : ViewModel() {
          }
     }
 
-    fun getReclamosPorEstado(estadoReclamo : String) {
+    fun getReclamosPorEstado(estadoReclamo : String, responsableUID : String?) {
         viewModelScope.launch {
             reclamoList.clear()
             try {
-                val reclamos = db.collection("reclamos")
-                    .whereEqualTo("estado", estadoReclamo)
-                    .get()
-                    .await()
+                var reclamos : QuerySnapshot
+                if(responsableUID==null){
+                    reclamos = db.collection("reclamos")
+                        .whereEqualTo("estado", estadoReclamo)
+                        .get()
+                        .await()
+                }else{
+                    reclamos = db.collection("reclamos")
+                        .whereEqualTo("estado", estadoReclamo)
+                        .whereEqualTo("responsable", responsableUID)
+                        .get()
+                        .await()
+                }
+
                 if (reclamos != null) {
                     for (reclamo in reclamos) {
                         reclamoList.add(reclamo.toObject())
-                        Log.w("Test", "junte reclamo ")
                     }
                     listadoReclamos.value =  reclamoList
-
-
                 }
             }catch (e: Exception){
                 Log.w("Test", "Error al obtener documentos: ", e)

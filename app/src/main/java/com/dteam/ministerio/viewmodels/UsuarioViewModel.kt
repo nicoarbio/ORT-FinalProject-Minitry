@@ -56,12 +56,18 @@ class UsuarioViewModel : ViewModel() {
             try {
                 auth!!.signInWithEmailAndPassword(mail, password)
                     .await()
+                //TODO: Guardar el usuario logueado en el mutableLiveData usuario. El UID está en auth.uid
+                //TODO: Verificar rol usuario. Si es Ciudadano NO DEBE dejar loguearlo. Usar la función getRol() declarada mas abajo
                 usuarioLogueadoOk.value = true
             }catch(e : Exception){
                 error = "Usuario y/o contraseña incorrectos"
                 usuarioLogueadoOk.value = false
             }
         }
+    }
+
+    fun getRol() : String{
+        return usuario.value!!.rol
     }
 
     fun cerrarSesion(){
