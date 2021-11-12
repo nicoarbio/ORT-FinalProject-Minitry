@@ -19,6 +19,7 @@ class Usuario(email: String, contrasenia: String, direccion: String, rol:  Strin
     var reclamos : MutableList<Reclamo>
 
     constructor(email: String, contrasenia: String, direccion: String) : this(email, contrasenia, direccion, "","","","", "", "","")
+    constructor(nombre: String,apellido: String, dni: String,email: String) : this(email, dni, "", "",nombre,apellido,dni, "", "","")
     constructor() : this("","","","","","","", "", "", "")
 
 

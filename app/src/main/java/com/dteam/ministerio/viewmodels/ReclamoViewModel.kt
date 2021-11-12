@@ -93,7 +93,29 @@ class ReclamoViewModel : ViewModel() {
             reclamoList.clear()
             try {
                 val reclamos = db.collection("reclamos")
-                    .whereEqualTo("estado", estadoReclamo) //TODO: Acá poner el UID del usuario logueado!
+                    .whereEqualTo("estado", estadoReclamo)
+                    .get()
+                    .await()
+                if (reclamos != null) {
+                    for (reclamo in reclamos) {
+                        reclamoList.add(reclamo.toObject())
+                        Log.w("Test", "junte reclamo ")
+                    }
+                    listadoReclamos.value =  reclamoList
+
+
+                }
+            }catch (e: Exception){
+                Log.w("Test", "Error al obtener documentos: ", e)
+            }
+        }
+    }
+    fun getReclamosPorCateg(subcateg : String) {
+        viewModelScope.launch {
+            reclamoList.clear()
+            try {
+                val reclamos = db.collection("reclamos")
+                    .whereEqualTo("subCategoria", subcateg)//TODO: Acá poner el UID del usuario logueado!
                     .get()
                     .await()
                 if (reclamos != null) {
@@ -107,7 +129,6 @@ class ReclamoViewModel : ViewModel() {
             }
         }
     }
-
 
     fun agregarObser(obserNuevo: Observacion): Boolean{
         try {

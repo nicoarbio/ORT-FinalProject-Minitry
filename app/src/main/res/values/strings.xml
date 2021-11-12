@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ORT_PF_MINISTERIO</string>
+    <string name="campoVacio">Por favor, complete este campo</string>
+    <string name="errorGeneral">Ocurrió un error. Vuelva a intentar mas tarde</string>
 </resources>
