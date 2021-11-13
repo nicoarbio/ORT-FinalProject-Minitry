@@ -1,5 +1,7 @@
 package com.dteam.ministerio.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import android.widget.Toast
 
 import com.dteam.ministerio.activities.MainActivity
+import com.dteam.ministerio.viewmodels.ReclamoViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -41,6 +44,7 @@ class ResponsableList : Fragment() {
 
     private lateinit var accion: String
     private lateinit var btnAgregarRespon: FloatingActionButton
+    private lateinit var reclamoViewModel: ReclamoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +83,7 @@ class ResponsableList : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         usuarioViewModel = ViewModelProvider(this).get(UsuarioViewModel::class.java)
+        reclamoViewModel = ViewModelProvider(this).get(ReclamoViewModel::class.java)
     }
 
     override fun onStart() {
@@ -110,13 +115,31 @@ class ResponsableList : Fragment() {
             val respon = listaFiltrada[pos]
 
             //reclamoViewModel.reclamo.value = reclamo
-            Snackbar.make(v,"Responsable nro:" + pos + respon.nombre, Snackbar.LENGTH_SHORT).show()
+            showdialogAsignarRespon(respon)
             val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
             v.findNavController().navigate(actionToDetalle)
         }else{
-            TODO()
+
         }
 
+    }
+
+    fun showdialogAsignarRespon(respon: Usuario) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
+        builder.setTitle("Asignar Responsable")
+        builder.setMessage("Esta seguro de asiganar a" + respon.nombre + " " + respon.apellido + "a este Reclamo?")
+        builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
+            reclamoViewModel.setResponsable(respon)
+            reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
+                if(reclamoViewModel.estadoGuardadoOk.value==true){
+                    Snackbar.make(v,"Se Asignó correctamente", Snackbar.LENGTH_SHORT).show()
+                }else{
+                    Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
+                }
+            })
+        })
+        builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.show()
     }
 
 }

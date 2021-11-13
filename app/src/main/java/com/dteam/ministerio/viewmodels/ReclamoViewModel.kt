@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.dteam.ministerio.entities.Subcategoria
 import com.dteam.ministerio.entities.Observacion
 import com.dteam.ministerio.entities.Reclamo
+import com.dteam.ministerio.entities.Usuario
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -165,6 +166,22 @@ class ReclamoViewModel : ViewModel() {
             } catch (e : Exception){
                 estadoGuardadoOk.value = false
                 Log.w("Test", "Error al  cancelar el Reclamo: ", e)
+            }
+        }
+
+    }
+
+    fun setResponsable(respon: Usuario){
+        viewModelScope.launch {
+            try {
+                // obtener el id del reclamo actual en la base de dato
+                val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
+                ref.update("responsable", respon.documentId).await()
+                reclamo.value!!.estado = "Asignado"
+                estadoGuardadoOk.value = true
+            } catch (e : Exception){
+                estadoGuardadoOk.value = false
+                Log.w("Test", "Error al  asignar el Responsable: ", e)
             }
         }
 
