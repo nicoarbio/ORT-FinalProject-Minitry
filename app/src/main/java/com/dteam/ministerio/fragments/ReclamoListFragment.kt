@@ -55,7 +55,9 @@ class ReclamoListFragment : Fragment() {
         listadoReclamos.layoutManager = LinearLayoutManager(context)
         val estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
         val subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
-        if (usuarioViewModel.getRol()=="Admin"){
+        //if (usuarioViewModel.getRol()=="Admin"){
+        //TODO get rol
+        if ("Admin"=="Admin"){
             if(subcateg == ""){
                 reclamoViewModel.getReclamosPorEstado(estadoReclamo, null)
             }else{

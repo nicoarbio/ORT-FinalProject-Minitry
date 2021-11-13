@@ -111,28 +111,28 @@ class ResponsableList : Fragment() {
     }
 
     fun onItemClick(pos: Int){
+        val respon = listaFiltrada[pos]
         if(accion == "ASIGNAR"){
-            val respon = listaFiltrada[pos]
-
-            //reclamoViewModel.reclamo.value = reclamo
             showdialogAsignarRespon(respon)
-            val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
-            v.findNavController().navigate(actionToDetalle)
-        }else{
-
+        } else {
+            usuarioViewModel.usuario.value = respon
+            // TODO: traer el perfil de usuario de ciudadanos para hacer este action
+            //val actionToPerfil = ResponsableListDirections.actionResponsableListTo PerfilResponsable()
+            //v.findNavController().navigate(actionToPerfil)
         }
-
     }
 
     fun showdialogAsignarRespon(respon: Usuario) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
         builder.setTitle("Asignar Responsable")
-        builder.setMessage("Esta seguro de asiganar a" + respon.nombre + " " + respon.apellido + "a este Reclamo?")
+        builder.setMessage("Esta seguro de asignar a " + respon.nombre + " " + respon.apellido + " a este Reclamo?")
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
             reclamoViewModel.setResponsable(respon)
             reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                 if(reclamoViewModel.estadoGuardadoOk.value==true){
                     Snackbar.make(v,"Se Asignó correctamente", Snackbar.LENGTH_SHORT).show()
+                    val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
+                    v.findNavController().navigate(actionToDetalle)
                 }else{
                     Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                 }

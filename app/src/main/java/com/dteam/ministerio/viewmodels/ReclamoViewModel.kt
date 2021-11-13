@@ -38,7 +38,7 @@ class ReclamoViewModel : ViewModel() {
     var estadoGuardadoOk = MutableLiveData<Boolean>()
 
     init {
-        reclamo.value= Reclamo()
+        reclamo.value = Reclamo()
     }
 
     fun generarReclamo(reclamoNuevo : Reclamo, imagenes:List<Uri>):Boolean {
@@ -181,6 +181,8 @@ class ReclamoViewModel : ViewModel() {
                 estadoGuardadoOk.value = true
             } catch (e : Exception){
                 estadoGuardadoOk.value = false
+                Log.d("Test", e.toString())
+                Log.d("Test", respon.toString())
                 Log.w("Test", "Error al  asignar el Responsable: ", e)
             }
         }

@@ -91,8 +91,11 @@ class DetalleReclamoAdmin : Fragment() {
         btnDetalleAsignarResp = v.findViewById(R.id.btnDetalleAsignarResp)
         btnDetalleCancelarReclamo = v.findViewById(R.id.btnDetalleCancelarReclamo)
 
+        // TODO: observer al rol de usuario
         //get rol responsable
-        if( usuarioViewModel.getRol() == "Admin"){
+        //if( usuarioViewModel.getRol() == "Admin"){
+        //TODO get rol
+        if( "Admin" == "Admin"){
             btnDetalleAsignarResp.setOnClickListener{
                 val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
                 v.findNavController().navigate(actionToListaRespon)
@@ -151,16 +154,17 @@ class DetalleReclamoAdmin : Fragment() {
             recDetalleObservaciones.adapter = ListaObservacionesAdaper(it.observaciones)
             recImgReclamo.adapter = ImgReclamoAdapter(it.imagenes, requireContext())
 
-            /*if( it.estado == "Cancelado" || it.estado == "Cerrado"){
+            if( it.estado == "Cancelado" || it.estado == "Cerrado"){
                 btnDetalleAgregarObser.visibility = View.GONE
 
-                if(rol == "admin"){
+                //TODO get rol
+                if("Admin" == "Admin"){
                     btnDetalleCancelarReclamo.visibility = View.GONE
                 }else{
 
                 }
 
-            }*/
+            }
 
             if(it.imagenes.size ==0){
                 lblImg.visibility = View.GONE
@@ -214,6 +218,10 @@ class DetalleReclamoAdmin : Fragment() {
             reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                 if(reclamoViewModel.estadoGuardadoOk.value==true){
                     txtEstadoReclamo.text = reclamoViewModel.getEstado()
+
+                    btnDetalleCancelarReclamo.visibility = View.GONE
+                    btnDetalleAsignarResp.visibility = View.GONE
+
                     Snackbar.make(v,"se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
                 }else{
                     Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()

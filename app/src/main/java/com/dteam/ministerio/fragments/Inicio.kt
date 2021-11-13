@@ -42,7 +42,9 @@ class Inicio : Fragment() {
         super.onStart()
 
         // TODO: Ejecutar la actualización del usuario logueado y hacer un observer que vea "usuarioRol"
-        if (usuarioViewModel.getRol()=="Admin"){
+        //if (usuarioViewModel.getRol()=="Admin"){
+        //TODO get rol
+        if ("Admin"=="Admin"){
             btn1.text = "Gestionar Reclamos"
             btn2.text = "Administrar responsables"
             actionBtn1 = InicioDirections.actionInicioToGestionarReclamos()
