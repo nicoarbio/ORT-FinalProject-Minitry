@@ -37,9 +37,6 @@ class ListaResponsableAdapter (var responsableList: MutableList <Usuario>,
         fun getCardView() : CardView {
             return view.findViewById(R.id.card_respon_item)
         }
-        fun getImageResponsable() : ImageView {
-            return  view.findViewById(R.id.imgResponsable)
-        }
 
     }
 
@@ -52,15 +49,6 @@ class ListaResponsableAdapter (var responsableList: MutableList <Usuario>,
         var nombreApellido = responsableList[position].nombre + " " + responsableList[position].apellido
         holder.setNombre(nombreApellido)
         holder.setDni(responsableList[position].dni)
-
-        val storage = FirebaseStorage.getInstance()// Create a reference to a file from a Google Cloud Storage URI
-        val gsReference = storage.getReferenceFromUrl("gs://ort-proyectofinal.appspot.com/")
-        val imgRespon = gsReference.child("categorias").child("Arbolado.png")
-
-        var cardImageRespon : ImageView =  holder.getImageResponsable()
-        Glide.with(context)
-            .load(imgRespon)
-            .into(cardImageRespon)
 
         holder.getCardView().setOnClickListener(){
             onClick(position)

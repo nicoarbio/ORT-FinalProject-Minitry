@@ -16,41 +16,31 @@
         android:layout_width="match_parent"
         android:layout_height="65dp">
 
-        <ImageView
-            android:id="@+id/imgResponsable"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.086"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.47"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
-
         <TextView
             android:id="@+id/lblNombreRespon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
             android:text="Juan Manuel Miguel"
             android:textColor="@color/white"
             android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/lblDniRespon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.469"
-            app:layout_constraintStart_toEndOf="@+id/imgResponsable"
-            app:layout_constraintTop_toTopOf="@+id/imgResponsable" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/lblDniRespon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="99.999.999"
             android:textColor="@color/white"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgResponsable"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblNombreRespon"
             app:layout_constraintVertical_bias="0.384" />
 
