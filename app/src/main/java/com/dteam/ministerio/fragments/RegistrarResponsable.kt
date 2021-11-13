@@ -43,8 +43,16 @@ class RegistrarResponsable : Fragment() {
         btnRegistrarse.setOnClickListener{
             if(validarCampos(txtEmail, txtNombre, txtApellido, txtDni)){
 
-                val usuario = Usuario(txtNombre.text.toString(), txtApellido.text.toString(), txtDni.text.toString(),txtEmail.text.toString())
-                usuarioViewModel.registrarUsuario(usuario)
+                var usuario = Usuario(
+                    "Usuario",
+                    "Responsable",
+                    txtNombre.text.toString(),
+                    txtApellido.text.toString(),
+                    txtDni.text.toString(),
+                    txtEmail.text.toString()
+                )
+                var password = txtDni.text.toString()
+                usuarioViewModel.registrarUsuario(usuario, password)
                 usuarioViewModel.usuarioRegistadoOk.observe(viewLifecycleOwner, Observer { list ->
                     if (usuarioViewModel.usuarioRegistadoOk.value == true){
                         val action = RegistrarResponsableDirections.actionRegistrarResponsableToRegistroExitoso()
