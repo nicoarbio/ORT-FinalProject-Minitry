@@ -11,7 +11,6 @@ import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.dteam.ministerio.R
-import com.dteam.ministerio.viewmodels.LogInViewModel
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
 import com.google.android.material.snackbar.Snackbar
 

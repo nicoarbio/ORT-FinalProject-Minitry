@@ -10,7 +10,6 @@ import android.widget.Button
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.dteam.ministerio.R
-import com.dteam.ministerio.viewmodels.InicioAdminViewModel
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
 
 class Inicio : Fragment() {

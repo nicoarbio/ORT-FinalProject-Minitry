@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dteam.ministerio.R
 import com.dteam.ministerio.adapters.ReclamoAdapter
-import com.dteam.ministerio.viewmodels.ReclamoListViewModel
 import com.dteam.ministerio.viewmodels.ReclamoViewModel
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
 
