@@ -3,11 +3,9 @@ package com.dteam.ministerio.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.dteam.ministerio.entities.Usuario
-
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.dteam.ministerio.network.OrionApi
-import com.dteam.ministerio.network.OrionApiService
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -20,12 +18,14 @@ class UsuarioViewModel : ViewModel() {
     var usuarioRegistadoOk = MutableLiveData<Boolean>()
     var usuarioLogueadoOk = MutableLiveData<Boolean>()
     var usuariosResponsables = MutableLiveData<MutableList<Usuario>>()
+    var usuarioRol = MutableLiveData<String>()
     var error = String()
 
     private var  auth: FirebaseAuth? = null
 
     init {
         auth = FirebaseAuth.getInstance()
+        usuarioRol.value = ""
         usuario.value = Usuario()
     }
 
@@ -89,15 +89,21 @@ class UsuarioViewModel : ViewModel() {
         }
     }
 
-    fun getRol() : String{
-        return usuario.value!!.rol
+    fun actualizarUsuarioRolLogueado() {
+        viewModelScope.launch {
+            try {
+                usuarioRol.value = OrionApi.retrofitService.getUsuarioByUID(auth!!.uid!!).rol
+            } catch (e: Exception) {
+                Log.d("ORION_API", e.toString())
+            }
+        }
     }
 
     suspend fun getUsuarioByEmail(email:String) : Usuario? {
         try {
             val listaAux = OrionApi.retrofitService.getUsuarioByEmail("email:"+email)
             return listaAux.find {
-                it -> it.email == email
+                usr -> usr.email == email
             }
         }catch (e:Exception) {
             Log.d("ORION_API", e.toString())

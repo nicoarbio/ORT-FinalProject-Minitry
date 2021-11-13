@@ -41,6 +41,7 @@ class Inicio : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        // TODO: Ejecutar la actualización del usuario logueado y hacer un observer que vea "usuarioRol"
         if (usuarioViewModel.getRol()=="Admin"){
             btn1.text = "Gestionar Reclamos"
             btn2.text = "Administrar responsables"
