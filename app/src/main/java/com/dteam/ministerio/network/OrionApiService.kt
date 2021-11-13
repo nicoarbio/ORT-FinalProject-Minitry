@@ -10,10 +10,14 @@ import retrofit2.http.*
 private const val IP = "192.168.0.11"
 private const val BASE_URL = "http://${IP}:1026/v2/"
 
+// Documentación ejemplo Moshi en Retrofit
+// https://developer.android.com/codelabs/basic-android-kotlin-training-getting-data-internet?continue=https%3A%2F%2Fdeveloper.android.com%2Fcourses%2Fpathways%2Fandroid-basics-kotlin-unit-4-pathway-2%23codelab-https%3A%2F%2Fdeveloper.android.com%2Fcodelabs%2Fbasic-android-kotlin-training-getting-data-internet#7
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
+// Documentación Retrofit
+// https://square.github.io/retrofit/
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
