@@ -47,11 +47,12 @@ class ResponsableList : Fragment() {
         listadoResponsable.layoutManager = LinearLayoutManager(context)
         //usuarioViewModel.getReclamos()
         var listaUsuarioPrueba = mutableListOf<Usuario>()
+        //TODO: @Alan, subí lo que hicimos acá. Tuve que comentarlo porque el constructor de usuario cambia
+        /*listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
         listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
         listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
         listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))*/
         listadoResponsable.adapter = ListaResponsableAdapter(listaUsuarioPrueba, requireContext()) { pos -> onItemClick(pos)}
         setObserver()
     }
