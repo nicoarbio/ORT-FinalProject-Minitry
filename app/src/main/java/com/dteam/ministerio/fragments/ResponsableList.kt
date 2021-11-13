@@ -6,13 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dteam.ministerio.R
 import com.dteam.ministerio.adapters.ListaResponsableAdapter
 import com.dteam.ministerio.entities.Usuario
+import com.dteam.ministerio.viewmodels.UsuarioViewModel
 import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
+
+import com.dteam.ministerio.activities.MainActivity
+
+
+
 
 class ResponsableList : Fragment() {
 
@@ -20,12 +29,16 @@ class ResponsableList : Fragment() {
         fun newInstance() = ResponsableList()
     }
 
-    //private lateinit var usuarioViewModel: UsuarioViewModel
+    private lateinit var usuarioViewModel: UsuarioViewModel
 
     private lateinit var v: View
 
     private lateinit var listadoResponsable: RecyclerView
     private lateinit var responsableAdapter: ListaResponsableAdapter
+
+    private lateinit var searchResponList: SearchView
+
+    var listaFiltrada = mutableListOf<Usuario>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,40 +46,60 @@ class ResponsableList : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.responsable_list_fragment, container, false)
         listadoResponsable = v.findViewById(R.id.recResponsable)
+        searchResponList = v.findViewById(R.id.searchResponList)
+
+        searchResponList.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                usuarioViewModel.getUsuariosResponsables()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    if(newText.isEmpty()){
+                        usuarioViewModel.getUsuariosResponsables()
+                    }
+                }
+                return false
+            }
+
+        })
         return v
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(ResponsableListViewModel::class.java)
+        usuarioViewModel = ViewModelProvider(this).get(UsuarioViewModel::class.java)
     }
 
     override fun onStart() {
         super.onStart()
         listadoResponsable.setHasFixedSize(true)
         listadoResponsable.layoutManager = LinearLayoutManager(context)
-        //usuarioViewModel.getReclamos()
-        var listaUsuarioPrueba = mutableListOf<Usuario>()
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Pepe","Botella","99.999.999","","",""))
-        listadoResponsable.adapter = ListaResponsableAdapter(listaUsuarioPrueba, requireContext()) { pos -> onItemClick(pos)}
+        usuarioViewModel.getUsuariosResponsables()
+        listadoResponsable.adapter = ListaResponsableAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
         setObserver()
     }
 
     fun setObserver(){
-       /* reclamoViewModel.listadoReclamos.observe(viewLifecycleOwner, Observer { list ->
-            reclamoAdapter = ReclamoAdapter(list, requireContext()) { pos -> onItemClick(pos) }
-            listadoReclamos.adapter = reclamoAdapter
-        })*/
+        usuarioViewModel.usuariosResponsables.observe(viewLifecycleOwner, Observer { list ->
+            var buscado = searchResponList.query
+            if(!buscado.isEmpty()){
+                buscado = buscado.toString().lowercase()
+                listaFiltrada = (list.filter { usuario -> usuario.nombre.lowercase().contains(buscado) || usuario.apellido.lowercase().contains(buscado)}).toMutableList()
+            }else{
+                listaFiltrada = list
+            }
+            responsableAdapter = ListaResponsableAdapter(listaFiltrada, requireContext()) { pos -> onItemClick(pos) }
+            listadoResponsable.adapter = responsableAdapter
+        })
     }
 
     fun onItemClick(pos: Int){
-        //val reclamo = reclamoViewModel.listadoReclamos.value?.get(pos)
+        val respon = listaFiltrada[pos]
+
         //reclamoViewModel.reclamo.value = reclamo
-        Snackbar.make(v,"Responsable nro:" + pos, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(v,"Responsable nro:" + pos + respon.nombre, Snackbar.LENGTH_SHORT).show()
         val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
         v.findNavController().navigate(actionToDetalle)
     }

@@ -5,6 +5,7 @@ import com.dteam.ministerio.entities.Usuario
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.dteam.ministerio.adapters.ListaResponsableAdapter
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -17,6 +18,8 @@ class UsuarioViewModel : ViewModel() {
     var usuarioRegistadoOk = MutableLiveData<Boolean>()
     var usuarioLogueadoOk = MutableLiveData<Boolean>()
     var error = String()
+
+    var usuariosResponsables = MutableLiveData<MutableList<Usuario>>()
 
     private var  auth: FirebaseAuth? = null
 
@@ -62,6 +65,23 @@ class UsuarioViewModel : ViewModel() {
                 usuarioLogueadoOk.value = false
             }
         }
+    }
+
+    fun getUsuariosResponsables() {
+        /*viewModelScope.launch {
+            try {
+                usuariosResponsables.value = OrionApi.retrofitService.getUsuariosResponsables().toMutableList()
+            } catch (e: Exception) {
+                Log.d("ORION_API", e.toString())
+            }
+        }*/
+        var listaUsuarioPrueba = mutableListOf<Usuario>()
+        listaUsuarioPrueba.add(Usuario("","","","","Alan","Gao","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Fede","Perchuk","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Ari","pisterman","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","JOSE","LUENGO","99.999.999","","",""))
+        listaUsuarioPrueba.add(Usuario("","","","","Tu","Viejaentanga","99.999.999","","",""))
+        usuariosResponsables.value = listaUsuarioPrueba
     }
 
     fun cerrarSesion(){

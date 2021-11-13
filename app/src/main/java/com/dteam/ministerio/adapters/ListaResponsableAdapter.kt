@@ -49,7 +49,8 @@ class ListaResponsableAdapter (var responsableList: MutableList <Usuario>,
     }
 
     override fun onBindViewHolder(holder: ResponsableHolder, position: Int) {
-        holder.setNombre(responsableList[position].nombre)
+        var nombreApellido = responsableList[position].nombre + " " + responsableList[position].apellido
+        holder.setNombre(nombreApellido)
         holder.setDni(responsableList[position].dni)
 
         val storage = FirebaseStorage.getInstance()// Create a reference to a file from a Google Cloud Storage URI

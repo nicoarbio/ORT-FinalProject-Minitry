@@ -5,24 +5,30 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo2"
     tools:context=".fragments.ResponsableList">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recResponsable"
         android:layout_width="0dp"
-        android:layout_height="682dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPrueba" />
+        app:layout_constraintTop_toBottomOf="@+id/searchResponList" />
 
-    <TextView
-        android:id="@+id/txtPrueba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LIsta Responsable"
+    <SearchView
+        android:id="@+id/searchResponList"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="#FAFAFA"
         app:layout_constraintBottom_toTopOf="@+id/recResponsable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
