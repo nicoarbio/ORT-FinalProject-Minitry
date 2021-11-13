@@ -45,7 +45,7 @@ class Inicio : Fragment() {
             btn1.text = "Gestionar Reclamos"
             btn2.text = "Administrar responsables"
             actionBtn1 = InicioDirections.actionInicioToGestionarReclamos()
-            actionBtn2 = InicioDirections.actionInicioToResponsableList()
+            actionBtn2 = InicioDirections.actionInicioToResponsableList("")
         }else{ //Si no es Admin, es responsable porque los Ciudadanos no pueden loguearse.
             btn1.text = "Nuevos Reclamos"
             btn2.text = "Reclamos Cerrados"

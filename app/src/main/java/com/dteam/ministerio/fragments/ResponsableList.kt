@@ -19,8 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import android.widget.Toast
 
 import com.dteam.ministerio.activities.MainActivity
-
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class ResponsableList : Fragment() {
@@ -40,6 +39,9 @@ class ResponsableList : Fragment() {
 
     var listaFiltrada = mutableListOf<Usuario>()
 
+    private lateinit var accion: String
+    private lateinit var btnAgregarRespon: FloatingActionButton
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +49,7 @@ class ResponsableList : Fragment() {
         v = inflater.inflate(R.layout.responsable_list_fragment, container, false)
         listadoResponsable = v.findViewById(R.id.recResponsable)
         searchResponList = v.findViewById(R.id.searchResponList)
+        btnAgregarRespon = v.findViewById(R.id.btnAgregarRespon)
 
         searchResponList.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -64,6 +67,12 @@ class ResponsableList : Fragment() {
             }
 
         })
+
+        btnAgregarRespon.setOnClickListener {
+            val actionToAddRespon = ResponsableListDirections.actionResponsableListToRegistrarResponsable()
+            v.findNavController().navigate(actionToAddRespon)
+        }
+
         return v
     }
 
@@ -74,6 +83,7 @@ class ResponsableList : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        accion = ResponsableListArgs.fromBundle(requireArguments()).accion
         listadoResponsable.setHasFixedSize(true)
         listadoResponsable.layoutManager = LinearLayoutManager(context)
         usuarioViewModel.getUsuariosResponsables()
@@ -96,12 +106,17 @@ class ResponsableList : Fragment() {
     }
 
     fun onItemClick(pos: Int){
-        val respon = listaFiltrada[pos]
+        if(accion == "ASIGNAR"){
+            val respon = listaFiltrada[pos]
 
-        //reclamoViewModel.reclamo.value = reclamo
-        Snackbar.make(v,"Responsable nro:" + pos + respon.nombre, Snackbar.LENGTH_SHORT).show()
-        val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
-        v.findNavController().navigate(actionToDetalle)
+            //reclamoViewModel.reclamo.value = reclamo
+            Snackbar.make(v,"Responsable nro:" + pos + respon.nombre, Snackbar.LENGTH_SHORT).show()
+            val actionToDetalle = ResponsableListDirections.actionResponsableListToDetalleReclamoAdmin()
+            v.findNavController().navigate(actionToDetalle)
+        }else{
+            TODO()
+        }
+
     }
 
 }

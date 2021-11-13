@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,8 @@ import com.dteam.ministerio.adapters.ListaObservacionesAdaper
 import com.dteam.ministerio.entities.Observacion
 import com.dteam.ministerio.viewmodels.DetalleReclamoViewModel
 import com.dteam.ministerio.viewmodels.ReclamoViewModel
+import com.dteam.ministerio.viewmodels.UsuarioViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import java.time.LocalDateTime
@@ -37,6 +40,7 @@ class DetalleReclamoAdmin : Fragment() {
     }
 
     private lateinit var reclamoViewModel: ReclamoViewModel
+    private lateinit var usuarioViewModel: UsuarioViewModel
 
     lateinit var v: View
     private lateinit var imgDetalleCategoria: ImageView
@@ -58,7 +62,6 @@ class DetalleReclamoAdmin : Fragment() {
     private lateinit var btnDetalleAsignarResp: Button
 
     private lateinit var txtCerrarReclamo: String
-    var rol = "admin"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,7 +84,6 @@ class DetalleReclamoAdmin : Fragment() {
         btnDetalleAgregarObser = v.findViewById(R.id.btnDetalleAgregarObser)
         btnDetalleAsignarResp = v.findViewById(R.id.btnDetalleAsignarResp)
 
-
         btnDetalleAgregarObser.setOnClickListener{
             showdialogAgregarObser()
         }
@@ -90,9 +92,9 @@ class DetalleReclamoAdmin : Fragment() {
         btnDetalleCancelarReclamo = v.findViewById(R.id.btnDetalleCancelarReclamo)
 
         //get rol responsable
-        if(rol == "admin"){
+        if( usuarioViewModel.getRol() == "Admin"){
             btnDetalleAsignarResp.setOnClickListener{
-                val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList()
+                val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
                 v.findNavController().navigate(actionToListaRespon)
             }
 
@@ -108,12 +110,6 @@ class DetalleReclamoAdmin : Fragment() {
             }
         }
 
-
-
-
-
-
-
         return v
     }
 
@@ -122,6 +118,7 @@ class DetalleReclamoAdmin : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         reclamoViewModel = ViewModelProvider(requireActivity()).get(ReclamoViewModel::class.java)
+        usuarioViewModel = ViewModelProvider(requireActivity()).get(UsuarioViewModel::class.java)
     }
 
     override fun onStart() {
@@ -151,7 +148,6 @@ class DetalleReclamoAdmin : Fragment() {
             txtDetalleDireccion.text = it.direccion
             txtDetalleComentario.text = it.descripcion
             txtEstadoReclamo.text = it.estado
-            Log.d("hola","entre")
             recDetalleObservaciones.adapter = ListaObservacionesAdaper(it.observaciones)
             recImgReclamo.adapter = ImgReclamoAdapter(it.imagenes, requireContext())
 

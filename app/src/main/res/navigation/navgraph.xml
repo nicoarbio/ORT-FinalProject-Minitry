@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/inicio">
+    app:startDestination="@id/logIn">
     <fragment
         android:id="@+id/gestionarReclamos"
         android:name="com.dteam.ministerio.fragments.GestionarReclamos"
         android:label="gestionar_reclamos_fragment"
-        tools:layout="@layout/gestionar_reclamos_fragment" >
+        tools:layout="@layout/gestionar_reclamos_fragment">
         <action
             android:id="@+id/action_gestionarReclamos_to_reclamoListFragment"
             app:destination="@id/reclamoListFragment" />
@@ -20,7 +20,7 @@
         android:id="@+id/reclamoListFragment"
         android:name="com.dteam.ministerio.fragments.ReclamoListFragment"
         android:label="reclamo_list_fragment"
-        tools:layout="@layout/reclamo_list_fragment" >
+        tools:layout="@layout/reclamo_list_fragment">
         <argument
             android:name="estadoReclamo"
             app:argType="string" />
@@ -38,7 +38,7 @@
         android:id="@+id/detalleReclamoAdmin"
         android:name="com.dteam.ministerio.fragments.DetalleReclamoAdmin"
         android:label="detalle_reclamo_fragment"
-        tools:layout="@layout/detalle_reclamo_fragment" >
+        tools:layout="@layout/detalle_reclamo_fragment">
         <action
             android:id="@+id/action_detalleReclamoAdmin_to_responsableList"
             app:destination="@id/responsableList" />
@@ -47,17 +47,23 @@
         android:id="@+id/responsableList"
         android:name="com.dteam.ministerio.fragments.ResponsableList"
         android:label="responsable_list_fragment"
-        tools:layout="@layout/responsable_list_fragment" >
+        tools:layout="@layout/responsable_list_fragment">
         <action
             android:id="@+id/action_responsableList_to_detalleReclamoAdmin"
             app:destination="@id/detalleReclamoAdmin" />
+        <argument
+            android:name="accion"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_responsableList_to_registrarResponsable"
+            app:destination="@id/registrarResponsable" />
     </fragment>
-        tools:layout="@layout/responsable_list_fragment" />
+    tools:layout="@layout/responsable_list_fragment" />
     <fragment
         android:id="@+id/tipoReclamoListFragment"
         android:name="com.dteam.ministerio.fragments.TipoReclamoListFragment"
         android:label="tipo_reclamo_list_fragment"
-        tools:layout="@layout/tipo_reclamo_list_fragment" >
+        tools:layout="@layout/tipo_reclamo_list_fragment">
         <action
             android:id="@+id/action_tipoReclamoListFragment_to_subcategoriaReclamoList"
             app:destination="@id/subcategoriaReclamoList" />
@@ -66,7 +72,7 @@
         android:id="@+id/subcategoriaReclamoList"
         android:name="com.dteam.ministerio.fragments.SubcategoriaReclamoList"
         android:label="subcategoria_reclamo_list_fragment"
-        tools:layout="@layout/subcategoria_reclamo_list_fragment" >
+        tools:layout="@layout/subcategoria_reclamo_list_fragment">
         <argument
             android:name="categoria"
             app:argType="string" />
@@ -78,7 +84,7 @@
         android:id="@+id/registrarResponsable"
         android:name="com.dteam.ministerio.fragments.RegistrarResponsable"
         android:label="registrar_responsable_fragment"
-        tools:layout="@layout/registrar_responsable_fragment" >
+        tools:layout="@layout/registrar_responsable_fragment">
         <action
             android:id="@+id/action_registrarResponsable_to_registroExitoso"
             app:destination="@id/registroExitoso" />
@@ -92,7 +98,7 @@
         android:id="@+id/logIn"
         android:name="com.dteam.ministerio.fragments.LogIn"
         android:label="log_in_fragment"
-        tools:layout="@layout/log_in_fragment" >
+        tools:layout="@layout/log_in_fragment">
         <action
             android:id="@+id/action_logIn_to_inicio"
             app:destination="@id/inicio" />
@@ -101,7 +107,7 @@
         android:id="@+id/inicio"
         android:name="com.dteam.ministerio.fragments.Inicio"
         android:label="inicio_fragment"
-        tools:layout="@layout/inicio_fragment" >
+        tools:layout="@layout/inicio_fragment">
         <action
             android:id="@+id/action_inicio_to_gestionarReclamos"
             app:destination="@id/gestionarReclamos" />
