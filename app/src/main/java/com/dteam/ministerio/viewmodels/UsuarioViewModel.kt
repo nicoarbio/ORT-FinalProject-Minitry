@@ -1,11 +1,13 @@
 package com.dteam.ministerio.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.dteam.ministerio.entities.Usuario
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.dteam.ministerio.adapters.ListaResponsableAdapter
+import com.dteam.ministerio.network.OrionApi
+import com.dteam.ministerio.network.OrionApiService
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -17,9 +19,8 @@ class UsuarioViewModel : ViewModel() {
     var usuario = MutableLiveData<Usuario>()
     var usuarioRegistadoOk = MutableLiveData<Boolean>()
     var usuarioLogueadoOk = MutableLiveData<Boolean>()
-    var error = String()
-
     var usuariosResponsables = MutableLiveData<MutableList<Usuario>>()
+    var error = String()
 
     private var  auth: FirebaseAuth? = null
 
@@ -28,11 +29,20 @@ class UsuarioViewModel : ViewModel() {
         usuario.value = Usuario()
     }
 
-    fun registrarUsuario(usuario: Usuario) { //TODO: Guardar el resto de los datos en FiWare
+    //fun registrarUsuario(usuario: Usuario) { //TODO: Guardar el resto de los datos en FiWare
+    fun registrarUsuario(user: Usuario, pwd : String) {
         viewModelScope.launch {
             try {
-                auth!!.createUserWithEmailAndPassword(usuario.email, usuario.dni)
+                auth!!.createUserWithEmailAndPassword(user.email, pwd)
                     .await()
+
+                user.documentId = auth!!.uid!!
+                usuario.value = user
+
+                Log.d("ORION_API", usuario.value.toString())
+                registrarUsuarioOrion()
+                Log.d("ORION_API", "Registrado correctamente")
+
                 usuarioRegistadoOk.value = true
             }catch (e : FirebaseAuthWeakPasswordException){
                 error = "La contraseña debe tener al menos 6 caracteres"
@@ -46,6 +56,7 @@ class UsuarioViewModel : ViewModel() {
             }catch (e : Exception){
                 error = "Ocurrió un error al registrar el usuario. Vuelva a intentar más tarde"
                 usuarioRegistadoOk.value = false
+                Log.d("ORION_API", e.toString())
             }
         }
     }
@@ -57,8 +68,19 @@ class UsuarioViewModel : ViewModel() {
     fun iniciarSesion(mail:String, password:String){
         viewModelScope.launch {
             try {
-                auth!!.signInWithEmailAndPassword(mail, password)
-                    .await()
+                var posibleCiudadano = getUsuarioByEmail(mail)
+
+                if (posibleCiudadano != null && posibleCiudadano.rol != "Ciudadano") {
+                    auth!!.signInWithEmailAndPassword(mail, password)
+                        .await()
+                    usuario.value = OrionApi.retrofitService.getUsuarioByUID(auth!!.uid!!)
+                } else {
+                    throw Exception("Como si el usuario no existiera. Parametros incorrectos")
+                }
+                //DONE: Guardar el usuario logueado en el mutableLiveData usuario. El UID está en auth.uid
+                //DONE: Verificar rol usuario. Si es Ciudadano NO DEBE dejar loguearlo. Usar la función getRol() declarada mas abajo
+                    //No se usa getRol porque ese mutable live data no tendría valor.
+                    // hay que buscar primero si existe el usuario en orion con ese mail y si es de rol ciudadano
                 usuarioLogueadoOk.value = true
             }catch(e : Exception){
                 error = "Usuario y/o contraseña incorrectos"
@@ -67,26 +89,53 @@ class UsuarioViewModel : ViewModel() {
         }
     }
 
-    fun getUsuariosResponsables() {
-        /*viewModelScope.launch {
-            try {
-                usuariosResponsables.value = OrionApi.retrofitService.getUsuariosResponsables().toMutableList()
-            } catch (e: Exception) {
-                Log.d("ORION_API", e.toString())
+    fun getRol() : String{
+        return usuario.value!!.rol
+    }
+
+    suspend fun getUsuarioByEmail(email:String) : Usuario? {
+        try {
+            val listaAux = OrionApi.retrofitService.getUsuarioByEmail("email:"+email)
+            return listaAux.find {
+                it -> it.email == email
             }
-        }*/
-        var listaUsuarioPrueba = mutableListOf<Usuario>()
-        listaUsuarioPrueba.add(Usuario("","","","","Alan","Gao","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Fede","Perchuk","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Ari","pisterman","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","JOSE","LUENGO","99.999.999","","",""))
-        listaUsuarioPrueba.add(Usuario("","","","","Tu","Viejaentanga","99.999.999","","",""))
-        usuariosResponsables.value = listaUsuarioPrueba
+        }catch (e:Exception) {
+            Log.d("ORION_API", e.toString())
+            return null
+        }
     }
 
     fun cerrarSesion(){
         auth?.signOut()
     }
+
+
+    suspend fun registrarUsuarioOrion() {
+        OrionApi.retrofitService.registrarUsuario(usuario.value!!)
+    }
+
+    fun getUsuarioByUID(UID : String) {
+        viewModelScope.launch {
+            try {
+                usuario.value = OrionApi.retrofitService.getUsuarioByUID(UID)
+            } catch (e: Exception) {
+                Log.d("ORION_API_errorGetUsrUID", e.toString())
+            }
+        }
+    }
+
+    // getUsuariosResponsables -> lista de usuarios cuyo rol sea responsable
+    fun getUsuariosResponsables() {
+        viewModelScope.launch {
+            try {
+                usuariosResponsables.value = OrionApi.retrofitService.getUsuariosResponsables().toMutableList()
+            } catch (e: Exception) {
+                Log.d("ORION_API", e.toString())
+            }
+        }
+    }
+
+
 
     fun setEmail(email : String){
         usuario.value?.email = email

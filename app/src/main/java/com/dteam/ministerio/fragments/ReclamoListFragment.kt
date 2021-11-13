@@ -14,6 +14,7 @@ import com.dteam.ministerio.R
 import com.dteam.ministerio.adapters.ReclamoAdapter
 import com.dteam.ministerio.viewmodels.ReclamoListViewModel
 import com.dteam.ministerio.viewmodels.ReclamoViewModel
+import com.dteam.ministerio.viewmodels.UsuarioViewModel
 
 class ReclamoListFragment : Fragment() {
 
@@ -22,6 +23,7 @@ class ReclamoListFragment : Fragment() {
     }
 
     private lateinit var reclamoViewModel: ReclamoViewModel
+    private lateinit var usuarioViewModel: UsuarioViewModel
 
     private lateinit var v: View
 
@@ -40,6 +42,11 @@ class ReclamoListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         reclamoViewModel = ViewModelProvider(requireActivity()).get(ReclamoViewModel::class.java)
+        usuarioViewModel = ViewModelProvider(requireActivity()).get(UsuarioViewModel::class.java)
+        if(usuarioViewModel.obtenerUsuarioLogueado()==null){
+            var action = ReclamoListFragmentDirections.actionReclamoListFragmentToLogIn()
+            v.findNavController().navigate(action)
+        }
     }
 
     override fun onStart() {
@@ -48,11 +55,17 @@ class ReclamoListFragment : Fragment() {
         listadoReclamos.layoutManager = LinearLayoutManager(context)
         val estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
         val subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
-        if(subcateg == ""){
-            reclamoViewModel.getReclamosPorEstado(estadoReclamo)
-        }else{
-            reclamoViewModel.getReclamosPorCateg(subcateg)
+        if (usuarioViewModel.getRol()=="Admin"){
+            if(subcateg == ""){
+                reclamoViewModel.getReclamosPorEstado(estadoReclamo, null)
+            }else{
+                reclamoViewModel.getReclamosPorCateg(subcateg)
+            }
+        }else
+        {
+            reclamoViewModel.getReclamosPorEstado(estadoReclamo, usuarioViewModel.obtenerUsuarioLogueado()!!.uid)
         }
+
 
         reclamoAdapter = ReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
         setObserver()

@@ -1,45 +1,28 @@
 package com.dteam.ministerio.entities
 
-import com.google.firebase.firestore.DocumentId
+import com.squareup.moshi.Json
 
-class Usuario(email: String, contrasenia: String, direccion: String, rol:  String, nombre: String, apellido: String, dni:  String, fechaDeNacimiento: String, telefono: String, codigoPostal: String) {
-    @DocumentId
-    private val documentId: String? = null
-    var email : String
-    var contrasenia: String
-    var rol: String
-    var nombre: String
-    var apellido: String
-    var dni: String
-    var fechaDeNacimiento: String
-
-    var telefono: String
-    var direccion: String
-    var codigoPostal : String
-    var reclamos : MutableList<Reclamo>
-
-    constructor(email: String, contrasenia: String, direccion: String) : this(email, contrasenia, direccion, "","","","", "", "","")
-    constructor(nombre: String,apellido: String, dni: String,email: String) : this(email, dni, "", "",nombre,apellido,dni, "", "","")
-    constructor() : this("","","","","","","", "", "", "")
-
-
-    init {
-        this.email = email
-        this.contrasenia = contrasenia
-        this.rol = rol
-        this.nombre = nombre
-        this.apellido = apellido
-        this.dni = dni
-        this.fechaDeNacimiento = fechaDeNacimiento
-        this.telefono = telefono
-        this.direccion = direccion
-        this.codigoPostal = codigoPostal
-        this.reclamos = mutableListOf()
-    }
+class Usuario(
+    @Json(name = "id")
+    var documentId : String,
+    var type:String,
+    var dni:  String,
+    var apellido: String,
+    var codigoPostal: String,
+    var direccion: String,
+    var fechaDeNacimiento: String,
+    var nombre: String,
+    var rol: String, //Ciudadano/Ministerio/Responsable
+    var telefono: String,
+    var email: String
+)
+{
+    constructor() : this("","","","","","", "", "", "","","")
+    constructor(uid:String) : this(uid,"","","","","", "", "", "","","")
+    constructor(type:String, rol:String, nombre:String, apellido:String, fnac:String, dni:String, telefono:String, email:String, direccion:String)  : this("",type,dni,apellido,"",direccion, fnac, nombre, rol,telefono,email)
+    constructor(type:String, rol:String, nombre: String,apellido: String, dni: String,email: String) : this("", type, dni, apellido, "", "", "", nombre,rol,"",email)
 
     override fun toString(): String {
-        return "Usuario(documentId=$documentId, email='$email', contrasenia='$contrasenia', rol='$rol', nombre='$nombre', apellido='$apellido', dni='$dni', fechaDeNacimiento=$fechaDeNacimiento, telefono='$telefono', direccion='$direccion', codigoPostal='$codigoPostal', reclamos=$reclamos)"
+        return "Usuario(documentId='$documentId', type='$type', dni='$dni', apellido='$apellido', codigoPostal='$codigoPostal', direccion='$direccion', fechaDeNacimiento='$fechaDeNacimiento', nombre='$nombre', rol='$rol', telefono='$telefono', email='$email')"
     }
-
-
 }
