@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_reclamoListFragment_to_logIn"
             app:destination="@id/logIn" />
+        <action
+            android:id="@+id/action_reclamoListFragment_to_gestionarReclamos"
+            app:destination="@id/gestionarReclamos" />
     </fragment>
     <fragment
         android:id="@+id/detalleReclamoAdmin"
