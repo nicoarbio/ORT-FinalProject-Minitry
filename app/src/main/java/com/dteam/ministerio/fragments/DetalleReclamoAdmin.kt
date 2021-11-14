@@ -214,20 +214,29 @@ class DetalleReclamoAdmin : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
         builder.setTitle("Cancelar Reclamo")
 
+        val input = EditText(this.context)
+        input.setHint("Ingrese el motivo")
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
-            reclamoViewModel.setEstado("Cancelado")
-            reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
-                if(reclamoViewModel.estadoGuardadoOk.value==true){
-                    txtEstadoReclamo.text = reclamoViewModel.getEstado()
 
-                    btnDetalleCancelarReclamo.visibility = View.GONE
-                    btnDetalleAsignarResp.visibility = View.GONE
+            if (validarCampos(input)) {
+                var texto = input.text.toString()
+                reclamoViewModel.cancelarReclamo(texto)
+                reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
+                    if(reclamoViewModel.estadoGuardadoOk.value==true){
+                        txtEstadoReclamo.text = reclamoViewModel.getEstado()
 
-                    Snackbar.make(v,"se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
-                }else{
-                    Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
-                }
-            })
+                        btnDetalleCancelarReclamo.visibility = View.GONE
+                        btnDetalleAsignarResp.visibility = View.GONE
+
+                        Snackbar.make(v,"se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
+                    }else{
+                        Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
+                    }
+                })
+            }
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
@@ -250,6 +259,17 @@ class DetalleReclamoAdmin : Fragment() {
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
+    }
+
+    fun validarCampos(vararg campos:EditText):Boolean{
+        var camposValidos = true
+        for (campo in campos) {
+            if(campo.text.isEmpty()){
+                camposValidos = false
+                campo.error = getString(R.string.campoVacio)
+            }
+        }
+        return camposValidos
     }
 
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.dteam.ministerio.R
 import com.google.android.material.snackbar.Snackbar
 import com.dteam.ministerio.entities.Subcategoria
 import com.dteam.ministerio.entities.Observacion
@@ -24,6 +25,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.math.log
 
 class ReclamoViewModel : ViewModel() {
@@ -167,10 +170,31 @@ class ReclamoViewModel : ViewModel() {
                 estadoGuardadoOk.value = true
             } catch (e : Exception){
                 estadoGuardadoOk.value = false
-                Log.w("Test", "Error al  cancelar el Reclamo: ", e)
+                Log.w("Test", "Error al cambiar el estado", e)
             }
         }
     }
+
+    fun cancelarReclamo(motivo: String){
+        viewModelScope.launch {
+            try {
+                // obtener el id del reclamo actual en la base de dato
+                val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
+                ref.update("estado", "Cancelado").await()
+                var obserNuevo = Observacion("Ministerio",
+                    "Tu reclamo ha sido cancelado, motivo: $motivo", getFecha())
+                ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
+                reclamo.value!!.observaciones.add(obserNuevo)
+                reclamo.value!!.estado = "Cancelado"
+                estadoGuardadoOk.value = true
+            } catch (e : Exception){
+                estadoGuardadoOk.value = false
+                Log.w("Test", "Error al cambiar el estado", e)
+            }
+        }
+    }
+
+
 
     fun setResponsable(respon: Usuario){
         viewModelScope.launch {
@@ -178,6 +202,10 @@ class ReclamoViewModel : ViewModel() {
                 // obtener el id del reclamo actual en la base de dato
                 val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
                 ref.update("responsable", respon.documentId).await()
+                ref.update("estado", "Asignado").await()
+                var obserNuevo = Observacion("Ministerio", respon.nombre + " " + respon.apellido+ " fue asignado para este reclamo", getFecha())
+                ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
+                reclamo.value!!.observaciones.add(obserNuevo)
                 reclamo.value!!.estado = "Asignado"
                 estadoGuardadoOk.value = true
             } catch (e : Exception){
@@ -194,6 +222,11 @@ class ReclamoViewModel : ViewModel() {
             imgEstadoReclamo.value = img
         }
 
+    }
+
+    private fun getFecha(): String {
+        val currentDateTime = LocalDateTime.now()
+        return currentDateTime.format(DateTimeFormatter.ISO_DATE)
     }
 
     fun getCategoria(): String? {
