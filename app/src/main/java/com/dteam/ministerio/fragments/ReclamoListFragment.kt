@@ -45,6 +45,14 @@ class ReclamoListFragment : Fragment() {
         if(usuarioViewModel.obtenerUsuarioLogueado()==null){
             var action = ReclamoListFragmentDirections.actionReclamoListFragmentToLogIn()
             v.findNavController().navigate(action)
+        } else {
+            usuarioViewModel.actualizarUsuarioRolLogueado() //Esto actualizará usuarioRol desde Orion
+            //TODO esto de abajo iría en el observer que va a ver que cambie usuarioRol
+            if(usuarioViewModel.usuarioRol.value == "Admin") {
+                var action = ReclamoListFragmentDirections.actionReclamoListFragmentToGestionarReclamos()
+                v.findNavController().navigate(action)
+            }
+            //TODO esto de arriba iría en el observer que va a ver que cambie usuarioRol
         }
     }
 
