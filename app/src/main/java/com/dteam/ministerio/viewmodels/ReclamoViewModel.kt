@@ -37,6 +37,8 @@ class ReclamoViewModel : ViewModel() {
     val storageRef = storage.reference
     var estadoGuardadoOk = MutableLiveData<Boolean>()
 
+    var imgEstadoReclamo = MutableLiveData<Uri>()
+
     init {
         reclamo.value = Reclamo()
     }
@@ -183,6 +185,15 @@ class ReclamoViewModel : ViewModel() {
                 Log.w("Test", "Error al  asignar el Responsable: ", e)
             }
         }
+    }
+
+    fun getImgEstado(){
+        viewModelScope.launch {
+            val gsReference = storage.getReferenceFromUrl("gs://ort-proyectofinal.appspot.com/")
+            val img = gsReference.child("estados").child(reclamo.value!!.estado + ".png").downloadUrl.await()
+            imgEstadoReclamo.value = img
+        }
+
     }
 
     fun getCategoria(): String? {

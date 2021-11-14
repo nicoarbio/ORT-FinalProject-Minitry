@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,7 +51,7 @@ class DetalleReclamoAdmin : Fragment() {
     private lateinit var lblImg: TextView
 
     private lateinit var btnDetalleAgregarObser: Button
-    private lateinit var btnDetalleCancelarReclamo: Button
+    private lateinit var btnDetalleCancelarReclamo: ImageButton
     private lateinit var btnDetalleAsignarResp: Button
 
     private lateinit var txtCerrarReclamo: String
@@ -149,6 +146,14 @@ class DetalleReclamoAdmin : Fragment() {
             txtEstadoReclamo.text = it.estado
             recDetalleObservaciones.adapter = ListaObservacionesAdaper(it.observaciones)
             recImgReclamo.adapter = ImgReclamoAdapter(it.imagenes, requireContext())
+
+            reclamoViewModel.getImgEstado()
+            reclamoViewModel.imgEstadoReclamo.observe(viewLifecycleOwner, Observer {
+                var imgEstado : ImageView =  v.findViewById(R.id.imgEstadoDetalleReclamo)
+                Glide.with(this)
+                    .load(it)
+                    .into(imgEstado)
+            })
 
             if( it.estado == "Cancelado" || it.estado == "Cerrado"){
                 btnDetalleAgregarObser.visibility = View.GONE
