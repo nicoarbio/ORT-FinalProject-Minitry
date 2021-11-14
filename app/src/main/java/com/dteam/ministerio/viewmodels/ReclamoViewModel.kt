@@ -168,7 +168,6 @@ class ReclamoViewModel : ViewModel() {
                 Log.w("Test", "Error al  cancelar el Reclamo: ", e)
             }
         }
-
     }
 
     fun setResponsable(respon: Usuario){
@@ -181,12 +180,9 @@ class ReclamoViewModel : ViewModel() {
                 estadoGuardadoOk.value = true
             } catch (e : Exception){
                 estadoGuardadoOk.value = false
-                Log.d("Test", e.toString())
-                Log.d("Test", respon.toString())
                 Log.w("Test", "Error al  asignar el Responsable: ", e)
             }
         }
-
     }
 
     fun getCategoria(): String? {

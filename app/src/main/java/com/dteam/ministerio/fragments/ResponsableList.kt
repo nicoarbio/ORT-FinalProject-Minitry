@@ -82,8 +82,8 @@ class ResponsableList : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        usuarioViewModel = ViewModelProvider(this).get(UsuarioViewModel::class.java)
-        reclamoViewModel = ViewModelProvider(this).get(ReclamoViewModel::class.java)
+        usuarioViewModel = ViewModelProvider(requireActivity()).get(UsuarioViewModel::class.java)
+        reclamoViewModel = ViewModelProvider(requireActivity()).get(ReclamoViewModel::class.java)
     }
 
     override fun onStart() {
