@@ -8,130 +8,151 @@ android:layout_height="match_parent"
 android:background="@drawable/fondo2"
 tools:context=".fragments.ResponsablePerfil">
 
-<TextView
-    android:id="@+id/lblNombreYApellidoPerfil"
-    android:layout_width="256dp"
-    android:layout_height="61dp"
-    android:layout_marginStart="166dp"
-    android:layout_marginEnd="187dp"
-    android:layout_marginBottom="66dp"
-    android:background="#F8F8F8"
-    android:textSize="24sp"
-    app:layout_constraintBottom_toTopOf="@+id/lblEmailPerfil"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.437"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
+    <TextView
+        android:id="@+id/lblNombreYApellidoPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
 
-<de.hdodenhof.circleimageview.CircleImageView
-    android:id="@+id/imgPerfil"
-    android:layout_width="158dp"
-    android:layout_height="141dp"
-    android:layout_marginStart="141dp"
-    android:layout_marginTop="48dp"
-    android:layout_marginEnd="142dp"
-    android:layout_marginBottom="25dp"
-    app:layout_constraintBottom_toTopOf="@+id/lblNombreYApellidoPerfil"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:src="@tools:sample/avatars" />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:text="Nombre y apellido"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/lblEmailPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
 
-<TextView
-    android:id="@+id/lblEmailPerfil"
-    android:layout_width="277dp"
-    android:layout_height="34dp"
-    android:layout_marginStart="99dp"
-    android:layout_marginTop="-50dp"
-    android:layout_marginEnd="99dp"
-    android:layout_marginBottom="4dp"
-    android:background="#FAFAFA"
-    app:layout_constraintBottom_toTopOf="@+id/lblNombreYApellidoPerfil"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/lblNombreYApellidoPerfil" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgPerfil"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/lblNombreYApellidoPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/outline_account_circle_white"/>
 
-<TextView
-    android:id="@+id/lblTelefonoPerfil"
-    android:layout_width="200dp"
-    android:layout_height="35dp"
-    android:layout_marginEnd="120dp"
-    android:layout_marginBottom="160dp"
-    android:background="#F8F6F6"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/imgTelefono"
-    app:layout_constraintTop_toBottomOf="@+id/lblDireccionPerfil" />
+    <TextView
+        android:id="@+id/lblEmailPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:text="Email del usuario"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imgDni"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblNombreYApellidoPerfil" />
 
-<ImageView
-    android:id="@+id/imgDni"
-    android:layout_width="35dp"
-    android:layout_height="35dp"
-    android:layout_marginStart="80dp"
-    android:layout_marginTop="370dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginBottom="20dp"
-    android:src="@drawable/ic_baseline_accessibility_24"
-    app:layout_constraintBottom_toTopOf="@+id/imgDireccion"
-    app:layout_constraintEnd_toStartOf="@+id/lblDni"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/card_account_details_outline" />
+    <TextView
+        android:id="@+id/lblTelefonoPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="167dp"
+        android:text="Telefono"
+        android:textColor="#F8F8F8"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCerrarSesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toEndOf="@+id/imgTelefono"
+        app:layout_constraintTop_toTopOf="@+id/imgTelefono" />
 
-<ImageView
-    android:id="@+id/imgTelefono"
-    android:layout_width="35dp"
-    android:layout_height="35dp"
-    android:layout_marginStart="80dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginBottom="180dp"
-    android:src="@android:drawable/stat_sys_phone_call"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/lblTelefonoPerfil"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imgDireccion"
-    app:layout_constraintVertical_bias="0.0"
-    app:srcCompat="@drawable/ic_baseline_phone_android_24" />
+    <ImageView
+        android:id="@+id/imgDni"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="17dp"
+        android:src="@drawable/card_account_details_outline"
+        app:layout_constraintBottom_toTopOf="@+id/imgDireccion"
+        app:layout_constraintEnd_toStartOf="@+id/lblDni"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblEmailPerfil" />
 
-<TextView
-    android:id="@+id/lblDireccionPerfil"
-    android:layout_width="200dp"
-    android:layout_height="70dp"
-    android:layout_marginEnd="120dp"
-    android:background="#F8F7F7"
-    app:layout_constraintBottom_toTopOf="@+id/lblTelefonoPerfil"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/imgDireccion"
-    app:layout_constraintTop_toBottomOf="@+id/lblDni" />
+    <ImageView
+        android:id="@+id/imgTelefono"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="254dp"
+        android:src="@drawable/ic_baseline_phone_android_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lblTelefonoPerfil"
+        app:layout_constraintStart_toStartOf="@+id/imgDireccion"
+        app:layout_constraintTop_toBottomOf="@+id/imgDireccion" />
 
-<TextView
-    android:id="@+id/lblDni"
-    android:layout_width="200dp"
-    android:layout_height="35dp"
-    android:layout_marginTop="24dp"
-    android:layout_marginEnd="120dp"
-    android:background="#FDFDFD"
-    app:layout_constraintBottom_toTopOf="@+id/lblDireccionPerfil"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/imgDni"
-    app:layout_constraintTop_toBottomOf="@+id/lblEmailPerfil" />
+    <TextView
+        android:id="@+id/lblDireccionPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="Direccion"
+        android:textColor="#F8F6F6"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imgTelefono"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgDireccion"
+        app:layout_constraintTop_toTopOf="@+id/imgDireccion"
+        app:layout_constraintVertical_bias="0.25" />
 
-<ImageView
-    android:id="@+id/imgDireccion"
-    android:layout_width="35dp"
-    android:layout_height="35dp"
-    android:layout_marginStart="80dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginBottom="24dp"
-    android:src="@drawable/ic_baseline_home_24"
-    app:layout_constraintBottom_toTopOf="@+id/imgTelefono"
-    app:layout_constraintEnd_toStartOf="@+id/lblDireccionPerfil"
-    app:layout_constraintHorizontal_bias="0.55"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imgDni"
-    app:srcCompat="@drawable/ic_baseline_house_24" />
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@color/secundario"
+        android:text="Cerrar Sesion"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgTelefono"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <TextView
+        android:id="@+id/lblDni"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="Dni del usuario"
+        android:textColor="#FAFAFA"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imgDireccion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgDni"
+        app:layout_constraintTop_toTopOf="@+id/imgDni"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <ImageView
+        android:id="@+id/imgDireccion"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/ic_baseline_house_24"
+        app:layout_constraintBottom_toTopOf="@+id/imgTelefono"
+        app:layout_constraintEnd_toStartOf="@+id/lblDireccionPerfil"
+        app:layout_constraintStart_toStartOf="@+id/imgDni"
+        app:layout_constraintTop_toBottomOf="@+id/imgDni"
+        />
 
     <Button
         android:id="@+id/btnEliminarResponsable"
@@ -145,7 +166,8 @@ tools:context=".fragments.ResponsablePerfil">
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnEditarResponsable"
-        app:layout_constraintTop_toBottomOf="@+id/lblTelefonoPerfil" />
+        app:layout_constraintTop_toBottomOf="@+id/lblTelefonoPerfil"
+        app:layout_constraintVertical_bias="0.052" />
 
     <Button
         android:id="@+id/btnEditarResponsable"
@@ -160,6 +182,7 @@ tools:context=".fragments.ResponsablePerfil">
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnEliminarResponsable"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblTelefonoPerfil" />
+        app:layout_constraintTop_toBottomOf="@+id/lblTelefonoPerfil"
+        app:layout_constraintVertical_bias="0.052" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
