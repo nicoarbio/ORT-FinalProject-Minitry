@@ -7,7 +7,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.Retrofit
 import retrofit2.http.*
 
-private const val IP = "192.168.0.11"
+private const val IP = "192.168.0.162"
 private const val BASE_URL = "http://${IP}:1026/v2/"
 
 // Documentación ejemplo Moshi en Retrofit
@@ -43,6 +43,11 @@ interface OrionApiService {
     @POST("entities?options=keyValues")
     suspend fun registrarUsuario(@Body usuario: Usuario)
 
+    @DELETE("entities/{id}")
+    suspend fun eliminarUsuario(@Path("id") UID: String)
+
+    @PATCH("entities/{id}/attrs")
+    suspend fun actualizarUsuario(@Path("id") UID: String, @Body usuario: Usuario)
 
 }
 

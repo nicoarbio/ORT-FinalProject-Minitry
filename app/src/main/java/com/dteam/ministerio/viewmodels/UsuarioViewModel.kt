@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.dteam.ministerio.network.OrionApi
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.rpc.context.AttributeContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
@@ -17,6 +18,8 @@ class UsuarioViewModel : ViewModel() {
     var usuario = MutableLiveData<Usuario>()
     var usuarioRegistadoOk = MutableLiveData<Boolean>()
     var usuarioLogueadoOk = MutableLiveData<Boolean>()
+    var usuarioEliminadoOk = MutableLiveData<Boolean>()
+    var usuarioModificadoOk = MutableLiveData<Boolean>()
     var usuariosResponsables = MutableLiveData<MutableList<Usuario>>()
     var usuarioRol = MutableLiveData<String>()
     var error = String()
@@ -77,10 +80,6 @@ class UsuarioViewModel : ViewModel() {
                 } else {
                     throw Exception("Como si el usuario no existiera. Parametros incorrectos")
                 }
-                //DONE: Guardar el usuario logueado en el mutableLiveData usuario. El UID está en auth.uid
-                //DONE: Verificar rol usuario. Si es Ciudadano NO DEBE dejar loguearlo. Usar la función getRol() declarada mas abajo
-                    //No se usa getRol porque ese mutable live data no tendría valor.
-                    // hay que buscar primero si existe el usuario en orion con ese mail y si es de rol ciudadano
                 usuarioLogueadoOk.value = true
             }catch(e : Exception){
                 error = "Usuario y/o contraseña incorrectos"
@@ -118,6 +117,32 @@ class UsuarioViewModel : ViewModel() {
 
     suspend fun registrarUsuarioOrion() {
         OrionApi.retrofitService.registrarUsuario(usuario.value!!)
+    }
+
+    fun eliminarUsuario(UID: String){ //NO elimina de Firebase (no es necesario). Solo de Orion.
+        viewModelScope.launch {
+            try {
+                OrionApi.retrofitService.eliminarUsuario(UID)
+                usuarioEliminadoOk.value = true
+            }catch (e : Exception){
+                error = "No se pudo eliminar el usuario"
+                usuarioEliminadoOk.value = false
+                Log.d("usuarioViewModel", e.toString())
+            }
+        }
+    }
+
+    fun actualizarUsuario(UID: String, usuarioModificado: Usuario){
+        viewModelScope.launch {
+            try {
+                OrionApi.retrofitService.actualizarUsuario(UID, usuarioModificado)
+                usuarioModificadoOk.value = true
+            }catch (e : Exception){
+                error = "No se pudo modificar el usuario"
+                usuarioModificadoOk.value = false
+                Log.d("usuarioViewModel", e.toString())
+            }
+        }
     }
 
     fun getUsuarioByUID(UID : String) {

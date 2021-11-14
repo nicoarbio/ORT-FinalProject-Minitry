@@ -18,9 +18,11 @@
         <entry key="app/src/main/res/layout/inicio_fragment.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/inicio_responsable_fragment.xml" value="0.21557971014492755" />
         <entry key="app/src/main/res/layout/item_reclamo_list.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/lista_sin_reclamos.xml" value="0.19746376811594202" />
         <entry key="app/src/main/res/layout/log_in_fragment.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/reclamo_list_fragment.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/registro_exitoso_fragment.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/responsable_perfil_fragment.xml" value="0.19746376811594202" />
       </map>
     </option>
   </component>
