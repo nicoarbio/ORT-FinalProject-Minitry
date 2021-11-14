@@ -36,16 +36,10 @@ class UsuarioViewModel : ViewModel() {
 
     fun registrarUsuario(user: Usuario, pwd : String) {
         viewModelScope.launch {
-            var flagOrion = false
-            var uidAuxiliar = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
             try {
-                //autogeneramos un valor de uid que no se repetirá para probar la conexion a orion
-                // ya que se puede borrar un usuario de orion pero no de Firebase
-                user.documentId = uidAuxiliar
-                OrionApi.retrofitService.registrarUsuario(user)
+                OrionApi.retrofitService.verificarConexion()
                 auth!!.createUserWithEmailAndPassword(user.email, pwd).await()
                 user.documentId = auth!!.uid!!
-                OrionApi.retrofitService.eliminarUsuario(uidAuxiliar)
                 OrionApi.retrofitService.registrarUsuario(user)
                 usuario.value = user
                 Log.d("ORION_API", "Usuario registrado correctamente: " + usuario.value.toString())
@@ -53,28 +47,16 @@ class UsuarioViewModel : ViewModel() {
             }catch (e : FirebaseAuthWeakPasswordException){
                 error = "La contraseña debe tener al menos 6 caracteres"
                 usuarioRegistadoOk.value = false
-                flagOrion = true
             }catch (e : FirebaseAuthInvalidCredentialsException){
                 error = "El mail ingresado debe tener un formato válido"
                 usuarioRegistadoOk.value = false
-                flagOrion = true
             }catch (e : FirebaseAuthUserCollisionException) {
                 error = "El mail ingresado ya se encuentra registrado"
                 usuarioRegistadoOk.value = false
-                flagOrion = true
             }catch (e : Exception){
                 error = "Ocurrió un error al registrar el usuario. Vuelva a intentar más tarde"
                 usuarioRegistadoOk.value = false
-                flagOrion = true
                 Log.d("ORION_API", e.toString())
-            }finally {
-                if (flagOrion) {
-                    try {
-                        OrionApi.retrofitService.eliminarUsuario(uidAuxiliar)
-                    } catch (e: Exception) {
-                        Log.d("ORION_API", e.toString())
-                    }
-                }
             }
         }
     }

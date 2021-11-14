@@ -1,6 +1,7 @@
 package com.dteam.ministerio.network
 
 import com.dteam.ministerio.entities.Usuario
+import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response
@@ -49,6 +50,9 @@ interface OrionApiService {
 
     @PATCH("entities/{id}/attrs")
     suspend fun actualizarUsuario(@Path("id") UID: String, @Body usuario: Usuario)
+
+    @GET("/version")
+    suspend fun verificarConexion(): Response<Unit>
 
 }
 
