@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_reclamo_item"
@@ -9,16 +8,16 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:backgroundTintMode="add"
+    app:cardBackgroundColor="@color/primario"
     app:cardCornerRadius="20dp"
     app:cardElevation="8dp"
-    app:cardBackgroundColor="@color/primario"
     app:strokeColor="@color/secundario"
     app:strokeWidth="@dimen/cardview_default_elevation">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="67dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imgEstado"
@@ -38,10 +37,11 @@
             android:id="@+id/imgReclamo"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginStart="16dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -50,14 +50,17 @@
             android:id="@+id/lblCategoriaReclamo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="3dp"
             android:text="Alumbrado"
             android:textColor="@color/white"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lblSubcategoriaReclamo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imgReclamo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.078" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/lblSubcategoriaReclamo"
@@ -66,24 +69,26 @@
             android:text="Reparación de luminaria"
             android:textColor="@color/white"
             android:textSize="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lblDireccion"
             app:layout_constraintEnd_toStartOf="@+id/imgEstado"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/imgReclamo"
-            app:layout_constraintTop_toBottomOf="@+id/lblCategoriaReclamo"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/lblCategoriaReclamo"
+            app:layout_constraintTop_toBottomOf="@+id/lblCategoriaReclamo" />
 
         <TextView
             android:id="@+id/lblDireccion"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Av. Enrique Ocampo 100-124..."
-            android:textSize="8dp"
+            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imgEstado"
-            app:layout_constraintHorizontal_bias="0.103"
-            app:layout_constraintStart_toEndOf="@+id/imgReclamo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/lblSubcategoriaReclamo"
             app:layout_constraintTop_toBottomOf="@+id/lblSubcategoriaReclamo"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

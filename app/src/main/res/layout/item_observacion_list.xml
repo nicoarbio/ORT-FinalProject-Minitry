@@ -15,14 +15,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/lblObsAutor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="6dp"
             android:text="Autor:"
             app:layout_constraintBottom_toTopOf="@+id/lblObsComentario"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,25 +33,24 @@
         <TextView
             android:id="@+id/lblObsComentario"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_height="0dp"
             android:text="Comentario:"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/lblObsAutor" />
+            app:layout_constraintStart_toStartOf="@+id/lblObsAutor"
+            app:layout_constraintTop_toBottomOf="@+id/lblObsAutor" />
 
         <TextView
             android:id="@+id/txtObsFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="20/10/2021"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.952"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lblObsAutor"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -67,9 +66,10 @@
 
         <TextView
             android:id="@+id/txtObsComentario"
-            android:layout_width="wrap_content"
+            android:layout_width="277dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
