@@ -220,9 +220,8 @@ class DetalleReclamoAdmin : Fragment() {
         builder.setView(input)
 
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
-
-            if (validarCampos(input)) {
-                var texto = input.text.toString()
+            var texto = input.text.toString()
+            if (input.length() > 0) {
                 reclamoViewModel.cancelarReclamo(texto)
                 reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                     if(reclamoViewModel.estadoGuardadoOk.value==true){
@@ -236,6 +235,8 @@ class DetalleReclamoAdmin : Fragment() {
                         Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                     }
                 })
+            }else{
+                Snackbar.make(v,"Error, ingrese un motivo de la cancelación", Snackbar.LENGTH_SHORT).show()
             }
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
@@ -247,7 +248,7 @@ class DetalleReclamoAdmin : Fragment() {
         builder.setTitle("Cerrar el Reclamo")
 
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
-            reclamoViewModel.setEstado("Cerrado")
+            reclamoViewModel.cerrarReclamo()
             reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                 if(reclamoViewModel.estadoGuardadoOk.value==true){
                     txtEstadoReclamo.text = reclamoViewModel.getEstado()
@@ -259,17 +260,6 @@ class DetalleReclamoAdmin : Fragment() {
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
-    }
-
-    fun validarCampos(vararg campos:EditText):Boolean{
-        var camposValidos = true
-        for (campo in campos) {
-            if(campo.text.isEmpty()){
-                camposValidos = false
-                campo.error = getString(R.string.campoVacio)
-            }
-        }
-        return camposValidos
     }
 
 }

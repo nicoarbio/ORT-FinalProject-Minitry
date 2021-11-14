@@ -160,13 +160,17 @@ class ReclamoViewModel : ViewModel() {
 
     }
 
-    fun setEstado(estadoNuevo: String){
+    fun cerrarReclamo(){
         viewModelScope.launch {
             try {
                 // obtener el id del reclamo actual en la base de dato
                 val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
-                ref.update("estado", estadoNuevo).await()
-                reclamo.value!!.estado = estadoNuevo
+                ref.update("estado", "Cerrado").await()
+                var obserNuevo = Observacion("Responsable",
+                    "Reclamo Cerrado", getFecha())
+                ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
+                reclamo.value!!.observaciones.add(obserNuevo)
+                reclamo.value!!.estado = "Cerrado"
                 estadoGuardadoOk.value = true
             } catch (e : Exception){
                 estadoGuardadoOk.value = false
