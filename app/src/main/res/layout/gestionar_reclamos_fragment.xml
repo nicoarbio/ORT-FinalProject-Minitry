@@ -27,7 +27,6 @@
         android:id="@+id/btnReclamosPorCategoria"
         android:layout_width="295dp"
         android:layout_height="63dp"
-        android:layout_marginTop="224dp"
         android:background="@drawable/round_corner"
         android:elevation="30dp"
         android:text="Ver reclamos por categoria"
@@ -36,14 +35,13 @@
         app:layout_constraintBottom_toTopOf="@+id/btnReclamosAsignados"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNuevosReclamos"
         app:layout_constraintVertical_bias="0.097" />
 
     <Button
         android:id="@+id/btnReclamosAsignados"
         android:layout_width="295dp"
         android:layout_height="63dp"
-        android:layout_marginTop="324dp"
         android:background="@drawable/round_corner"
         android:elevation="30dp"
         android:text="Reclamos asignados"
@@ -52,7 +50,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnReclamosCerrados"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnReclamosPorCategoria"
         app:layout_constraintVertical_bias="0.108" />
 
     <Button
@@ -62,20 +60,18 @@
         android:background="@drawable/round_corner"
         android:elevation="30dp"
         android:text="Reclamos cancelados"
+
         android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/btnReclamosCerrados"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.785" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnReclamosCerrados"
         android:layout_width="295dp"
         android:layout_height="63dp"
-        android:layout_marginTop="420dp"
-
         android:background="@drawable/round_corner"
         android:elevation="30dp"
         android:text="Reclamos cerrados"
@@ -84,8 +80,8 @@
         app:layout_constraintBottom_toTopOf="@+id/btnReclamosCancelados"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReclamosAsignados"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
