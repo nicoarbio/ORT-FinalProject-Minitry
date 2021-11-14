@@ -3,6 +3,7 @@ package com.dteam.ministerio.network
 import com.dteam.ministerio.entities.Usuario
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Response
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.Retrofit
 import retrofit2.http.*
@@ -44,7 +45,7 @@ interface OrionApiService {
     suspend fun registrarUsuario(@Body usuario: Usuario)
 
     @DELETE("entities/{id}")
-    suspend fun eliminarUsuario(@Path("id") UID: String)
+    suspend fun eliminarUsuario(@Path("id") UID: String) : Response<Unit>
 
     @PATCH("entities/{id}/attrs")
     suspend fun actualizarUsuario(@Path("id") UID: String, @Body usuario: Usuario)
