@@ -24,7 +24,6 @@ class ResponsablePerfil : Fragment() {
     private lateinit var txtNombreApellido : TextView
     private lateinit var txtEmail : TextView
     private lateinit var txtDni : TextView
-    private lateinit var txtDireccion : TextView
     private lateinit var txtTelefono : TextView
     private lateinit var btnEditarResponsable : Button
     private lateinit var btnEliminarResponsable : Button
@@ -39,7 +38,6 @@ class ResponsablePerfil : Fragment() {
         txtNombreApellido = v.findViewById(R.id.lblNombreYApellidoPerfil)
         txtEmail = v.findViewById(R.id.lblEmailPerfil)
         txtDni = v.findViewById(R.id.lblDni)
-        txtDireccion = v.findViewById(R.id.lblDireccionPerfil)
         txtTelefono = v.findViewById(R.id.lblTelefonoPerfil)
         btnEditarResponsable = v.findViewById(R.id.btnEditarResponsable)
         btnEliminarResponsable = v.findViewById(R.id.btnEliminarResponsable)
@@ -79,7 +77,6 @@ class ResponsablePerfil : Fragment() {
     fun setObserver(){
         usuarioViewModel.usuario.observe(viewLifecycleOwner, Observer {
             txtNombreApellido.text = it.nombre +" "+it.apellido
-            txtDireccion.text = it.direccion
             txtTelefono.text = it.telefono
             txtDni.text = it.dni
             txtEmail.text = it.email
