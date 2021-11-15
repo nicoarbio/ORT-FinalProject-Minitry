@@ -124,10 +124,10 @@ class UsuarioViewModel : ViewModel() {
         }
     }
 
-    fun actualizarUsuario(UID: String, usuarioModificado: Usuario){
+    fun actualizarUsuario(usuarioModificado: Usuario){
         viewModelScope.launch {
             try {
-                OrionApi.retrofitService.actualizarUsuario(UID, usuarioModificado)
+                OrionApi.retrofitService.actualizarUsuario(auth!!.uid!!, usuarioModificado)
                 usuarioModificadoOk.value = true
             }catch (e : Exception){
                 error = "No se pudo modificar el usuario"

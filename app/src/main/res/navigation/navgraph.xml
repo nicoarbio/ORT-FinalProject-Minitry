@@ -124,4 +124,18 @@
             android:id="@+id/action_inicio_to_logIn"
             app:destination="@id/logIn" />
     </fragment>
+    <fragment
+        android:id="@+id/editarResponsable"
+        android:name="com.dteam.ministerio.fragments.EditarResponsable"
+        android:label="editar_responsable_fragment"
+        tools:layout="@layout/editar_responsable_fragment" >
+        <action
+            android:id="@+id/action_editarResponsable_to_responsablePerfil2"
+            app:destination="@id/responsablePerfil2" />
+    </fragment>
+    <fragment
+        android:id="@+id/responsablePerfil2"
+        android:name="com.dteam.ministerio.fragments.ResponsablePerfil"
+        android:label="responsable_perfil_fragment"
+        tools:layout="@layout/responsable_perfil_fragment" />
 </navigation>
