@@ -24,7 +24,7 @@ class ReclamoViewModel : ViewModel() {
 
     val db = Firebase.firestore
     private var reclamoList : MutableList<Reclamo> = mutableListOf()
-    val listadoReclamos = MutableLiveData<MutableList<Reclamo>>()
+    val listadoReclamos = SingleLiveEvent<MutableList<Reclamo>>()
     val reclamosFiltrados = SingleLiveEvent<MutableList<Reclamo>>()
     var reclamo = SingleLiveEvent<Reclamo>()
 
@@ -112,6 +112,7 @@ class ReclamoViewModel : ViewModel() {
                 ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
                 reclamo.value!!.observaciones.add(obserNuevo)
                 reclamo.value!!.estado = "Cancelado"
+                reclamo.value = reclamo.value!!
                 estadoGuardadoOk.value = true
             } catch (e : Exception){
                 estadoGuardadoOk.value = false
