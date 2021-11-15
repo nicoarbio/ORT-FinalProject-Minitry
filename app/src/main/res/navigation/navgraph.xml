@@ -23,13 +23,15 @@
         tools:layout="@layout/reclamo_list_fragment">
         <argument
             android:name="estadoReclamo"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_reclamoListFragment_to_detalleReclamoAdmin"
             app:destination="@id/detalleReclamoAdmin" />
         <argument
             android:name="subcategoria"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_reclamoListFragment_to_logIn"
             app:destination="@id/logIn" />
@@ -122,6 +124,15 @@
             app:destination="@id/reclamoListFragment" />
         <action
             android:id="@+id/action_inicio_to_logIn"
+            app:destination="@id/logIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/responsablePerfil"
+        android:name="com.dteam.ministerio.fragments.ResponsablePerfil"
+        android:label="responsable_perfil_fragment"
+        tools:layout="@layout/responsable_perfil_fragment" >
+        <action
+            android:id="@+id/action_responsablePerfil_to_logIn"
             app:destination="@id/logIn" />
     </fragment>
 </navigation>

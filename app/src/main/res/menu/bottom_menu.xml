@@ -3,7 +3,7 @@
 
     <item android:title="Reclamos"
         android:icon="@drawable/outline_list_alt_white_48dp"
-        android:id="@+id/listaReclamos"
+        android:id="@+id/reclamoListFragment"
         />
 
     <item android:title="Inicio"
