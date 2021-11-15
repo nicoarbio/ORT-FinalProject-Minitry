@@ -56,7 +56,7 @@ class EditarResponsable : Fragment() {
                 usuarioViewModel.actualizarUsuario(usuario)
                 usuarioViewModel.usuarioModificadoOk.observe(viewLifecycleOwner, Observer { list ->
                     if (usuarioViewModel.usuarioModificadoOk.value == true){
-                        val action = EditarResponsableDirections.actionEditarResponsableToResponsablePerfil2()
+                        val action = EditarResponsableDirections.actionEditarResponsableToResponsablePerfil2(null)
                         v.findNavController().navigate(action)
                     }
                     else{

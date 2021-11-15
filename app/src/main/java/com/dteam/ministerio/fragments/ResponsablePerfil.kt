@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.dteam.ministerio.R
+import com.dteam.ministerio.entities.Usuario
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
 
 class ResponsablePerfil : Fragment() {
@@ -28,6 +29,8 @@ class ResponsablePerfil : Fragment() {
     private lateinit var btnEditarResponsable : Button
     private lateinit var btnEliminarResponsable : Button
     private lateinit var btnCerrarSesion : Button
+
+    private var rol: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,8 +73,29 @@ class ResponsablePerfil : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        usuarioViewModel.actualizarUsuarioLogueado()
-        setObserver()
+
+        try {
+            rol = ResponsablePerfilArgs.fromBundle(requireArguments()).rol
+        } catch (e:Exception) {
+            rol = null
+        }
+
+        if (rol == null) {
+            //Admin
+            usuarioViewModel.actualizarUsuarioLogueado()
+            setObserver()
+            btnEditarResponsable.visibility = View.GONE
+            btnEliminarResponsable.visibility = View.GONE
+        } else {
+            //Responsable
+            val responsable : Usuario = usuarioViewModel.usuario.value!!
+            txtNombreApellido.text = responsable.nombre +" "+responsable.apellido
+            txtTelefono.text = responsable.telefono
+            txtDni.text = responsable.dni
+            txtEmail.text = responsable.email
+        }
+
+
     }
 
     fun setObserver(){

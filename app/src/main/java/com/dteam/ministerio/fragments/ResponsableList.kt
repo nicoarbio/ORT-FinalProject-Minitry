@@ -116,9 +116,8 @@ class ResponsableList : Fragment() {
             showdialogAsignarRespon(respon)
         } else {
             usuarioViewModel.usuario.value = respon
-            // TODO: traer el perfil de usuario de ciudadanos para hacer este action
-            //val actionToPerfil = ResponsableListDirections.actionResponsableListTo PerfilResponsable()
-            //v.findNavController().navigate(actionToPerfil)
+            val actionToPerfil = ResponsableListDirections.actionResponsableListToResponsablePerfil(respon.rol)
+            v.findNavController().navigate(actionToPerfil)
         }
     }
 

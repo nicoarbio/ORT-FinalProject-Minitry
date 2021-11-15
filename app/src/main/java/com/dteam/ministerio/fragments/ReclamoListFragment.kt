@@ -102,7 +102,7 @@ class ReclamoListFragment : Fragment() {
     }
 
     fun onItemClick(pos: Int){
-        val reclamo = reclamoViewModel.listadoReclamos.value?.get(pos)
+        val reclamo = reclamoViewModel.reclamosFiltrados.value?.get(pos)
         reclamoViewModel.reclamo.value = reclamo
         val actionToDetalle = ReclamoListFragmentDirections.actionReclamoListFragmentToDetalleReclamoAdmin()
         v.findNavController().navigate(actionToDetalle)
