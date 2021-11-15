@@ -2,16 +2,8 @@ package com.dteam.ministerio.viewmodels
 
 import android.net.Uri
 import android.util.Log
-import android.view.View
-import androidx.core.net.toUri
 import androidx.lifecycle.*
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.dteam.ministerio.R
 import com.dteam.ministerio.SingleLiveEvent
-import com.google.android.material.snackbar.Snackbar
-import com.dteam.ministerio.entities.Subcategoria
 import com.dteam.ministerio.entities.Observacion
 import com.dteam.ministerio.entities.Reclamo
 import com.dteam.ministerio.entities.Usuario
@@ -23,22 +15,20 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.math.log
 
 class ReclamoViewModel : ViewModel() {
 
     val db = Firebase.firestore
     private var reclamoList : MutableList<Reclamo> = mutableListOf()
-    val listadoReclamos = SingleLiveEvent<MutableList<Reclamo>>()
+    val listadoReclamos = MutableLiveData<MutableList<Reclamo>>()
+    val reclamosFiltrados = SingleLiveEvent<MutableList<Reclamo>>()
     var reclamo = SingleLiveEvent<Reclamo>()
 
     val storage = FirebaseStorage.getInstance()
-    val storageRef = storage.reference
     var estadoGuardadoOk = SingleLiveEvent<Boolean>()
 
     var imgEstadoReclamo = SingleLiveEvent<Uri>()
@@ -47,47 +37,18 @@ class ReclamoViewModel : ViewModel() {
         reclamo.value = Reclamo()
     }
 
-    fun generarReclamo(reclamoNuevo : Reclamo, imagenes:List<Uri>):Boolean {
-        var reclamoGenerado = true
-        try {
-            viewModelScope.launch {
-                var uploadTask: UploadTask
-                for (img in imagenes) {
-                    val imgReclamo = storageRef.child("reclamos/${img.lastPathSegment}")
-                    uploadTask = imgReclamo.putFile(img)
-                    uploadTask.await()
-                    if (uploadTask.isSuccessful()) {
-                        var url = storageRef.child("reclamos/${img.lastPathSegment}").downloadUrl.await()
-                        reclamoNuevo.imagenes.add(url.toString())
-                    }
-
-                    Log.d("test", "Dentro task succesful: " + reclamoNuevo.toString())
-                }
-                Log.d("test", "Fuera de scope: " + reclamoNuevo.toString())
-                reclamo.value=reclamoNuevo
-                db.collection("reclamos")
-                    .add(reclamoNuevo)
-            }
-
-        } catch (e: Exception) {
-                Log.d("Test", "Error al generar reclamo: " + e)
-                reclamoGenerado = false
-            }
-        return reclamoGenerado
-    }
-
     fun getReclamos() {
          viewModelScope.launch {
              reclamoList.clear()
              try {
                  val reclamos = db.collection("reclamos")
-                     .whereEqualTo("usuario", "UID_DEL_USUARIO") //TODO: Acá poner el UID del usuario logueado!
                      .get()
                      .await()
                  if (reclamos != null) {
                      for (reclamo in reclamos) {
                          reclamoList.add(reclamo.toObject())
                      }
+
                      listadoReclamos.value =  reclamoList
                  }
              }catch (e: Exception){
@@ -96,53 +57,12 @@ class ReclamoViewModel : ViewModel() {
          }
     }
 
-    fun getReclamosPorEstado(estadoReclamo : String, responsableUID : String?) {
-        viewModelScope.launch {
-            reclamoList.clear()
-            try {
-                var reclamos : QuerySnapshot
-                if(responsableUID==null){
-                    reclamos = db.collection("reclamos")
-                        .whereEqualTo("estado", estadoReclamo)
-                        .get()
-                        .await()
-                }else{
-                    reclamos = db.collection("reclamos")
-                        .whereEqualTo("estado", estadoReclamo)
-                        .whereEqualTo("responsable", responsableUID)
-                        .get()
-                        .await()
-                }
+    inline infix fun <T> T?.isNullOr(predicate: (T) -> Boolean): Boolean = if (this != null) predicate(this) else true
 
-                if (reclamos != null) {
-                    for (reclamo in reclamos) {
-                        reclamoList.add(reclamo.toObject())
-                    }
-                    listadoReclamos.value =  reclamoList
-                }
-            }catch (e: Exception){
-                Log.w("Test", "Error al obtener documentos: ", e)
-            }
-        }
-    }
-    fun getReclamosPorCateg(subcateg : String) {
-        viewModelScope.launch {
-            reclamoList.clear()
-            try {
-                val reclamos = db.collection("reclamos")
-                    .whereEqualTo("subCategoria", subcateg)//TODO: Acá poner el UID del usuario logueado!
-                    .get()
-                    .await()
-                if (reclamos != null) {
-                    for (reclamo in reclamos) {
-                        reclamoList.add(reclamo.toObject())
-                    }
-                    listadoReclamos.value =  reclamoList
-                }
-            }catch (e: Exception){
-                Log.w("Test", "Error al obtener documentos: ", e)
-            }
-        }
+    fun filtrarReclamos(responsable: String?, estado: String?, subCategoria: String?){
+        reclamosFiltrados.value = reclamoList.filter { reclamo ->
+            responsable isNullOr{reclamo.responsable==it} && estado isNullOr{reclamo.estado==it} && subCategoria isNullOr{reclamo.subCategoria==it}
+        } as MutableList<Reclamo>
     }
 
     fun agregarObser(obserNuevo: Observacion) {
@@ -187,7 +107,7 @@ class ReclamoViewModel : ViewModel() {
                 val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
                 ref.update("estado", "Cancelado").await()
                 var obserNuevo = Observacion("Ministerio",
-                    "Tu reclamo ha sido cancelado, motivo: $motivo", getFecha())
+                    "Tu reclamo ha sido cancelado. Motivo: $motivo", getFecha())
                 ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
                 reclamo.value!!.observaciones.add(obserNuevo)
                 reclamo.value!!.estado = "Cancelado"
@@ -198,8 +118,6 @@ class ReclamoViewModel : ViewModel() {
             }
         }
     }
-
-
 
     fun setResponsable(respon: Usuario){
         viewModelScope.launch {

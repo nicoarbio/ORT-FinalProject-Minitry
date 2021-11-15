@@ -52,8 +52,8 @@ class Inicio : Fragment() {
             btn1.text = "Nuevos Reclamos"
             btn2.text = "Reclamos Cerrados"
 
-            actionBtn1 = InicioDirections.actionInicioToReclamoListFragment("Asignado", "")
-            actionBtn2 = InicioDirections.actionInicioToReclamoListFragment("Cerrado", "")
+            actionBtn1 = InicioDirections.actionInicioToReclamoListFragment("Asignado", null)
+            actionBtn2 = InicioDirections.actionInicioToReclamoListFragment("Cerrado", null)
         }
 
         btn1.setOnClickListener{

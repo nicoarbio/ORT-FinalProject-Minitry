@@ -60,15 +60,19 @@ class ReclamoListFragment : Fragment() {
         estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
         subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
 
-        reclamoAdapter = ReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
 
+
+        reclamoAdapter = ReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
         setObserver()
 
-        usuarioViewModel.actualizarUsuarioRolLogueado()
+        reclamoViewModel.getReclamos()
+        reclamoViewModel.listadoReclamos.observe(viewLifecycleOwner, Observer { list ->
+            usuarioViewModel.actualizarUsuarioRolLogueado()
+        })
     }
 
     fun setObserver(){
-        reclamoViewModel.listadoReclamos.observe(viewLifecycleOwner, Observer { list ->
+        reclamoViewModel.reclamosFiltrados.observe(viewLifecycleOwner, Observer { list ->
             if (list.size == 0) {
                 //TODO mostrarMensajeError()
                 Log.d("Test","No trajo ningun reclamo")
@@ -81,10 +85,10 @@ class ReclamoListFragment : Fragment() {
         usuarioViewModel.usuarioRol.observe(viewLifecycleOwner, Observer { rol ->
             when(rol) {
                 "Admin" -> {
-                    usuarioViewModel.filtrarReclamos(null, estadoReclamo, subcateg)
+                    reclamoViewModel.filtrarReclamos(null, estadoReclamo, subcateg)
                 }
                 "Responsable" -> {
-                    usuarioViewModel.filtrarReclamos(usuarioViewModel.obtenerUsuarioLogueado()!!.uid, estadoReclamo, subcateg)
+                    reclamoViewModel.filtrarReclamos(usuarioViewModel.obtenerUsuarioLogueado()!!.uid, estadoReclamo, subcateg)
                 }
             }
         })
