@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.dteam.ministerio.R
@@ -40,21 +41,7 @@ class Inicio : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        // TODO: Ejecutar la actualización del usuario logueado y hacer un observer que vea "usuarioRol"
-        //if (usuarioViewModel.getRol()=="Admin"){
-        //TODO get rol
-        if ("Admin"=="Admin"){
-            btn1.text = "Gestionar Reclamos"
-            btn2.text = "Administrar responsables"
-            actionBtn1 = InicioDirections.actionInicioToGestionarReclamos()
-            actionBtn2 = InicioDirections.actionInicioToResponsableList("")
-        }else{ //Si no es Admin, es responsable porque los Ciudadanos no pueden loguearse.
-            btn1.text = "Nuevos Reclamos"
-            btn2.text = "Reclamos Cerrados"
 
-            actionBtn1 = InicioDirections.actionInicioToReclamoListFragment("Asignado", null)
-            actionBtn2 = InicioDirections.actionInicioToReclamoListFragment("Cerrado", null)
-        }
 
         btn1.setOnClickListener{
             v.findNavController().navigate(actionBtn1)
@@ -64,7 +51,10 @@ class Inicio : Fragment() {
             v.findNavController().navigate(actionBtn2)
         }
 
+        setObserver()
+        usuarioViewModel.actualizarUsuarioRolLogueado()
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         usuarioViewModel = ViewModelProvider(requireActivity()).get(UsuarioViewModel::class.java)
@@ -72,6 +62,22 @@ class Inicio : Fragment() {
             var action = InicioDirections.actionInicioToLogIn()
             v.findNavController().navigate(action)
         }
+    }
+
+    fun setObserver() {
+        usuarioViewModel.usuarioRol.observe(viewLifecycleOwner, Observer {
+            if (it == "Admin"){
+                btn1.text = "Gestionar Reclamos"
+                btn2.text = "Administrar responsables"
+                actionBtn1 = InicioDirections.actionInicioToGestionarReclamos()
+                actionBtn2 = InicioDirections.actionInicioToResponsableList("")
+            }else{ //Si no es Admin, es responsable porque los Ciudadanos no pueden loguearse.
+                btn1.text = "Nuevos Reclamos"
+                btn2.text = "Reclamos Cerrados"
+                actionBtn1 = InicioDirections.actionInicioToReclamoListFragment("Asignado", null)
+                actionBtn2 = InicioDirections.actionInicioToReclamoListFragment("Cerrado", null)
+            }
+        })
     }
 
 }

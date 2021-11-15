@@ -84,28 +84,6 @@ class DetalleReclamoAdmin : Fragment() {
         btnDetalleAsignarResp = v.findViewById(R.id.btnDetalleAsignarResp)
         btnDetalleCancelarReclamo = v.findViewById(R.id.btnDetalleCancelarReclamo)
 
-        // TODO: observer al rol de usuario
-        //get rol responsable
-        //if( usuarioViewModel.getRol() == "Admin"){
-        //TODO get rol
-        if( "Admin" == "Admin"){
-            btnDetalleAsignarResp.setOnClickListener{
-                val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
-                v.findNavController().navigate(actionToListaRespon)
-            }
-
-            btnDetalleCancelarReclamo.setOnClickListener{
-                showdialogCancelarReclamo()
-            }
-        }else{
-            btnDetalleCancelarReclamo.visibility = View.GONE
-            txtCerrarReclamo = "CERRAR RECLAMO"
-            btnDetalleAsignarResp.text = txtCerrarReclamo
-            btnDetalleAsignarResp.setOnClickListener{
-                showdialogCerrarReclamo()
-            }
-        }
-
         return v
     }
 
@@ -127,7 +105,6 @@ class DetalleReclamoAdmin : Fragment() {
             .load(imgReclamo)
             .into(imgDetalleCategoria)
 
-
         recImgReclamo.setHasFixedSize(true)
         recImgReclamo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -135,6 +112,7 @@ class DetalleReclamoAdmin : Fragment() {
         recDetalleObservaciones.layoutManager = LinearLayoutManager(context)
 
         setObserver()
+        usuarioViewModel.actualizarUsuarioRolLogueado()
     }
 
     fun setObserver(){
@@ -170,6 +148,27 @@ class DetalleReclamoAdmin : Fragment() {
             if(it.imagenes.size ==0){
                 lblImg.visibility = View.GONE
                 recImgReclamo.visibility = View.GONE
+            }
+        })
+
+
+        usuarioViewModel.usuarioRol.observe(viewLifecycleOwner, Observer {
+            if (it == "Admin") {
+                btnDetalleAsignarResp.setOnClickListener{
+                    val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
+                    v.findNavController().navigate(actionToListaRespon)
+                }
+
+                btnDetalleCancelarReclamo.setOnClickListener{
+                    showdialogCancelarReclamo()
+                }
+            } else {
+                txtCerrarReclamo = "CERRAR RECLAMO"
+                btnDetalleAsignarResp.text = txtCerrarReclamo
+                btnDetalleAsignarResp.setOnClickListener{
+                    showdialogCerrarReclamo()
+                }
+                btnDetalleCancelarReclamo.visibility = View.GONE
             }
         })
     }
