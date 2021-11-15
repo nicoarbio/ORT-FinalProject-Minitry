@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.Retrofit
 import retrofit2.http.*
 
-private const val IP = "192.168.0.162"
+private const val IP = "190.247.194.64" //IP Publica Nico
 private const val BASE_URL = "http://${IP}:1026/v2/"
 
 // Documentación ejemplo Moshi en Retrofit
