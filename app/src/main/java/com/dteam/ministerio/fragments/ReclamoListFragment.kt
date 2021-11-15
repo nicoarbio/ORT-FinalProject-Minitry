@@ -2,6 +2,7 @@ package com.dteam.ministerio.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,9 @@ class ReclamoListFragment : Fragment() {
     private lateinit var listadoReclamos: RecyclerView
     private lateinit var reclamoAdapter: ReclamoAdapter
 
+    var estadoReclamo : String? = null
+    var subcateg : String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,14 +49,6 @@ class ReclamoListFragment : Fragment() {
         if(usuarioViewModel.obtenerUsuarioLogueado()==null){
             var action = ReclamoListFragmentDirections.actionReclamoListFragmentToLogIn()
             v.findNavController().navigate(action)
-        } else {
-            usuarioViewModel.actualizarUsuarioRolLogueado() //Esto actualizará usuarioRol desde Orion
-            //TODO esto de abajo iría en el observer que va a ver que cambie usuarioRol
-            if(usuarioViewModel.usuarioRol.value == "Admin") {
-                var action = ReclamoListFragmentDirections.actionReclamoListFragmentToGestionarReclamos()
-                v.findNavController().navigate(action)
-            }
-            //TODO esto de arriba iría en el observer que va a ver que cambie usuarioRol
         }
     }
 
@@ -60,29 +56,37 @@ class ReclamoListFragment : Fragment() {
         super.onStart()
         listadoReclamos.setHasFixedSize(true)
         listadoReclamos.layoutManager = LinearLayoutManager(context)
-        val estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
-        val subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
-        //if (usuarioViewModel.getRol()=="Admin"){
-        //TODO get rol
-        if ("Admin"=="Admin"){
-            if(subcateg == ""){
-                reclamoViewModel.getReclamosPorEstado(estadoReclamo, null)
-            }else{
-                reclamoViewModel.getReclamosPorCateg(subcateg)
-            }
-        }else
-        {
-            reclamoViewModel.getReclamosPorEstado(estadoReclamo, usuarioViewModel.obtenerUsuarioLogueado()!!.uid)
-        }
 
+        estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
+        subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
 
         reclamoAdapter = ReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
+
         setObserver()
+
+        usuarioViewModel.actualizarUsuarioRolLogueado()
     }
+
     fun setObserver(){
         reclamoViewModel.listadoReclamos.observe(viewLifecycleOwner, Observer { list ->
-            reclamoAdapter = ReclamoAdapter(list, requireContext()) { pos -> onItemClick(pos) }
-            listadoReclamos.adapter = reclamoAdapter
+            if (list.size == 0) {
+                //TODO mostrarMensajeError()
+                Log.d("Test","No trajo ningun reclamo")
+            } else {
+                reclamoAdapter = ReclamoAdapter(list, requireContext()) { pos -> onItemClick(pos) }
+                listadoReclamos.adapter = reclamoAdapter
+            }
+        })
+
+        usuarioViewModel.usuarioRol.observe(viewLifecycleOwner, Observer { rol ->
+            when(rol) {
+                "Admin" -> {
+                    usuarioViewModel.filtrarReclamos(null, estadoReclamo, subcateg)
+                }
+                "Responsable" -> {
+                    usuarioViewModel.filtrarReclamos(usuarioViewModel.obtenerUsuarioLogueado()!!.uid, estadoReclamo, subcateg)
+                }
+            }
         })
     }
 

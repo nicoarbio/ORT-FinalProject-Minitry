@@ -65,7 +65,7 @@ class SubcategoriaReclamoList : Fragment() {
         val subCategoria = categoriaViewModel.listadoSubcategoria.value?.get(pos)?.nombre
         var subcateg:String =  subCategoria.toString()
 
-        val action = SubcategoriaReclamoListDirections.actionSubcategoriaReclamoListToReclamoListFragment("",subcateg)
+        val action = SubcategoriaReclamoListDirections.actionSubcategoriaReclamoListToReclamoListFragment(null,subcateg)
         v.findNavController().navigate(action)
     }
 
