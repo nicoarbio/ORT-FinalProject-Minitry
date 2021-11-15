@@ -39,6 +39,10 @@ class ReclamoAdapter (var reclamoList : MutableList <Reclamo>,
             var lblDireccion: TextView = view.findViewById(R.id.lblDireccion)
             lblDireccion.text = direccion
         }
+        fun setEstado(estado:String){
+            var lblEstado: TextView = view.findViewById(R.id.lblItemEstado)
+            lblEstado.text = estado
+        }
         fun getCardView() : CardView {
             return view.findViewById(R.id.card_reclamo_item)
         }
@@ -59,6 +63,7 @@ class ReclamoAdapter (var reclamoList : MutableList <Reclamo>,
         holder.setCategoria(reclamoList[position].categoria)
         holder.setSubCategoria(reclamoList[position].subCategoria)
         holder.setDireccion(reclamoList[position].direccion)
+        holder.setEstado(reclamoList[position].estado)
 
         val storage = FirebaseStorage.getInstance()// Create a reference to a file from a Google Cloud Storage URI
         val gsReference = storage.getReferenceFromUrl("gs://ort-proyectofinal.appspot.com/")
