@@ -130,6 +130,7 @@ class ReclamoViewModel : ViewModel() {
                 ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
                 reclamo.value!!.observaciones.add(obserNuevo)
                 reclamo.value!!.estado = "Asignado"
+                reclamo.value = reclamo.value!!
                 estadoGuardadoOk.value = true
             } catch (e : Exception){
                 estadoGuardadoOk.value = false
