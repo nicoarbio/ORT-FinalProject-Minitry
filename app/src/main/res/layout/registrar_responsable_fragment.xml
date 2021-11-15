@@ -5,8 +5,8 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.RegistrarResponsable"
-    android:background="@drawable/fondo1">
+    android:background="@color/white"
+    tools:context=".fragments.RegistrarResponsable">
 
     <EditText
         android:id="@+id/editDni"
@@ -65,7 +65,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:text="Ingrese sus datos"
-        android:textColor="@color/black"
+        android:textColor="@color/primario"
+        android:textStyle="bold"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,19 +92,40 @@
         app:layout_constraintTop_toBottomOf="@+id/txtIngreseDatos"
         app:layout_constraintVertical_bias="0.0" />
 
+    <ImageView
+        android:id="@+id/imgAdvertencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/warning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lblAdvertencia"
+        app:layout_constraintTop_toBottomOf="@+id/ediEmail"
+        app:layout_constraintBottom_toTopOf="@+id/btnReg2"/>
+
+    <TextView
+        android:id="@+id/lblAdvertencia"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="#FF0000"
+        android:text="Por motivos de seguridad al generar un nuevo responsable deberá volver a iniciar sesión"
+        app:layout_constraintBottom_toTopOf="@+id/btnReg2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgAdvertencia"
+        app:layout_constraintTop_toBottomOf="@+id/ediEmail"></TextView>
+
     <Button
         android:id="@+id/btnReg2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/secundario"
+        android:padding="10dp"
         android:text="Registrar Responsable"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.836" />
+        app:layout_constraintTop_toBottomOf="@id/imgAdvertencia" />
 
     <TextView
         android:id="@+id/textView27"
@@ -111,7 +133,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:text="Nombre"
-        android:textColor="@color/black"
+        android:textColor="@color/primario"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -126,7 +149,8 @@
         android:layout_marginTop="64dp"
         android:background="@color/white"
         android:text="Apellido"
-        android:textColor="@color/black"
+        android:textColor="@color/primario"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -140,7 +164,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:text="DNI"
-        android:textColor="@color/black"
+        android:textColor="@color/primario"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -154,7 +179,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:text="Correo Electrónico"
-        android:textColor="@color/black"
+        android:textColor="@color/primario"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"

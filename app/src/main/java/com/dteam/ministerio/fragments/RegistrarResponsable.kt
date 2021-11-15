@@ -1,7 +1,10 @@
 package com.dteam.ministerio.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +14,13 @@ import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.dteam.ministerio.R
+import com.dteam.ministerio.adapters.ListaObservacionesAdaper
+import com.dteam.ministerio.entities.Observacion
 import com.dteam.ministerio.entities.Usuario
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class RegistrarResponsable : Fragment() {
 
@@ -52,20 +59,37 @@ class RegistrarResponsable : Fragment() {
                     txtEmail.text.toString()
                 )
                 var password = txtDni.text.toString()
-                usuarioViewModel.registrarUsuario(usuario, password)
-                usuarioViewModel.usuarioRegistadoOk.observe(viewLifecycleOwner, Observer { list ->
-                    if (usuarioViewModel.usuarioRegistadoOk.value == true){
-                        val action = RegistrarResponsableDirections.actionRegistrarResponsableToRegistroExitoso()
-                            v.findNavController().navigate(action)
-                    }
-                    else{
-                        Snackbar.make(v, usuarioViewModel.error, Snackbar.LENGTH_SHORT).show()
-                    }
-                })
+                registrarResponsable(usuario, password)
             }
         }
 
         return v
+    }
+
+    fun registrarResponsable(usuario:Usuario, password:String){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Registrar responsable")
+        builder.setMessage("¿Desea confirmar el registro del responsable con mail ${usuario.email} ?")
+        builder.setPositiveButton("Si") { dialogInterface: DialogInterface, i: Int ->
+            usuarioViewModel.registrarUsuario(usuario, password)
+            usuarioViewModel.usuarioRegistadoOk.observe(viewLifecycleOwner, Observer { list ->
+                if (usuarioViewModel.usuarioRegistadoOk.value == true){
+                    usuarioViewModel.cerrarSesion()
+                    Snackbar.make(v,"Responsable registrado exitosamente", Snackbar.LENGTH_SHORT).show()
+                    val action = RegistrarResponsableDirections.actionRegistrarResponsableToLogIn()
+                    v.findNavController().navigate(action)
+                }
+                else{
+                    Snackbar.make(v, usuarioViewModel.error, Snackbar.LENGTH_SHORT).show()
+                }
+            })
+
+        }
+        builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+
+        }
+        builder.show()
+
     }
 
     fun validarCampos(vararg campos:EditText):Boolean{

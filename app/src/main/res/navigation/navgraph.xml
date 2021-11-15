@@ -93,6 +93,9 @@
         <action
             android:id="@+id/action_registrarResponsable_to_registroExitoso"
             app:destination="@id/registroExitoso" />
+        <action
+            android:id="@+id/action_registrarResponsable_to_LogIn"
+            app:destination="@id/logIn" />
     </fragment>
     <fragment
         android:id="@+id/registroExitoso"
