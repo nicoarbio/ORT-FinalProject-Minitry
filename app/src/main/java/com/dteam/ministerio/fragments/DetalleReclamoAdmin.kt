@@ -55,6 +55,9 @@ class DetalleReclamoAdmin : Fragment() {
     private lateinit var btnDetalleAsignarResp: Button
 
     private lateinit var txtCerrarReclamo: String
+
+    private var rolUser : String? = null //Contiene el rol
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -116,7 +119,31 @@ class DetalleReclamoAdmin : Fragment() {
     }
 
     fun setObserver(){
+        usuarioViewModel.usuarioRol.observe(viewLifecycleOwner, Observer {
+            rolUser = it
+            if (it == "Admin") {
+
+                btnDetalleAsignarResp.setOnClickListener{
+                    val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
+                    v.findNavController().navigate(actionToListaRespon)
+                }
+
+                btnDetalleCancelarReclamo.setOnClickListener{
+                    showdialogCancelarReclamo()
+                }
+
+            } else {
+                txtCerrarReclamo = "CERRAR RECLAMO"
+                btnDetalleAsignarResp.text = txtCerrarReclamo
+                btnDetalleAsignarResp.setOnClickListener{
+                    showdialogCerrarReclamo()
+                }
+                btnDetalleCancelarReclamo.visibility = View.GONE
+            }
+        })
+
         reclamoViewModel.reclamo.observe(viewLifecycleOwner, Observer {
+
             txtDetalleCategoria.text = it.categoria
             txtDetalleSubCategoria.text = it.subCategoria
             txtDetalleDireccion.text = it.direccion
@@ -134,17 +161,14 @@ class DetalleReclamoAdmin : Fragment() {
             })
 
             if( it.estado == "Cancelado" || it.estado == "Cerrado"){
+
                 btnDetalleAgregarObser.visibility = View.GONE
 
-                //TODO get rol
-                if("Admin" == "Admin"){
-                    btnDetalleCancelarReclamo.visibility = View.GONE
-                }else{
+                btnDetalleAsignarResp.visibility = View.GONE
 
-                }
+                btnDetalleCancelarReclamo.visibility = View.GONE
 
             }
-
             if(it.imagenes.size ==0){
                 lblImg.visibility = View.GONE
                 recImgReclamo.visibility = View.GONE
@@ -152,25 +176,7 @@ class DetalleReclamoAdmin : Fragment() {
         })
 
 
-        usuarioViewModel.usuarioRol.observe(viewLifecycleOwner, Observer {
-            if (it == "Admin") {
-                btnDetalleAsignarResp.setOnClickListener{
-                    val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
-                    v.findNavController().navigate(actionToListaRespon)
-                }
 
-                btnDetalleCancelarReclamo.setOnClickListener{
-                    showdialogCancelarReclamo()
-                }
-            } else {
-                txtCerrarReclamo = "CERRAR RECLAMO"
-                btnDetalleAsignarResp.text = txtCerrarReclamo
-                btnDetalleAsignarResp.setOnClickListener{
-                    showdialogCerrarReclamo()
-                }
-                btnDetalleCancelarReclamo.visibility = View.GONE
-            }
-        })
     }
 
     fun showdialogAgregarObser(){
@@ -187,7 +193,8 @@ class DetalleReclamoAdmin : Fragment() {
             var texto = input.text.toString()
             val currentDateTime = LocalDateTime.now()
             val fecha = currentDateTime.format(DateTimeFormatter.ISO_DATE)
-            var obsNuevo = Observacion("Ministerio", texto, fecha)
+            //var obsNuevo = Observacion("Ministerio", texto, fecha)
+            var obsNuevo = Observacion(rolUser!!, texto, fecha)
 
             if (input.length() > 0) {
                 reclamoViewModel.agregarObser(obsNuevo)
@@ -226,10 +233,10 @@ class DetalleReclamoAdmin : Fragment() {
                     if(reclamoViewModel.estadoGuardadoOk.value==true){
                         txtEstadoReclamo.text = reclamoViewModel.getEstado()
 
-                        btnDetalleCancelarReclamo.visibility = View.GONE
-                        btnDetalleAsignarResp.visibility = View.GONE
+                        //btnDetalleCancelarReclamo.visibility = View.GONE
+                        //btnDetalleAsignarResp.visibility = View.GONE
 
-                        Snackbar.make(v,"se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(v,"Se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
                     }else{
                         Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                     }
@@ -251,7 +258,7 @@ class DetalleReclamoAdmin : Fragment() {
             reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                 if(reclamoViewModel.estadoGuardadoOk.value==true){
                     txtEstadoReclamo.text = reclamoViewModel.getEstado()
-                    Snackbar.make(v,"se cerró el Reclamo", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(v,"Se cerró el Reclamo", Snackbar.LENGTH_SHORT).show()
                 }else{
                     Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                 }
