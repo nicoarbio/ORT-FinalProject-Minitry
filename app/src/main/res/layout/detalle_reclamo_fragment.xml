@@ -18,40 +18,51 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/txtEstadoReclamo"
         app:layout_constraintTop_toBottomOf="@+id/lblDetalleEstadoReclamo"
-        app:layout_constraintVertical_bias="0.47"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:layout_constraintVertical_bias="0.53" />
 
     <TextView
         android:id="@+id/txtDetalleCategoria"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Reclamo Alumbrado"
-        android:textColor="#FBFBFB"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Reclamo Alumbrado Ministerio"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetalleSubCategoria"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imgDetalleCategoria"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imgDetalleCategoria"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtDetalleSubCategoria"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
         android:text="Reparación Iluminaria"
-        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:textColor="#FBFBFB"
+        app:layout_constraintBottom_toTopOf="@+id/lblDetalleDirrecion"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imgDetalleCategoria"
-        app:layout_constraintTop_toBottomOf="@+id/txtDetalleCategoria" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDetalleCategoria"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imgDetalleCategoria"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="32dp"
+        android:background="@color/amarillo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@android:drawable/btn_star_big_on" />
@@ -60,14 +71,16 @@
         android:id="@+id/lblDetalleDirrecion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="Dirección"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/lblDetalleComentario"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgDetalleCategoria" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDetalleCategoria"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtDetalleDireccion"
@@ -78,6 +91,7 @@
         android:text="Av. Enrique Ocampo 100-124,  San Fernando del Valle de Catamarca, Catamarca"
         app:layout_constraintBottom_toTopOf="@+id/txtDetalleComentario"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toEndOf="@+id/lblDetalleDirrecion"
         app:layout_constraintTop_toTopOf="@+id/lblDetalleDirrecion"
         app:layout_constraintVertical_bias="0.0" />
@@ -102,8 +116,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="4dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lblDetalleImgAdjuntas"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lblDetalleComentario"
         app:layout_constraintTop_toTopOf="@+id/lblDetalleComentario"
         app:layout_constraintVertical_bias="0.0" />
@@ -127,13 +144,12 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="100dp"
-        android:background="@color/rosa"
+        android:background="@drawable/button_rosa"
         android:text="Agregar Observación"
         app:layout_constraintBottom_toTopOf="@+id/btnDetalleAsignarResp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recDetalleObservaciones" />
 
@@ -145,7 +161,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="24dp"
-        android:background="@color/rosa"
+        android:background="@drawable/button_rosa"
         android:text="Asignar Responsalbe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -158,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Observaciones"
-        android:textColor="#FFFFFF"
+        android:textColor="#FBFBFB"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recDetalleObservaciones"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,9 +189,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnDetalleAgregarObser"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDetalleObservaciones" />
 
@@ -184,7 +201,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Estado Reclamo"
-        android:textColor="#FBFBFB"
+        android:textColor="#FDFDFD"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtEstadoReclamo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -198,14 +215,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:text="PENDIENTE"
-        android:textColor="#FDFDFD"
+        android:textColor="@color/white"
         android:textSize="26dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/lblDetalleObservaciones"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.335"
+        app:layout_constraintHorizontal_bias="0.391"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDetalleEstadoReclamo" />
 
@@ -219,7 +235,7 @@
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toTopOf="@+id/lblDetalleEstadoReclamo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDetalleImgAdjuntas" />
 
@@ -227,14 +243,13 @@
         android:id="@+id/btnDetalleCancelarReclamo"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#FF0000"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_rojo"
         android:src="@drawable/delete"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnDetalleAsignarResp"
         tools:ignore="@tools:sample/lorem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

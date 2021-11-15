@@ -15,6 +15,7 @@ import com.dteam.ministerio.R
 import com.dteam.ministerio.adapters.ReclamoAdapter
 import com.dteam.ministerio.viewmodels.ReclamoViewModel
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
+import java.lang.Exception
 
 class ReclamoListFragment : Fragment() {
 
@@ -57,10 +58,16 @@ class ReclamoListFragment : Fragment() {
         listadoReclamos.setHasFixedSize(true)
         listadoReclamos.layoutManager = LinearLayoutManager(context)
 
-        estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
-        subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
-
-
+        try {
+            estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
+        } catch (e:Exception) {
+            estadoReclamo = null
+        }
+        try {
+            subcateg  = ReclamoListFragmentArgs.fromBundle(requireArguments()).subcategoria
+        } catch (e:Exception) {
+            subcateg = null
+        }
 
         reclamoAdapter = ReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
         setObserver()
