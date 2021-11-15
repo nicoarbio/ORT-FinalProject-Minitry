@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/frameLayout2"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@drawable/fondo2"
-tools:context=".fragments.ResponsablePerfil">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo2"
+    tools:context=".fragments.PerfilUsuario">
 
     <TextView
         android:id="@+id/lblNombreYApellidoPerfil"
@@ -23,7 +23,7 @@ tools:context=".fragments.ResponsablePerfil">
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lblEmailPerfil"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
 
@@ -51,19 +51,22 @@ tools:context=".fragments.ResponsablePerfil">
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/imgDni"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblNombreYApellidoPerfil" />
 
     <TextView
         android:id="@+id/lblTelefonoPerfil"
-        android:layout_width="227dp"
-        android:layout_height="24dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
         android:text="Telefono"
         android:textColor="#F8F8F8"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="111dp"
-        tools:layout_editor_absoluteY="435dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toEndOf="@+id/imgTelefono"
+        app:layout_constraintTop_toTopOf="@+id/imgTelefono" />
 
     <ImageView
         android:id="@+id/imgDni"
@@ -71,12 +74,9 @@ tools:context=".fragments.ResponsablePerfil">
         android:layout_height="35dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="32dp"
         android:src="@drawable/card_account_details_outline"
-        app:layout_constraintBottom_toTopOf="@+id/imgTelefono"
         app:layout_constraintEnd_toStartOf="@+id/lblDni"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblEmailPerfil" />
 
@@ -84,13 +84,11 @@ tools:context=".fragments.ResponsablePerfil">
         android:id="@+id/imgTelefono"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="57dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:src="@drawable/ic_baseline_phone_android_24"
-        app:layout_constraintBottom_toTopOf="@+id/btnEditarResponsable"
         app:layout_constraintEnd_toStartOf="@+id/lblTelefonoPerfil"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imgDni"
         app:layout_constraintTop_toBottomOf="@+id/imgDni" />
 
     <Button
@@ -105,51 +103,41 @@ tools:context=".fragments.ResponsablePerfil">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgTelefono"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEliminarResponsable" />
 
     <TextView
         android:id="@+id/lblDni"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="48dp"
         android:text="Dni del usuario"
         android:textColor="#FAFAFA"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/lblTelefonoPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgDni"
-        app:layout_constraintTop_toBottomOf="@+id/lblEmailPerfil" />
+        app:layout_constraintTop_toTopOf="@+id/imgDni" />
+
 
     <Button
         android:id="@+id/btnEliminarResponsable"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="113dp"
-        android:layout_marginBottom="116dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:background="@drawable/outline_delete_forever_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnEditarResponsable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnEditarResponsable"
-        app:layout_constraintTop_toBottomOf="@+id/lblTelefonoPerfil" />
+        app:layout_constraintTop_toTopOf="@+id/btnEditarResponsable" />
 
     <Button
         android:id="@+id/btnEditarResponsable"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="78dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="116dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:background="@drawable/outline_edit_24"
         android:backgroundTintMode="src_in"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnCerrarSesion"
         app:layout_constraintEnd_toStartOf="@+id/btnEliminarResponsable"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblTelefonoPerfil" />
-
+        app:layout_constraintTop_toBottomOf="@+id/imgTelefono" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
