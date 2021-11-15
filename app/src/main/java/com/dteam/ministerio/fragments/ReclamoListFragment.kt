@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +29,8 @@ class ReclamoListFragment : Fragment() {
 
     private lateinit var v: View
 
+    private lateinit var lblNoItems: TextView
+
     private lateinit var listadoReclamos: RecyclerView
     private lateinit var reclamoAdapter: ReclamoAdapter
 
@@ -40,6 +43,7 @@ class ReclamoListFragment : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.reclamo_list_fragment, container, false)
         listadoReclamos = v.findViewById(R.id.listadoReclamos)
+        lblNoItems = v.findViewById(R.id.lblNoItems)
         return v
     }
 
@@ -57,6 +61,8 @@ class ReclamoListFragment : Fragment() {
         super.onStart()
         listadoReclamos.setHasFixedSize(true)
         listadoReclamos.layoutManager = LinearLayoutManager(context)
+
+        lblNoItems.visibility = View.GONE
 
         try {
             estadoReclamo  = ReclamoListFragmentArgs.fromBundle(requireArguments()).estadoReclamo
@@ -81,9 +87,10 @@ class ReclamoListFragment : Fragment() {
     fun setObserver(){
         reclamoViewModel.reclamosFiltrados.observe(viewLifecycleOwner, Observer { list ->
             if (list.size == 0) {
-                //TODO mostrarMensajeError()
+                lblNoItems.visibility = View.VISIBLE
                 Log.d("Test","No trajo ningun reclamo")
             } else {
+                lblNoItems.visibility = View.GONE
                 reclamoAdapter = ReclamoAdapter(list, requireContext()) { pos -> onItemClick(pos) }
                 listadoReclamos.adapter = reclamoAdapter
             }
