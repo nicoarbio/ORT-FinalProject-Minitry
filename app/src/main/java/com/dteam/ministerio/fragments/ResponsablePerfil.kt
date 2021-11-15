@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.dteam.ministerio.R
+import com.dteam.ministerio.viewmodels.UsuarioViewModel
 
 class ResponsablePerfil : Fragment() {
 
@@ -13,10 +19,68 @@ class ResponsablePerfil : Fragment() {
         fun newInstance() = ResponsablePerfil()
     }
 
+    lateinit var v: View
+    private lateinit var usuarioViewModel: UsuarioViewModel
+    private lateinit var txtNombreApellido : TextView
+    private lateinit var txtEmail : TextView
+    private lateinit var txtDni : TextView
+    private lateinit var txtTelefono : TextView
+    private lateinit var btnEditarResponsable : Button
+    private lateinit var btnEliminarResponsable : Button
+    private lateinit var btnCerrarSesion : Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.responsable_perfil_fragment, container, false)
+        v = inflater.inflate(R.layout.responsable_perfil_fragment, container, false)
+
+        txtNombreApellido = v.findViewById(R.id.lblNombreYApellidoPerfil)
+        txtEmail = v.findViewById(R.id.lblEmailPerfil)
+        txtDni = v.findViewById(R.id.lblDni)
+        txtTelefono = v.findViewById(R.id.lblTelefonoPerfil)
+        btnEditarResponsable = v.findViewById(R.id.btnEditarResponsable)
+        btnEliminarResponsable = v.findViewById(R.id.btnEliminarResponsable)
+        btnCerrarSesion = v.findViewById(R.id.btnCerrarSesion)
+
+        btnCerrarSesion.setOnClickListener{
+            usuarioViewModel.usuarioLogueadoOk.value=false
+            usuarioViewModel.cerrarSesion()
+            val action = ResponsablePerfilDirections.actionResponsablePerfilToLogIn()
+            v.findNavController().navigate(action)
+        }
+
+        btnEditarResponsable.setOnClickListener{
+            //TODO: Boton editar responsable
+        }
+
+        btnEliminarResponsable.setOnClickListener{
+            //TODO: Boton eliminar responsable
+            //Agregar atributo deshabilitar en orion
+        }
+
+        return v
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        usuarioViewModel = ViewModelProvider(requireActivity()).get(UsuarioViewModel::class.java)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        usuarioViewModel.actualizarUsuarioLogueado()
+        setObserver()
+    }
+
+    fun setObserver(){
+        usuarioViewModel.usuario.observe(viewLifecycleOwner, Observer {
+            txtNombreApellido.text = it.nombre +" "+it.apellido
+            txtTelefono.text = it.telefono
+            txtDni.text = it.dni
+            txtEmail.text = it.email
+        })
+    }
+
 }

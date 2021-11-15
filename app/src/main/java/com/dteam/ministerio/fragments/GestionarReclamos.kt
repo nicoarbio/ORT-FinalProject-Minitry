@@ -32,44 +32,40 @@ class GestionarReclamos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         v = inflater.inflate(R.layout.gestionar_reclamos_fragment, container, false)
+
         nuevosReclamos = v.findViewById(R.id.btnNuevosReclamos)
         nuevosReclamos.setOnClickListener{
             estadoReclamo = "Abierto"
-            val action = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo,subcateg)
+            val action = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo, null)
             v.findNavController().navigate(action)
-
         }
-
 
         reclamosPorCateg = v.findViewById(R.id.btnReclamosPorCategoria)
         reclamosPorCateg.setOnClickListener{
             val action2 = GestionarReclamosDirections.actionGestionarReclamosToTipoReclamoListFragment()
             v.findNavController().navigate(action2)
-
         }
 
         reclamosAsignados = v.findViewById(R.id.btnReclamosAsignados)
         reclamosAsignados.setOnClickListener{
             estadoReclamo = "Asignado"
-            val action3 = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo,subcateg)
+            val action3 = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo,null)
             v.findNavController().navigate(action3)
-
         }
+
         reclamosCerrados = v.findViewById(R.id.btnReclamosCerrados)
         reclamosCerrados.setOnClickListener{
             estadoReclamo = "Cerrado"
-            val action4 = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo,subcateg)
+            val action4 = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo,null)
             v.findNavController().navigate(action4)
-
         }
+
         reclamosCancelados = v.findViewById(R.id.btnReclamosCancelados)
         reclamosCancelados.setOnClickListener{
             estadoReclamo = "Cancelado"
-            val action5 = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo,subcateg)
+            val action5 = GestionarReclamosDirections.actionGestionarReclamosToReclamoListFragment(estadoReclamo,null)
             v.findNavController().navigate(action5)
-
         }
-
         return v
     }
 

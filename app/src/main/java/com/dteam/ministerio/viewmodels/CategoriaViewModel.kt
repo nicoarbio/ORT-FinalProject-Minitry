@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dteam.ministerio.SingleLiveEvent
 import com.dteam.ministerio.entities.Categoria
 import com.dteam.ministerio.entities.Subcategoria
 import com.google.firebase.firestore.ktx.firestore
@@ -21,9 +22,9 @@ class CategoriaViewModel: ViewModel() {
     val storage = FirebaseStorage.getInstance()
     private var categoriaList : MutableList<Categoria> = mutableListOf()
     private var subcategoriaList : MutableList<Subcategoria> = mutableListOf()
-    val listadoCategorias = MutableLiveData<MutableList<Categoria>>()
-    val listadoSubcategoria = MutableLiveData<MutableList<Subcategoria>>()
-    private val _idCategoria = MutableLiveData<String>()
+    val listadoCategorias = SingleLiveEvent<MutableList<Categoria>>()
+    val listadoSubcategoria = SingleLiveEvent<MutableList<Subcategoria>>()
+    private val _idCategoria = SingleLiveEvent<String>()
 
     fun getCategorias() {
         viewModelScope.launch {
