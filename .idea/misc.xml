@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../../layout/custom_preview.xml" value="0.378974358974359" />
         <entry key="..\:/AndroidStudio/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/asignar_responsable3_fragment.xml" value="0.275" />
         <entry key="..\:/AndroidStudio/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/detalle_reclamo_fragment.xml" value="0.536" />
         <entry key="..\:/AndroidStudio/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/gestionar_reclamos_fragment.xml" value="0.275" />
@@ -14,19 +13,17 @@
         <entry key="..\:/AndroidStudio/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/responsable_list_fragment.xml" value="0.275" />
         <entry key="..\:/AndroidStudio/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/responsable_perfil_fragment.xml" value="0.275" />
         <entry key="..\:/AndroidStudio/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/tipo_reclamo_item.xml" value="0.275" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/registrar_responsable_fragment.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/responsable_list_fragment.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Ariel/AndroidStudioProjects/ORT-ProyectoFinal-Ministerio/app/src/main/res/layout/responsable_perfil_fragment.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/layout/asignar_responsable3_fragment.xml" value="0.2078125" />
-        <entry key="app/src/main/res/layout/gestionar_reclamos_fragment.xml" value="0.20833333333333334" />
         <entry key="app/src/main/res/layout/inicio_admin_fragment.xml" value="0.2223731884057971" />
-        <entry key="app/src/main/res/layout/inicio_fragment.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/inicio_fragment.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/inicio_responsable_fragment.xml" value="0.21557971014492755" />
         <entry key="app/src/main/res/layout/item_reclamo_list.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/lista_sin_reclamos.xml" value="0.19746376811594202" />
         <entry key="app/src/main/res/layout/log_in_fragment.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/reclamo_list_fragment.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/registro_exitoso_fragment.xml" value="0.2078125" />
-        <entry key="app/src/main/res/layout/responsable_perfil_fragment.xml" value="0.19746376811594202" />
-        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
