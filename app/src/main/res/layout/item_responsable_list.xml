@@ -5,7 +5,7 @@
     android:id="@+id/card_respon_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="6dp"
     android:backgroundTintMode="add"
     app:cardBackgroundColor="@color/primario"
     app:cardCornerRadius="20dp"
