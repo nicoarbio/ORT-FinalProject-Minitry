@@ -43,7 +43,9 @@ class LogIn : Fragment() {
                         v.findNavController().navigate(action)
                     }
                     else{
-                        Snackbar.make(v, usuarioViewModel.error, Snackbar.LENGTH_SHORT).show()
+                        if(!usuarioViewModel.error.isEmpty()) {
+                            Snackbar.make(v, usuarioViewModel.error, Snackbar.LENGTH_SHORT).show()
+                        }
                     }
                 })
             }
