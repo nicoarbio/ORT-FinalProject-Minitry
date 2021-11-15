@@ -9,6 +9,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.dteam.ministerio.R
+import com.dteam.ministerio.SingleLiveEvent
 import com.google.android.material.snackbar.Snackbar
 import com.dteam.ministerio.entities.Subcategoria
 import com.dteam.ministerio.entities.Observacion
@@ -33,14 +34,14 @@ class ReclamoViewModel : ViewModel() {
 
     val db = Firebase.firestore
     private var reclamoList : MutableList<Reclamo> = mutableListOf()
-    val listadoReclamos = MutableLiveData<MutableList<Reclamo>>()
-    var reclamo = MutableLiveData<Reclamo>()
+    val listadoReclamos = SingleLiveEvent<MutableList<Reclamo>>()
+    var reclamo = SingleLiveEvent<Reclamo>()
 
     val storage = FirebaseStorage.getInstance()
     val storageRef = storage.reference
-    var estadoGuardadoOk = MutableLiveData<Boolean>()
+    var estadoGuardadoOk = SingleLiveEvent<Boolean>()
 
-    var imgEstadoReclamo = MutableLiveData<Uri>()
+    var imgEstadoReclamo = SingleLiveEvent<Uri>()
 
     init {
         reclamo.value = Reclamo()

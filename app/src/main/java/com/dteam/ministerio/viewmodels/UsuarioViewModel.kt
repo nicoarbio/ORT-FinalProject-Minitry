@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.dteam.ministerio.entities.Usuario
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.dteam.ministerio.SingleLiveEvent
 import com.dteam.ministerio.network.OrionApi
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
@@ -17,13 +18,13 @@ import java.time.format.DateTimeFormatter
 
 class UsuarioViewModel : ViewModel() {
 
-    var usuario = MutableLiveData<Usuario>()
-    var usuarioRegistadoOk = MutableLiveData<Boolean>()
-    var usuarioLogueadoOk = MutableLiveData<Boolean>()
-    var usuarioEliminadoOk = MutableLiveData<Boolean>()
-    var usuarioModificadoOk = MutableLiveData<Boolean>()
-    var usuariosResponsables = MutableLiveData<MutableList<Usuario>>()
-    var usuarioRol = MutableLiveData<String>()
+    var usuario = SingleLiveEvent<Usuario>()
+    var usuarioRegistadoOk = SingleLiveEvent<Boolean>()
+    var usuarioLogueadoOk = SingleLiveEvent<Boolean>()
+    var usuarioEliminadoOk = SingleLiveEvent<Boolean>()
+    var usuarioModificadoOk = SingleLiveEvent<Boolean>()
+    var usuariosResponsables = SingleLiveEvent<MutableList<Usuario>>()
+    var usuarioRol = SingleLiveEvent<String>()
     var error = String()
 
     private var  auth: FirebaseAuth? = null
@@ -93,6 +94,16 @@ class UsuarioViewModel : ViewModel() {
                 Log.d("ORION_API", e.toString())
             }
         }
+    }
+
+    fun actualizarUsuarioLogueado() {
+        try {
+            getUsuarioByUID(obtenerUsuarioLogueado()!!.uid)
+        } catch (e: Exception) {
+            error = "No se pudo obtener los datos del usuario"
+            Log.d("ORION_API", e.toString())
+        }
+
     }
 
     suspend fun getUsuarioByEmail(email:String) : Usuario? {
