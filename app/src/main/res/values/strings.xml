@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gestión de Reclamos</string>
+    <string name="app_name">Administración: Gestión de Reclamos</string>
     <string name="campoVacio">Por favor, complete este campo</string>
     <string name="errorGeneral">Ocurrió un error. Vuelva a intentar mas tarde</string>
 </resources>
