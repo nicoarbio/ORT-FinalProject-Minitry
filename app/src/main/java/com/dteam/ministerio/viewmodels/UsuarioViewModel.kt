@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.dteam.ministerio.SingleLiveEvent
 import com.dteam.ministerio.network.OrionApi
+import com.dteam.ministerio.network.UsuarioPaylodOrion
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.rpc.context.AttributeContext
@@ -101,19 +102,19 @@ class UsuarioViewModel : ViewModel() {
             getUsuarioByUID(obtenerUsuarioLogueado()!!.uid)
         } catch (e: Exception) {
             error = "No se pudo obtener los datos del usuario"
-            Log.d("ORION_API", e.toString())
+            Log.d("ORION_API-usuarioViewModel", e.toString())
         }
 
     }
 
     suspend fun getUsuarioByEmail(email:String) : Usuario? {
         try {
-            val listaAux = OrionApi.retrofitService.getUsuarioByEmail("email:"+email)
+            val listaAux = OrionApi.retrofitService.getUsuarioByQuery("isEnabled:"+OrionApi.USER_ENABLED+";email:"+email)
             return listaAux.find {
                 usr -> usr.email == email
             }
         }catch (e:Exception) {
-            Log.d("ORION_API", e.toString())
+            Log.d("ORION_API-usuarioViewModel", e.toString())
             return null
         }
     }
@@ -122,28 +123,20 @@ class UsuarioViewModel : ViewModel() {
         auth?.signOut()
     }
 
-    fun eliminarUsuario(UID: String){ //NO elimina de Firebase (no es necesario). Solo de Orion.
+    fun actualizarUsuario(UIDuser:String, usuarioAmodificar: Usuario){
         viewModelScope.launch {
             try {
-                OrionApi.retrofitService.eliminarUsuario(UID)
-                usuarioEliminadoOk.value = true
-            }catch (e : Exception){
-                error = "No se pudo eliminar el usuario"
-                usuarioEliminadoOk.value = false
-                Log.d("usuarioViewModel", e.toString())
-            }
-        }
-    }
+                val userPayloadOrion = UsuarioPaylodOrion(usuarioAmodificar)
+                OrionApi.retrofitService.actualizarUsuario(UIDuser, userPayloadOrion)
 
-    fun actualizarUsuario(usuarioModificado: Usuario){
-        viewModelScope.launch {
-            try {
-                OrionApi.retrofitService.actualizarUsuario(auth!!.uid!!, usuarioModificado)
+                //para el observer en perfil
+                usuario.value = OrionApi.retrofitService.getUsuarioByUID(UIDuser)
+
                 usuarioModificadoOk.value = true
             }catch (e : Exception){
                 error = "No se pudo modificar el usuario"
+                Log.d("ORION_API-usuarioViewModel", e.toString())
                 usuarioModificadoOk.value = false
-                Log.d("usuarioViewModel", e.toString())
             }
         }
     }
@@ -153,7 +146,7 @@ class UsuarioViewModel : ViewModel() {
             try {
                 usuario.value = OrionApi.retrofitService.getUsuarioByUID(UID)
             } catch (e: Exception) {
-                Log.d("ORION_API_errorGetUsrUID", e.toString())
+                Log.d("ORION_API-errorGetUsrUID", e.toString())
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.dteam.ministerio.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.dteam.ministerio.R
-import com.dteam.ministerio.entities.Usuario
+import com.dteam.ministerio.network.OrionApi
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ResponsablePerfil : Fragment() {
 
@@ -53,15 +56,6 @@ class ResponsablePerfil : Fragment() {
             v.findNavController().navigate(action)
         }
 
-        btnEditarResponsable.setOnClickListener{
-            //TODO: Boton editar responsable
-        }
-
-        btnEliminarResponsable.setOnClickListener{
-            //TODO: Boton eliminar responsable
-            //Agregar atributo deshabilitar en orion
-        }
-
         return v
     }
 
@@ -81,30 +75,60 @@ class ResponsablePerfil : Fragment() {
         }
 
         if (rol == null) {
-            //Admin
+            //Si se accede desde la bottom nav bar
             usuarioViewModel.actualizarUsuarioLogueado()
-            setObserver()
+
             btnEditarResponsable.visibility = View.GONE
             btnEliminarResponsable.visibility = View.GONE
-        } else {
-            //Responsable
-            val responsable : Usuario = usuarioViewModel.usuario.value!!
-            txtNombreApellido.text = responsable.nombre +" "+responsable.apellido
-            txtTelefono.text = responsable.telefono
-            txtDni.text = responsable.dni
-            txtEmail.text = responsable.email
         }
-
+        setObserver()
 
     }
 
     fun setObserver(){
-        usuarioViewModel.usuario.observe(viewLifecycleOwner, Observer {
-            txtNombreApellido.text = it.nombre +" "+it.apellido
-            txtTelefono.text = it.telefono
-            txtDni.text = it.dni
-            txtEmail.text = it.email
+        usuarioViewModel.usuario.observe(viewLifecycleOwner, Observer { user ->
+            txtNombreApellido.text = user.nombre +" "+user.apellido
+            txtTelefono.text = user.telefono
+            txtDni.text = user.dni
+            txtEmail.text = user.email
+
+            if (rol != null){
+                btnEditarResponsable.setOnClickListener{
+                    // DONE: Boton editar responsable
+                    val actionIrAeditar = ResponsablePerfilDirections.actionResponsablePerfilToEditarResponsable()
+                    v.findNavController().navigate(actionIrAeditar)
+                }
+
+                btnEliminarResponsable.setOnClickListener{
+                    showDialogEliminarResponsable(user.documentId)
+                }
+            }
         })
+    }
+
+    fun showDialogEliminarResponsable(UID : String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
+        builder.setTitle("Eliminar Responsable")
+
+        builder.setPositiveButton("Eliminar", DialogInterface.OnClickListener { dialog, which ->
+            // Here you get get input text from the Edittext
+            //usuarioViewModel.eliminarUsuario(UID)
+            usuarioViewModel.usuario.value!!.isEnabled = OrionApi.USER_DISABLED
+            usuarioViewModel.actualizarUsuario(UID, usuarioViewModel.usuario.value!!)
+
+            usuarioViewModel.usuarioModificadoOk.observe(viewLifecycleOwner, Observer{ eliminado ->
+                if(eliminado == true){
+                    Snackbar.make(v,"El usuario se ha eliminado", Snackbar.LENGTH_SHORT).show()
+                }else{
+                    Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
+                }
+            })
+        })
+
+        builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+        builder.show()
+
     }
 
 }

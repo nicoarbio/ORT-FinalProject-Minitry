@@ -64,7 +64,7 @@
             app:destination="@id/registrarResponsable" />
         <action
             android:id="@+id/action_responsableList_to_responsablePerfil"
-            app:destination="@id/responsablePerfil2" />
+            app:destination="@id/responsablePerfil" />
     </fragment>
     tools:layout="@layout/responsable_list_fragment" />
     <fragment
@@ -140,6 +140,13 @@
         <action
             android:id="@+id/action_responsablePerfil_to_logIn"
             app:destination="@id/logIn" />
+        <action
+            android:id="@+id/action_responsablePerfil_to_editarResponsable"
+            app:destination="@id/editarResponsable" />
+        <argument
+            android:name="rol"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/editarResponsable"
@@ -148,16 +155,6 @@
         tools:layout="@layout/editar_responsable_fragment" >
         <action
             android:id="@+id/action_editarResponsable_to_responsablePerfil2"
-            app:destination="@id/responsablePerfil2" />
-    </fragment>
-    <fragment
-        android:id="@+id/responsablePerfil2"
-        android:name="com.dteam.ministerio.fragments.ResponsablePerfil"
-        android:label="responsable_perfil_fragment"
-        tools:layout="@layout/responsable_perfil_fragment" >
-        <argument
-            android:name="rol"
-            app:argType="string"
-            app:nullable="true" />
+            app:destination="@id/responsablePerfil" />
     </fragment>
 </navigation>

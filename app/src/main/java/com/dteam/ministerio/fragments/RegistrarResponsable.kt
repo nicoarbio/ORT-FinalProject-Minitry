@@ -17,6 +17,7 @@ import com.dteam.ministerio.R
 import com.dteam.ministerio.adapters.ListaObservacionesAdaper
 import com.dteam.ministerio.entities.Observacion
 import com.dteam.ministerio.entities.Usuario
+import com.dteam.ministerio.network.OrionApi
 import com.dteam.ministerio.viewmodels.UsuarioViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDateTime
@@ -56,7 +57,8 @@ class RegistrarResponsable : Fragment() {
                     txtNombre.text.toString(),
                     txtApellido.text.toString(),
                     txtDni.text.toString(),
-                    txtEmail.text.toString()
+                    txtEmail.text.toString(),
+                    OrionApi.USER_ENABLED
                 )
                 var password = txtDni.text.toString()
                 registrarResponsable(usuario, password)

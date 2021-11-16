@@ -35,28 +35,35 @@ class EditarResponsable : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         v = inflater.inflate(R.layout.editar_responsable_fragment, container, false)
+
+        usuarioViewModel = ViewModelProvider(requireActivity()).get(UsuarioViewModel::class.java)
+        val responsable = usuarioViewModel.usuario.value!!
+
         txtNombre = v.findViewById(R.id.editNombre)
         txtApellido = v.findViewById(R.id.editApellido)
         txtDni = v.findViewById(R.id.editDni)
-        txtNombre.setText(usuarioViewModel.usuario.value!!.nombre)
-        txtApellido.setText(usuarioViewModel.usuario.value!!.apellido)
-        txtDni.setText(usuarioViewModel.usuario.value!!.dni)
-        btnGuardarCambios = v.findViewById(R.id.btnEditarResponsable)
+
+        txtNombre.setText(responsable.nombre)
+        txtApellido.setText(responsable.apellido)
+        txtDni.setText(responsable.dni)
+
+        btnGuardarCambios = v.findViewById(R.id.btnGuardarCambiosPerfil)
         btnGuardarCambios.setOnClickListener(){
             if(validarCampos(txtNombre, txtApellido, txtDni)){
 
-                var usuario = Usuario(
+                var responsableAmodificar = Usuario(
                     "Usuario",
                     "Responsable",
                     txtNombre.text.toString(),
                     txtApellido.text.toString(),
                     txtDni.text.toString(),
-                    usuarioViewModel.usuario.value!!.email
+                    responsable.email,
+                    responsable.isEnabled
                 )
-                usuarioViewModel.actualizarUsuario(usuario)
+                usuarioViewModel.actualizarUsuario(responsable.documentId,responsableAmodificar)
                 usuarioViewModel.usuarioModificadoOk.observe(viewLifecycleOwner, Observer { list ->
                     if (usuarioViewModel.usuarioModificadoOk.value == true){
-                        val action = EditarResponsableDirections.actionEditarResponsableToResponsablePerfil2(null)
+                        val action = EditarResponsableDirections.actionEditarResponsableToResponsablePerfil2(responsable.rol)
                         v.findNavController().navigate(action)
                     }
                     else{
@@ -81,6 +88,5 @@ class EditarResponsable : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        usuarioViewModel = ViewModelProvider(this).get(UsuarioViewModel::class.java)
     }
 }

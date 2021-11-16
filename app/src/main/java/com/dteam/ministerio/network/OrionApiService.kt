@@ -1,7 +1,7 @@
 package com.dteam.ministerio.network
 
+import com.dteam.ministerio.R
 import com.dteam.ministerio.entities.Usuario
-import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response
@@ -9,7 +9,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.Retrofit
 import retrofit2.http.*
 
-private const val IP = "190.247.194.64" //IP Publica Nico
+//IP Publica Nico
+private const val IP = "190.247.194.64"
+
 private const val BASE_URL = "http://${IP}:1026/v2/"
 
 // Documentación ejemplo Moshi en Retrofit
@@ -30,33 +32,31 @@ interface OrionApiService {
     // Documentación de la API ORION
     // https://telefonicaid.github.io/fiware-orion/api/v2/stable/
 
-    @GET("entities?options=keyValues&type=Usuario")
-    suspend fun getUsuarios(): List<Usuario>
+    @GET("/version")
+    suspend fun verificarConexion(): Response<Unit>
 
-    @GET("entities?options=keyValues&type=Usuario&q=rol:Responsable")
+    @GET("entities?options=keyValues&type=Usuario&q=rol:Responsable;isEnabled:"+OrionApi.USER_ENABLED)
     suspend fun getUsuariosResponsables(): List<Usuario>
 
-    @GET("entities/{id}?options=keyValues")
+    @GET("entities/{id}?options=keyValues&type=Usuario&q=isEnabled:"+OrionApi.USER_ENABLED)
     suspend fun getUsuarioByUID(@Path("id") UID: String): Usuario
 
     @GET("entities?options=keyValues&type=Usuario")
-    suspend fun getUsuarioByEmail(@Query("q") email: String): List<Usuario>
+    suspend fun getUsuarioByQuery(@Query("q") query: String): List<Usuario>
 
     @POST("entities?options=keyValues")
     suspend fun registrarUsuario(@Body usuario: Usuario)
 
-    @DELETE("entities/{id}")
-    suspend fun eliminarUsuario(@Path("id") UID: String) : Response<Unit>
-
-    @PATCH("entities/{id}/attrs")
-    suspend fun actualizarUsuario(@Path("id") UID: String, @Body usuario: Usuario)
-
-    @GET("/version")
-    suspend fun verificarConexion(): Response<Unit>
+    @PATCH("entities/{id}/attrs?options=keyValues")
+    suspend fun actualizarUsuario(@Path("id") UID: String,
+                                  @Body usuarioSinIdOtype: UsuarioPaylodOrion
+                                    ) : Response<Unit>
 
 }
 
 object OrionApi {
+    const val USER_ENABLED = "enabled"
+    const val USER_DISABLED = "disabled"
     val retrofitService : OrionApiService by lazy {
         retrofit.create(OrionApiService::class.java)
     }

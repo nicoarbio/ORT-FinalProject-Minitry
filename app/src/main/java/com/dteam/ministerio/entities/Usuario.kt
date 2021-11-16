@@ -1,5 +1,8 @@
 package com.dteam.ministerio.entities
 
+import com.dteam.ministerio.R
+import com.dteam.ministerio.network.OrionApi
+import com.dteam.ministerio.network.OrionApiService
 import com.squareup.moshi.Json
 
 class Usuario(
@@ -14,15 +17,14 @@ class Usuario(
     var nombre: String,
     var rol: String, //Ciudadano/Ministerio/Responsable
     var telefono: String,
-    var email: String
+    var email: String,
+    var isEnabled : String
 )
 {
-    constructor() : this("","","","","","", "", "", "","","")
-    constructor(uid:String) : this(uid,"","","","","", "", "", "","","")
-    constructor(type:String, rol:String, nombre:String, apellido:String, fnac:String, dni:String, telefono:String, email:String, direccion:String)  : this("",type,dni,apellido,"",direccion, fnac, nombre, rol,telefono,email)
-    constructor(type:String, rol:String, nombre: String,apellido: String, dni: String,email: String) : this("", type, dni, apellido, "", "", "", nombre,rol,"",email)
+    constructor() : this("","","","","","", "", "", "","","", OrionApi.USER_ENABLED)
+    constructor(type:String, rol:String, nombre: String,apellido: String, dni: String,email: String,isEnabled: String) : this("", type, dni, apellido, "", "", "", nombre,rol,"",email,isEnabled)
 
     override fun toString(): String {
-        return "Usuario(documentId='$documentId', type='$type', dni='$dni', apellido='$apellido', codigoPostal='$codigoPostal', direccion='$direccion', fechaDeNacimiento='$fechaDeNacimiento', nombre='$nombre', rol='$rol', telefono='$telefono', email='$email')"
+        return "Usuario(documentId='$documentId', type='$type', dni='$dni', apellido='$apellido', codigoPostal='$codigoPostal', direccion='$direccion', fechaDeNacimiento='$fechaDeNacimiento', nombre='$nombre', rol='$rol', telefono='$telefono', email='$email', isEnabled='$isEnabled')"
     }
 }
