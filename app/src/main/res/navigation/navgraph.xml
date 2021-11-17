@@ -46,7 +46,9 @@
         tools:layout="@layout/detalle_reclamo_fragment">
         <action
             android:id="@+id/action_detalleReclamoAdmin_to_responsableList"
-            app:destination="@id/responsableList" />
+            app:destination="@id/responsableList"
+            app:popUpTo="@+id/reclamoListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/responsableList"
@@ -139,6 +141,11 @@
             android:name="rol"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_responsablePerfil_to_responsableList"
+            app:destination="@id/responsableList"
+            app:popUpTo="@+id/inicio"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/editarResponsable"

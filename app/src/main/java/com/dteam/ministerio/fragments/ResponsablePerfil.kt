@@ -114,14 +114,17 @@ class ResponsablePerfil : Fragment() {
         builder.setTitle("Eliminar Responsable")
 
         builder.setPositiveButton("Eliminar", DialogInterface.OnClickListener { dialog, which ->
-            // Here you get get input text from the Edittext
-            //usuarioViewModel.eliminarUsuario(UID)
             usuarioViewModel.usuario.value!!.isEnabled = OrionApi.USER_DISABLED
             usuarioViewModel.actualizarUsuario(UID, usuarioViewModel.usuario.value!!)
 
             usuarioViewModel.usuarioModificadoOk.observe(viewLifecycleOwner, Observer{ eliminado ->
                 if(eliminado == true){
                     Snackbar.make(v,"Eliminado. Verifique los reclamos asignados a este responsable", Snackbar.LENGTH_SHORT).show()
+
+                    val toList = ResponsablePerfilDirections.actionResponsablePerfilToResponsableList("")
+                    v.findNavController().navigate(toList)
+                    /*v.findNavController().navigate(ResponsablePerfilDirections.actionResponsablePerfilToResponsableList(""))*/
+
                 }else{
                     Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                 }
