@@ -2,6 +2,7 @@ package com.dteam.ministerio.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,8 @@ class LogIn : Fragment() {
             if(validarCampos(txtUsuario, txtPassword)){
                 usuarioViewModel.iniciarSesion(txtUsuario.text.toString(), txtPassword.text.toString())
                 usuarioViewModel.usuarioLogueadoOk.observe(viewLifecycleOwner, Observer { list ->
-                    if (usuarioViewModel.usuarioLogueadoOk.value == true){
+                    Log.d("loginTest", "Entre")
+                    if (list){
                         val action = LogInDirections.actionLogInToInicio()
                         v.findNavController().navigate(action)
                     }

@@ -18,13 +18,14 @@ class Usuario(
     var rol: String, //Ciudadano/Ministerio/Responsable
     var telefono: String,
     var email: String,
+    var fotoPerfil: String,
     var isEnabled : String
 )
 {
-    constructor() : this("","","","","","", "", "", "","","", OrionApi.USER_ENABLED)
-    constructor(type:String, rol:String, nombre: String,apellido: String, dni: String,email: String,isEnabled: String, telefono: String) : this("", type, dni, apellido, "", "", "", nombre,rol,telefono,email,isEnabled)
+    constructor() : this("","","","","","", "", "", "","","", "", OrionApi.USER_ENABLED)
+    constructor(type:String, rol:String, nombre: String,apellido: String, dni: String,email: String,isEnabled: String, telefono: String) : this("", type, dni, apellido, "", "", "", nombre,rol,telefono,email,"",isEnabled)
 
     override fun toString(): String {
-        return "Usuario(documentId='$documentId', type='$type', dni='$dni', apellido='$apellido', codigoPostal='$codigoPostal', direccion='$direccion', fechaDeNacimiento='$fechaDeNacimiento', nombre='$nombre', rol='$rol', telefono='$telefono', email='$email', isEnabled='$isEnabled')"
+        return "Usuario(documentId='$documentId', type='$type', dni='$dni', apellido='$apellido', codigoPostal='$codigoPostal', direccion='$direccion', fechaDeNacimiento='$fechaDeNacimiento', nombre='$nombre', rol='$rol', telefono='$telefono', email='$email',fotoPerfil='$fotoPerfil', isEnabled='$isEnabled')"
     }
 }

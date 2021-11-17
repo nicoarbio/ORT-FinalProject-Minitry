@@ -51,6 +51,7 @@ class ResponsablePerfil : Fragment() {
 
         btnCerrarSesion.setOnClickListener{
             usuarioViewModel.usuarioLogueadoOk.value=false
+            usuarioViewModel.error=""
             usuarioViewModel.cerrarSesion()
             val action = ResponsablePerfilDirections.actionResponsablePerfilToLogIn()
             v.findNavController().navigate(action)
