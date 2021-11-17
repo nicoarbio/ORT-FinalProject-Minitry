@@ -30,6 +30,7 @@ class ReclamoViewModel : ViewModel() {
 
     val storage = FirebaseStorage.getInstance()
     var estadoGuardadoOk = SingleLiveEvent<Boolean>()
+    var estadoGuardadoObsOk = SingleLiveEvent<Boolean>()
 
     var imgEstadoReclamo = SingleLiveEvent<Uri>()
 
@@ -72,9 +73,9 @@ class ReclamoViewModel : ViewModel() {
                 val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
                 ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
                 reclamo.value!!.observaciones.add(obserNuevo)
-                estadoGuardadoOk.value = true
+                estadoGuardadoObsOk.value = true
             } catch (e : Exception){
-                estadoGuardadoOk.value = false
+                estadoGuardadoObsOk.value = false
                 Log.w("Test", "Error al  agregar observacion: ", e)
             }
         }

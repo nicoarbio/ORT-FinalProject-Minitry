@@ -202,8 +202,8 @@ class DetalleReclamoAdmin : Fragment() {
 
             if (input.length() > 0) {
                 reclamoViewModel.agregarObser(obsNuevo)
-                reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
-                    if(reclamoViewModel.estadoGuardadoOk.value==true){
+                reclamoViewModel.estadoGuardadoObsOk.observe(viewLifecycleOwner, Observer{list ->
+                    if(reclamoViewModel.estadoGuardadoObsOk.value==true){
                         recDetalleObservaciones.adapter = ListaObservacionesAdaper(reclamoViewModel.getObservaciones()!!)
                         Snackbar.make(v,"se agregó la observación", Snackbar.LENGTH_SHORT).show()
                     }else{
