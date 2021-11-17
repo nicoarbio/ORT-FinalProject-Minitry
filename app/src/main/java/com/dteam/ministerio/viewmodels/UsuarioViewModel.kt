@@ -3,19 +3,15 @@ package com.dteam.ministerio.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.dteam.ministerio.entities.Usuario
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.dteam.ministerio.SingleLiveEvent
 import com.dteam.ministerio.network.OrionApi
-import com.dteam.ministerio.network.UsuarioPaylodOrion
+import com.dteam.ministerio.network.UsuarioPayloadOrion
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.rpc.context.AttributeContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class UsuarioViewModel : ViewModel() {
 
@@ -126,7 +122,7 @@ class UsuarioViewModel : ViewModel() {
     fun actualizarUsuario(UIDuser:String, usuarioAmodificar: Usuario){
         viewModelScope.launch {
             try {
-                val userPayloadOrion = UsuarioPaylodOrion(usuarioAmodificar)
+                val userPayloadOrion = UsuarioPayloadOrion(usuarioAmodificar)
                 OrionApi.retrofitService.actualizarUsuario(UIDuser, userPayloadOrion)
 
                 //para el observer en perfil

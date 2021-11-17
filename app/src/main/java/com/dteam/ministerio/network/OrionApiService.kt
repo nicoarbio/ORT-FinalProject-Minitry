@@ -1,6 +1,5 @@
 package com.dteam.ministerio.network
 
-import com.dteam.ministerio.R
 import com.dteam.ministerio.entities.Usuario
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -49,7 +48,7 @@ interface OrionApiService {
 
     @PATCH("entities/{id}/attrs?options=keyValues")
     suspend fun actualizarUsuario(@Path("id") UID: String,
-                                  @Body usuarioSinIdOtype: UsuarioPaylodOrion
+                                  @Body usuarioSinIdOtype: UsuarioPayloadOrion
                                     ) : Response<Unit>
 
 }

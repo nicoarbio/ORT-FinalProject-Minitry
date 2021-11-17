@@ -15,7 +15,7 @@ class Usuario(
     var direccion: String,
     var fechaDeNacimiento: String,
     var nombre: String,
-    var rol: String, //Ciudadano/Ministerio/Responsable
+    var rol: String, //Ciudadano/Admin/Responsable
     var telefono: String,
     var email: String,
     var fotoPerfil: String,
