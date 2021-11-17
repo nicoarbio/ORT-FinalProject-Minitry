@@ -1,8 +1,6 @@
 package com.dteam.ministerio.entities
 
-import com.dteam.ministerio.R
 import com.dteam.ministerio.network.OrionApi
-import com.dteam.ministerio.network.OrionApiService
 import com.squareup.moshi.Json
 
 class Usuario(
