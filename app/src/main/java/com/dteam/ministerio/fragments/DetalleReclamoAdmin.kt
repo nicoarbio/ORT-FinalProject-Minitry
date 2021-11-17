@@ -124,8 +124,12 @@ class DetalleReclamoAdmin : Fragment() {
             if (it == "Admin") {
 
                 btnDetalleAsignarResp.setOnClickListener{
-                    val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
-                    v.findNavController().navigate(actionToListaRespon)
+                    if(txtEstadoReclamo.text == "Asignado"){
+                        showdialogReasignarResponsable()
+                    } else{
+                        val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
+                        v.findNavController().navigate(actionToListaRespon)
+                    }
                 }
 
                 btnDetalleCancelarReclamo.setOnClickListener{
@@ -263,6 +267,19 @@ class DetalleReclamoAdmin : Fragment() {
                     Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                 }
             })
+        })
+        builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.show()
+    }
+
+    fun showdialogReasignarResponsable() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
+
+        builder.setMessage("El reclamo seleccionado ya se encuentra asignado a otro usuario. ¿Desea continuar de todos modos?")
+
+        builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
+            val actionToListaRespon = DetalleReclamoAdminDirections.actionDetalleReclamoAdminToResponsableList("ASIGNAR")
+            v.findNavController().navigate(actionToListaRespon)
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
