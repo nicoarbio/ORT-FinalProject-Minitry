@@ -94,17 +94,9 @@
         android:label="registrar_responsable_fragment"
         tools:layout="@layout/registrar_responsable_fragment">
         <action
-            android:id="@+id/action_registrarResponsable_to_registroExitoso"
-            app:destination="@id/registroExitoso" />
-        <action
             android:id="@+id/action_registrarResponsable_to_LogIn"
             app:destination="@id/logIn" />
     </fragment>
-    <fragment
-        android:id="@+id/registroExitoso"
-        android:name="com.dteam.ministerio.fragments.RegistroExitoso"
-        android:label="registro_exitoso_fragment"
-        tools:layout="@layout/registro_exitoso_fragment" />
     <fragment
         android:id="@+id/logIn"
         android:name="com.dteam.ministerio.fragments.LogIn"
