@@ -81,6 +81,8 @@ class ResponsablePerfil : Fragment() {
 
             btnEditarResponsable.visibility = View.GONE
             btnEliminarResponsable.visibility = View.GONE
+        }else{
+            btnCerrarSesion.visibility = View.GONE
         }
         setObserver()
 
