@@ -163,7 +163,7 @@
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_rosa"
-        android:text="Asignar Responsalbe"
+        android:text="Asignar Responsable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
