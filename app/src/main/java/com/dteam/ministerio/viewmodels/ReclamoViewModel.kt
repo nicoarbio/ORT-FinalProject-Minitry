@@ -81,14 +81,12 @@ class ReclamoViewModel : ViewModel() {
 
     }
 
-    fun cerrarReclamo(){
+    fun cerrarReclamo(obserNuevo: Observacion){
         viewModelScope.launch {
             try {
                 // obtener el id del reclamo actual en la base de dato
                 val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
                 ref.update("estado", "Cerrado").await()
-                var obserNuevo = Observacion("Responsable",
-                    "Reclamo Cerrado", getFecha())
                 ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
                 reclamo.value!!.observaciones.add(obserNuevo)
                 reclamo.value!!.estado = "Cerrado"
@@ -101,14 +99,12 @@ class ReclamoViewModel : ViewModel() {
         }
     }
 
-    fun cancelarReclamo(motivo: String){
+    fun cancelarReclamo(obserNuevo: Observacion){
         viewModelScope.launch {
             try {
                 // obtener el id del reclamo actual en la base de dato
                 val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
                 ref.update("estado", "Cancelado").await()
-                var obserNuevo = Observacion("Ministerio",
-                    "Tu reclamo ha sido cancelado. Motivo: $motivo", getFecha())
                 ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
                 reclamo.value!!.observaciones.add(obserNuevo)
                 reclamo.value!!.estado = "Cancelado"
@@ -121,14 +117,13 @@ class ReclamoViewModel : ViewModel() {
         }
     }
 
-    fun setResponsable(respon: Usuario){
+    fun setResponsable(respon: Usuario, obserNuevo: Observacion){
         viewModelScope.launch {
             try {
                 // obtener el id del reclamo actual en la base de dato
                 val ref = db.collection("reclamos").document(reclamo.value!!.documentId!!)
                 ref.update("responsable", respon.documentId).await()
                 ref.update("estado", "Asignado").await()
-                var obserNuevo = Observacion("Ministerio", respon.nombre + " " + respon.apellido+ " fue asignado para este reclamo", getFecha())
                 ref.update("observaciones", FieldValue.arrayUnion(obserNuevo)).await()
                 reclamo.value!!.observaciones.add(obserNuevo)
                 reclamo.value!!.estado = "Asignado"
@@ -148,11 +143,6 @@ class ReclamoViewModel : ViewModel() {
             imgEstadoReclamo.value = img
         }
 
-    }
-
-    private fun getFecha(): String {
-        val currentDateTime = LocalDateTime.now()
-        return currentDateTime.format(DateTimeFormatter.ISO_DATE)
     }
 
     fun getCategoria(): String? {

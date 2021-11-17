@@ -230,15 +230,13 @@ class DetalleReclamoAdmin : Fragment() {
         builder.setView(input)
 
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
-            var texto = input.text.toString()
+            var motivo = input.text.toString()
             if (input.length() > 0) {
-                reclamoViewModel.cancelarReclamo(texto)
+                var obserNuevo = Observacion("Ministerio", "Tu reclamo ha sido cancelado. Motivo: $motivo", getFecha())
+                reclamoViewModel.cancelarReclamo(obserNuevo)
                 reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                     if(reclamoViewModel.estadoGuardadoOk.value==true){
                         txtEstadoReclamo.text = reclamoViewModel.getEstado()
-
-                        //btnDetalleCancelarReclamo.visibility = View.GONE
-                        //btnDetalleAsignarResp.visibility = View.GONE
 
                         Snackbar.make(v,"Se canceló el Reclamo", Snackbar.LENGTH_SHORT).show()
                     }else{
@@ -258,7 +256,8 @@ class DetalleReclamoAdmin : Fragment() {
         builder.setTitle("Cerrar el Reclamo")
 
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
-            reclamoViewModel.cerrarReclamo()
+            var obserNuevo = Observacion("Responsable", "Reclamo Cerrado", getFecha())
+            reclamoViewModel.cerrarReclamo(obserNuevo)
             reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                 if(reclamoViewModel.estadoGuardadoOk.value==true){
                     txtEstadoReclamo.text = reclamoViewModel.getEstado()
@@ -284,6 +283,11 @@ class DetalleReclamoAdmin : Fragment() {
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
+    }
+
+    private fun getFecha(): String {
+        val currentDateTime = LocalDateTime.now()
+        return currentDateTime.format(DateTimeFormatter.ISO_DATE)
     }
 
 }

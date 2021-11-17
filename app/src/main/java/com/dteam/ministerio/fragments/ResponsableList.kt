@@ -22,8 +22,11 @@ import com.google.android.material.snackbar.Snackbar
 import android.widget.Toast
 
 import com.dteam.ministerio.activities.MainActivity
+import com.dteam.ministerio.entities.Observacion
 import com.dteam.ministerio.viewmodels.ReclamoViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class ResponsableList : Fragment() {
@@ -133,7 +136,8 @@ class ResponsableList : Fragment() {
         builder.setTitle("Asignar Responsable")
         builder.setMessage("Esta seguro de asignar a " + respon.nombre + " " + respon.apellido + " a este Reclamo?")
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->
-            reclamoViewModel.setResponsable(respon)
+            var obserNuevo = Observacion("Ministerio", respon.nombre + " " + respon.apellido+ " fue asignado para este reclamo", getFecha())
+            reclamoViewModel.setResponsable(respon, obserNuevo)
             reclamoViewModel.estadoGuardadoOk.observe(viewLifecycleOwner, Observer{list ->
                 if(reclamoViewModel.estadoGuardadoOk.value==true){
                     Snackbar.make(v,"Se Asignó correctamente", Snackbar.LENGTH_SHORT).show()
@@ -146,6 +150,11 @@ class ResponsableList : Fragment() {
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
+    }
+
+    private fun getFecha(): String {
+        val currentDateTime = LocalDateTime.now()
+        return currentDateTime.format(DateTimeFormatter.ISO_DATE)
     }
 
 }
