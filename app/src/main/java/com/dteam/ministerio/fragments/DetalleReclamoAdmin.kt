@@ -1,7 +1,11 @@
 package com.dteam.ministerio.fragments
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.InputType
@@ -9,6 +13,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -110,6 +115,7 @@ class DetalleReclamoAdmin : Fragment() {
 
         recImgReclamo.setHasFixedSize(true)
         recImgReclamo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recImgReclamo.adapter = ImgReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
 
         recDetalleObservaciones.setHasFixedSize(true)
         recDetalleObservaciones.layoutManager = LinearLayoutManager(context)
@@ -154,7 +160,7 @@ class DetalleReclamoAdmin : Fragment() {
             txtDetalleComentario.text = it.descripcion
             txtEstadoReclamo.text = it.estado
             recDetalleObservaciones.adapter = ListaObservacionesAdaper(it.observaciones)
-            recImgReclamo.adapter = ImgReclamoAdapter(it.imagenes, requireContext())
+            recImgReclamo.adapter = ImgReclamoAdapter(it.imagenes, requireContext()) { pos -> onItemClick(pos)}
 
             reclamoViewModel.getImgEstado()
             reclamoViewModel.imgEstadoReclamo.observe(viewLifecycleOwner, Observer {
@@ -288,6 +294,33 @@ class DetalleReclamoAdmin : Fragment() {
     private fun getFecha(): String {
         val currentDateTime = LocalDateTime.now()
         return currentDateTime.format(DateTimeFormatter.ISO_DATE)
+    }
+
+    fun onItemClick(pos: Int){
+        showImage(reclamoViewModel.reclamo.value!!.imagenes[pos])
+    }
+
+    fun showImage(imageUriSting : String) {
+        val builder = Dialog(this.requireContext(), android.R.style.Theme_Light)
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        builder.window!!.setBackgroundDrawable(
+            ColorDrawable(Color.BLACK)
+        )
+        builder.setOnDismissListener(DialogInterface.OnDismissListener {
+            //nothing;
+        })
+        val imageView = ImageView(this.requireContext())
+        var imageUri = Uri.parse(imageUriSting)
+        Glide.with(this)
+            .load(imageUri)
+            .into(imageView)
+        builder.addContentView(
+            imageView, RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+            )
+        )
+        builder.show()
     }
 
 }

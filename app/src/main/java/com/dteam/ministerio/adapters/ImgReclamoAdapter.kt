@@ -9,10 +9,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dteam.ministerio.R
-import com.google.firebase.storage.FirebaseStorage
 
-class ImgReclamoAdapter (var listaUrl: MutableList<String>, var context : Context) :
-    RecyclerView.Adapter<ImgReclamoAdapter.ImgReclamoHolder>(){
+class ImgReclamoAdapter (var listaUrl: MutableList<String>,
+                         var context : Context,
+                         var onClick: (Int)->Unit) : RecyclerView.Adapter<ImgReclamoAdapter.ImgReclamoHolder>(){
 
     class ImgReclamoHolder (v: View) : RecyclerView.ViewHolder(v){
         private var view: View
@@ -42,6 +42,10 @@ class ImgReclamoAdapter (var listaUrl: MutableList<String>, var context : Contex
         Glide.with(context)
             .load(listaUrl[position])
             .into(cardImageReclamo)
+
+        holder.getCardView().setOnClickListener(){
+            onClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
