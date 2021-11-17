@@ -34,6 +34,7 @@ class RegistrarResponsable : Fragment() {
     lateinit var txtNombre : EditText
     lateinit var txtApellido : EditText
     lateinit var txtDni : EditText
+    lateinit var txtTel : EditText
     lateinit var btnRegistrarse : Button
     lateinit var v : View
 
@@ -47,9 +48,10 @@ class RegistrarResponsable : Fragment() {
         txtNombre = v.findViewById(R.id.editNombre)
         txtApellido = v.findViewById(R.id.editApellido)
         txtDni = v.findViewById(R.id.editDni)
+        txtTel = v.findViewById(R.id.ediTele)
 
         btnRegistrarse.setOnClickListener{
-            if(validarCampos(txtEmail, txtNombre, txtApellido, txtDni)){
+            if(validarCampos(txtEmail, txtNombre, txtApellido, txtDni, txtTel)){
 
                 var usuario = Usuario(
                     "Usuario",
@@ -58,7 +60,8 @@ class RegistrarResponsable : Fragment() {
                     txtApellido.text.toString(),
                     txtDni.text.toString(),
                     txtEmail.text.toString(),
-                    OrionApi.USER_ENABLED
+                    OrionApi.USER_ENABLED,
+                    txtTel.text.toString()
                 )
                 var password = txtDni.text.toString()
                 registrarResponsable(usuario, password)

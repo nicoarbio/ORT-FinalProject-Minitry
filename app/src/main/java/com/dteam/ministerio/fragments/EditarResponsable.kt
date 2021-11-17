@@ -29,6 +29,7 @@ class EditarResponsable : Fragment() {
     private lateinit var txtNombre : EditText
     private lateinit var txtApellido : EditText
     private lateinit var txtDni : EditText
+    private lateinit var txtTel : EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +43,16 @@ class EditarResponsable : Fragment() {
         txtNombre = v.findViewById(R.id.editNombre)
         txtApellido = v.findViewById(R.id.editApellido)
         txtDni = v.findViewById(R.id.editDni)
+        txtTel = v.findViewById(R.id.editarTelefono)
 
         txtNombre.setText(responsable.nombre)
         txtApellido.setText(responsable.apellido)
         txtDni.setText(responsable.dni)
+        txtTel.setText(responsable.telefono)
 
         btnGuardarCambios = v.findViewById(R.id.btnGuardarCambiosPerfil)
         btnGuardarCambios.setOnClickListener(){
-            if(validarCampos(txtNombre, txtApellido, txtDni)){
+            if(validarCampos(txtNombre, txtApellido, txtDni, txtTel)){
 
                 var responsableAmodificar = Usuario(
                     "Usuario",
@@ -58,7 +61,8 @@ class EditarResponsable : Fragment() {
                     txtApellido.text.toString(),
                     txtDni.text.toString(),
                     responsable.email,
-                    responsable.isEnabled
+                    responsable.isEnabled,
+                    txtTel.text.toString()
                 )
                 usuarioViewModel.actualizarUsuario(responsable.documentId,responsableAmodificar)
                 usuarioViewModel.usuarioModificadoOk.observe(viewLifecycleOwner, Observer { list ->

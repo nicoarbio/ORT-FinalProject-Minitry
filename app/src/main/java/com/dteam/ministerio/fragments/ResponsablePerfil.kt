@@ -118,7 +118,7 @@ class ResponsablePerfil : Fragment() {
 
             usuarioViewModel.usuarioModificadoOk.observe(viewLifecycleOwner, Observer{ eliminado ->
                 if(eliminado == true){
-                    Snackbar.make(v,"El usuario se ha eliminado", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(v,"Eliminado. Verifique los reclamos asignados a este responsable", Snackbar.LENGTH_SHORT).show()
                 }else{
                     Snackbar.make(v,R.string.errorGeneral, Snackbar.LENGTH_SHORT).show()
                 }
