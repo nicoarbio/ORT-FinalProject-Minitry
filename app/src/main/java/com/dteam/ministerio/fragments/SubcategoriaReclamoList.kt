@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -29,12 +30,15 @@ class SubcategoriaReclamoList : Fragment() {
     private lateinit var subCategoriasAdapter: SubcategoriaReclamoAdapter
     private lateinit var categ: String
 
+    private lateinit var progresBar: ProgressBar
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         v = inflater.inflate(R.layout.subcategoria_reclamo_list_fragment, container, false)
         listadoSubcategorias = v.findViewById(R.id.listadoSubcategorias)
+        progresBar = v.findViewById(R.id.progressBarSubcateg)
         return v
     }
 
@@ -54,10 +58,17 @@ class SubcategoriaReclamoList : Fragment() {
         subCategoriasAdapter = SubcategoriaReclamoAdapter(mutableListOf(), requireContext()) { pos -> onItemClick(pos)}
         setObserver()
     }
+
+    override fun onResume() {
+        super.onResume()
+        progresBar.visibility = View.VISIBLE
+    }
+
     fun setObserver(){
         categoriaViewModel.listadoSubcategoria.observe(viewLifecycleOwner, Observer { list ->
             subCategoriasAdapter = SubcategoriaReclamoAdapter(list, requireContext()) { pos -> onItemClick(pos) }
             listadoSubcategorias.adapter = subCategoriasAdapter
+            progresBar.visibility = View.INVISIBLE
         })
     }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -32,12 +33,15 @@ class TipoReclamoListFragment : Fragment() {
     private lateinit var listadoCategorias: RecyclerView
     private lateinit var categoriasAdapter: CategoriaReclamoAdapter
 
+    private lateinit var progresBar: ProgressBar
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         v= inflater.inflate(R.layout.tipo_reclamo_list_fragment, container, false)
         listadoCategorias = v.findViewById(R.id.listadoCategorias)
+        progresBar = v.findViewById(R.id.progressBarTipoReclamo)
         return v
     }
 
@@ -57,10 +61,16 @@ class TipoReclamoListFragment : Fragment() {
         setObserver()
     }
 
+    override fun onResume() {
+        super.onResume()
+        progresBar.visibility = View.VISIBLE
+    }
+
     fun setObserver(){
         categoriaViewModel.listadoCategorias.observe(viewLifecycleOwner, Observer { list ->
             categoriasAdapter = CategoriaReclamoAdapter(list, requireContext()) { pos -> onItemClick(pos) }
             listadoCategorias.adapter = categoriasAdapter
+            progresBar.visibility = View.INVISIBLE
         })
 
     }

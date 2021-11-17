@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -46,6 +47,8 @@ class ResponsableList : Fragment() {
     private lateinit var btnAgregarRespon: FloatingActionButton
     private lateinit var reclamoViewModel: ReclamoViewModel
 
+    private lateinit var progresBar: ProgressBar
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,9 +57,11 @@ class ResponsableList : Fragment() {
         listadoResponsable = v.findViewById(R.id.recResponsable)
         searchResponList = v.findViewById(R.id.searchResponList)
         btnAgregarRespon = v.findViewById(R.id.btnAgregarRespon)
+        progresBar = v.findViewById(R.id.progressBarResponList)
 
         searchResponList.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
+                progresBar.visibility = View.VISIBLE
                 usuarioViewModel.getUsuariosResponsables()
                 return false
             }
@@ -64,6 +69,7 @@ class ResponsableList : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
                     if(newText.isEmpty()){
+                        progresBar.visibility = View.VISIBLE
                         usuarioViewModel.getUsuariosResponsables()
                     }
                 }
@@ -107,6 +113,7 @@ class ResponsableList : Fragment() {
             }
             responsableAdapter = ListaResponsableAdapter(listaFiltrada, requireContext()) { pos -> onItemClick(pos) }
             listadoResponsable.adapter = responsableAdapter
+            progresBar.visibility = View.INVISIBLE
         })
     }
 

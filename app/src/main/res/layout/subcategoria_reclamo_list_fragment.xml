@@ -8,6 +8,18 @@
     android:background="@drawable/fondo1"
     tools:context=".fragments.SubcategoriaReclamoList">
 
+    <ProgressBar
+        android:id="@+id/progressBarSubcateg"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:indeterminateTint="@color/azulOscuro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listadoSubcategorias"
         android:layout_width="match_parent"

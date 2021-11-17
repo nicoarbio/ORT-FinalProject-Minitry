@@ -275,6 +275,7 @@ class DetalleReclamoAdmin : Fragment() {
     fun showdialogReasignarResponsable() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.context)
 
+        builder.setTitle("Reasignar Responsable")
         builder.setMessage("El reclamo seleccionado ya se encuentra asignado a otro usuario. ¿Desea continuar de todos modos?")
 
         builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, which ->

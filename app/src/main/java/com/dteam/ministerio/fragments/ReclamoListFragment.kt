@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -37,12 +38,15 @@ class ReclamoListFragment : Fragment() {
     var estadoReclamo : String? = null
     var subcateg : String? = null
 
+    private lateinit var progresBar: ProgressBar
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         v = inflater.inflate(R.layout.reclamo_list_fragment, container, false)
         listadoReclamos = v.findViewById(R.id.listadoReclamos)
+        progresBar = v.findViewById(R.id.progressBarListaReclamo)
         lblNoItems = v.findViewById(R.id.lblNoItems)
         return v
     }
@@ -84,8 +88,15 @@ class ReclamoListFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        progresBar.visibility = View.VISIBLE
+        lblNoItems.visibility = View.INVISIBLE
+    }
+
     fun setObserver(){
         reclamoViewModel.reclamosFiltrados.observe(viewLifecycleOwner, Observer { list ->
+            progresBar.visibility = View.INVISIBLE
             if (list.size == 0) {
                 lblNoItems.visibility = View.VISIBLE
                 Log.d("Test","No trajo ningun reclamo")
