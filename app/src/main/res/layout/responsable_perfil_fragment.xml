@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo2"
-    tools:context=".fragments.PerfilUsuario">
+    tools:context=".fragments.ResponsablePerfil">
 
     <TextView
         android:id="@+id/lblNombreYApellidoPerfil"
